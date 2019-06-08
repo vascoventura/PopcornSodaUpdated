@@ -42,6 +42,7 @@ public class DetailActivityMovie extends AppCompatActivity {
         TextView textViewDescricao = (TextView) findViewById(R.id.detail_movie_descricao);
         FloatingActionButton favorito = findViewById(R.id.botao_favorito);
         FloatingActionButton visto = findViewById(R.id.botao_visto);
+        FloatingActionButton trailer = findViewById(R.id.detail_movie_trailer);
 
         textViewNome.setAnimation(AnimationUtils.loadAnimation(this, R.anim.scale_animation));
         textViewTipo.setAnimation(AnimationUtils.loadAnimation(this, R.anim.scale_animation));
@@ -51,6 +52,7 @@ public class DetailActivityMovie extends AppCompatActivity {
         textViewDescricao.setAnimation(AnimationUtils.loadAnimation(this, R.anim.scale_animation));
         favorito.setAnimation(AnimationUtils.loadAnimation(this, R.anim.scale_animation));
         visto.setAnimation(AnimationUtils.loadAnimation(this, R.anim.scale_animation));
+        trailer.setAnimation(AnimationUtils.loadAnimation(this, R.anim.scale_animation));
 
 
 

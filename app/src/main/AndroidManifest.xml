@@ -27,7 +27,8 @@
             android:parentActivityName=".ui.Filmes"/>
         <activity android:name=".ui.AddSerie"
             android:parentActivityName=".ui.Series"/>
-        <activity android:name=".ui.AddMovie" />
+        <activity android:name=".ui.AddMovie"
+            android:parentActivityName=".ui.Filmes"/>
         <activity
             android:name=".ui.Autores"
             android:label="Autores"

@@ -43,6 +43,7 @@ public class DetailActivtySerie extends AppCompatActivity {
         TextView textViewDescricaoSerie = (TextView) findViewById(R.id.detail_serie_descricao);
         FloatingActionButton favorito = findViewById(R.id.botao_favorito);
         FloatingActionButton visto = findViewById(R.id.botao_visto);
+        FloatingActionButton trailer = findViewById(R.id.detail_serie_trailer);
 
         textViewNomeSerie.setAnimation(AnimationUtils.loadAnimation(this, R.anim.scale_animation));
         textViewTipoSerie.setAnimation(AnimationUtils.loadAnimation(this, R.anim.scale_animation));
@@ -54,6 +55,7 @@ public class DetailActivtySerie extends AppCompatActivity {
         visto.setAnimation(AnimationUtils.loadAnimation(this, R.anim.scale_animation));
         textViewTemporadasSerie.setAnimation(AnimationUtils.loadAnimation(this, R.anim.scale_animation));
         textView1.setAnimation(AnimationUtils.loadAnimation(this, R.anim.scale_animation));
+        trailer.setAnimation(AnimationUtils.loadAnimation(this, R.anim.scale_animation));
 
         //Botoes
 
