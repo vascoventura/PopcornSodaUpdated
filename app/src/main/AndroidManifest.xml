@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.popcornsoda">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="PopcornSoda"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name=".ui.ApagarSerie"></activity>
+        <activity android:name=".ui.ApagarAutor" />
+        <activity android:name=".ui.ApagarMovie" />
+        <activity android:name=".ui.AlterarSerie" />
+        <activity android:name=".ui.AlterarAutor" />
+        <activity android:name=".ui.AlterarMovie" />
+        <activity android:name=".ui.AddSerie" />
+        <activity android:name=".ui.AddMovie" />
+        <activity
+            android:name=".ui.Autores"
+            android:label="Autores"
+            android:parentActivityName=".ui.MainActivity" />
+        <activity
+            android:name=".ui.Series"
+            android:parentActivityName=".ui.MainActivity" />
+
+        <activity
+            android:name=".ui.AddAutor"
+            android:parentActivityName=".ui.Autores">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.popcornsoda.ui.Autores" />
+        </activity>
+        <activity
+            android:name=".ui.DetailActivityMovie"
+            android:parentActivityName=".ui.Filmes" />
+        <activity
+            android:name=".ui.Filmes"
+            android:parentActivityName=".ui.MainActivity" />
+        <activity android:name=".ui.MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <provider
+            android:name=".BdPopcorn.ContentProviderPopcorn"
+            android:authorities="com.example.popcornsoda.BdPopcorn"
+            android:exported="false" />
+    </application>
+
+</manifest>
