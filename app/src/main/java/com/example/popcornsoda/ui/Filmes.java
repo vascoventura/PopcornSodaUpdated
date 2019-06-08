@@ -21,6 +21,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 import com.example.popcornsoda.BdPopcorn.BdTableFilmes;
 import com.example.popcornsoda.adapters.AdaptadorLVFilmes;
@@ -36,7 +37,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 
-public class Filmes extends AppCompatActivity implements MovieItensClickListener, LoaderManager.LoaderCallbacks<Cursor> {
+public class Filmes extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
 
     public static final String ID_FILME = "ID_FILME" ;
     private static final int ID_CURSO_LOADER_FILMES = 0;
@@ -88,7 +89,7 @@ public class Filmes extends AppCompatActivity implements MovieItensClickListener
 
         indicator.setupWithViewPager(sliderpager, true);
 
-        //Lista Horizontal
+       /* //Lista Horizontal
 
         List<Movie> itensMovies = new ArrayList<>();
         itensMovies.add(new Movie("Glass", R.drawable.glass, R.drawable.glass_cover));
@@ -102,7 +103,7 @@ public class Filmes extends AppCompatActivity implements MovieItensClickListener
         moviesRV.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
 
 
-        //Lista Vertical
+        //Lista Vertical*/
 
 
         adaptadorFilmes = new AdaptadorLVFilmes(this);
@@ -156,8 +157,14 @@ public class Filmes extends AppCompatActivity implements MovieItensClickListener
                 startActivity(intent3);
                 return true;
 
+            case R.id.itemDetalhe:
+                Intent intent4 = new Intent(this, DetailActivityMovie.class);
+                intent4.putExtra(ID_FILME, adaptadorFilmes.getFilmeSelecionada().getId_filme());
+                startActivity(intent4);
+                return true;
 
-            default:
+
+                default:
                 return super.onOptionsItemSelected(item);
         }
     }
@@ -183,14 +190,15 @@ public class Filmes extends AppCompatActivity implements MovieItensClickListener
         adaptadorFilmes.setCursor(null);
     }
 
-    @SuppressLint("NewApi")
+    /*@SuppressLint("NewApi")
     @Override
-    public void onMovieClick(Movie filme, ImageView movieImageView) {
+    public void onMovieClick(Movie filme, TextView nomeFilme, TextView tipoFilme, TextView autorFilme, TextView classificacaoFilme, TextView anoFilme) {
         // aqui vamos mandaremos a descriçao do conteudo com detalhe noutra atividade
 
         Intent intent = new Intent(this, DetailActivityMovie.class);
         //send movie information to detailActivity
         intent.putExtra("title", filme.getNome_filme());
+        intent.putExtra(, filme.getNome_filme());
         intent.putExtra("imgURL", filme.getFoto_capa_filme());
         intent.putExtra("imgCover", filme.getFoto_fundo_filme());
         intent.putExtra("decricao_filme", filme.getDescricao_filme());
@@ -203,7 +211,7 @@ public class Filmes extends AppCompatActivity implements MovieItensClickListener
 
         Toast.makeText(this, filme.getNome_filme(),Toast.LENGTH_SHORT).show();
 
-    }
+    }*/
 
     class SliderTime extends TimerTask {
             @Override

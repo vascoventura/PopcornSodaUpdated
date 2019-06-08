@@ -70,6 +70,12 @@ public class Series extends AppCompatActivity implements LoaderManager.LoaderCal
                 startActivity(intent3);
                 return true;
 
+            case R.id.itemDetalhe:
+                Intent intent4 = new Intent(this, DetailActivtySerie.class);
+                intent4.putExtra(ID_SERIE, adaptadorSeries.getSerieSelecionada().getId_serie());
+                startActivity(intent4);
+                return true;
+
 
             default:
                 return super.onOptionsItemSelected(item);

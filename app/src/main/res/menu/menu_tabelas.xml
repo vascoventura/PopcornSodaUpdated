@@ -16,5 +16,10 @@
         android:id="@+id/itemEditar"
         android:icon="@drawable/ic_create_black_24dp"
         android:title="Editar" />
+    <item
+        android:id="@+id/itemDetalhe"
+        android:icon="@drawable/ic_assignment_black_24dp"
+        android:title="Detalhe"
+        android:visible="true" />
 
 </menu>

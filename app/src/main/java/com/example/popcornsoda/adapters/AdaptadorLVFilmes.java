@@ -64,6 +64,7 @@ public class AdaptadorLVFilmes extends RecyclerView.Adapter<AdaptadorLVFilmes.Vi
     private static ViewHolderFilme viewHolderFilmeSelecionado = null;
 
     public class ViewHolderFilme extends RecyclerView.ViewHolder implements View.OnClickListener {
+
         private TextView textViewNome;
         private TextView textViewTipo;
         private TextView textViewAno;

@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.DetailActivityMovie"
+    tools:context=".ui.DetailActivtySerie"
     android:background="@color/colorPrimary">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -14,8 +14,8 @@
 
         <ImageView
             android:id="@+id/detail_movie_cover"
-            android:layout_width="wrap_content"
-            android:layout_height="309dp"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
             android:scaleType="centerCrop"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -33,19 +33,6 @@
             app:layout_constraintStart_toStartOf="@+id/detail_movie_cover"
             app:layout_constraintTop_toTopOf="@+id/detail_movie_cover" />
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/play_fab"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginBottom="16dp"
-            android:clickable="true"
-            android:focusable="true"
-            android:src="@drawable/ic_movie_black_24dp"
-            app:layout_constraintBottom_toTopOf="@+id/detail_movie_nome"
-            app:layout_constraintStart_toEndOf="@+id/botao_visto" />
-
         <ImageView
             android:id="@+id/detailMovie_img"
             android:layout_width="137dp"
@@ -60,7 +47,7 @@
             app:srcCompat="@drawable/glass" />
 
         <TextView
-            android:id="@+id/detail_movie_nome"
+            android:id="@+id/detail_serie_nome"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -76,7 +63,7 @@
             app:layout_constraintTop_toBottomOf="@+id/detail_movie_cover" />
 
         <TextView
-            android:id="@+id/detail_movie_tipo"
+            android:id="@+id/detail_serie_tipo"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -88,10 +75,10 @@
             android:textColor="@android:color/white"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/detailMovie_img"
-            app:layout_constraintTop_toBottomOf="@+id/detail_movie_nome" />
+            app:layout_constraintTop_toBottomOf="@+id/detail_serie_nome" />
 
         <ImageView
-            android:id="@+id/imageView_movie_classificacao"
+            android:id="@+id/imageView_classificacao"
             android:layout_width="49dp"
             android:layout_height="60dp"
             android:layout_marginTop="8dp"
@@ -101,23 +88,30 @@
             app:srcCompat="@android:drawable/btn_star_big_on" />
 
         <TextView
-            android:id="@+id/detail_movie_classificacao"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:id="@+id/detail_serie_classificacao"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginBottom="8dp"
             android:autoText="false"
             android:textAppearance="@style/TextAppearance.AppCompat.Display1"
             android:textColor="#000000"
             android:textSize="8sp"
             app:fontFamily="sans-serif-black"
-            app:layout_constraintBottom_toBottomOf="@+id/imageView_movie_classificacao"
-            app:layout_constraintEnd_toEndOf="@+id/imageView_movie_classificacao"
-            app:layout_constraintStart_toStartOf="@+id/imageView_movie_classificacao"
-            app:layout_constraintTop_toTopOf="@+id/imageView_movie_classificacao"
-            app:layout_constraintVertical_bias="0.53"
+            app:layout_constraintBottom_toBottomOf="@+id/imageView_classificacao"
+            app:layout_constraintEnd_toEndOf="@+id/imageView_classificacao"
+            app:layout_constraintHorizontal_bias="0.588"
+            app:layout_constraintStart_toStartOf="@+id/imageView_classificacao"
+            app:layout_constraintTop_toTopOf="@+id/imageView_classificacao"
+            app:layout_constraintVertical_bias="0.678"
             tools:text="4.9" />
 
         <TextView
-            android:id="@+id/detail_movie_autor"
+            android:id="@+id/detail_serie_autor"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -129,19 +123,29 @@
             app:layout_constraintTop_toBottomOf="@+id/detailMovie_img" />
 
         <TextView
-            android:id="@+id/detail_movie_ano"
+            android:id="@+id/detail_serie_ano"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginLeft="16dp"
             android:layout_marginTop="8dp"
-            android:text="TextView"
+            android:text="2009"
             android:textColor="#7A6464"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/detail_movie_autor" />
+            app:layout_constraintTop_toBottomOf="@+id/detail_serie_autor" />
 
         <TextView
-            android:id="@+id/detail_movie_descricao"
+            android:id="@+id/detail_serie_temporadas"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="20"
+            android:textColor="@android:color/white"
+            app:layout_constraintStart_toEndOf="@+id/textView9"
+            app:layout_constraintTop_toBottomOf="@+id/detail_serie_tipo" />
+
+        <TextView
+            android:id="@+id/detail_serie_descricao"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -157,7 +161,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.494"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/detail_movie_ano" />
+            app:layout_constraintTop_toBottomOf="@+id/detail_serie_ano" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/botao_favorito"
@@ -169,7 +173,7 @@
             android:focusable="true"
             android:src="@drawable/ic_favorite_black_24dp"
             app:backgroundTint="#F1B814"
-            app:layout_constraintBottom_toTopOf="@+id/detail_movie_nome"
+            app:layout_constraintBottom_toTopOf="@+id/detail_serie_nome"
             app:layout_constraintStart_toEndOf="@+id/detailMovie_img"
             tools:ignore="VectorDrawableCompat" />
 
@@ -181,13 +185,36 @@
             android:layout_marginLeft="8dp"
             android:layout_marginBottom="16dp"
             android:clickable="true"
-            app:layout_constraintBottom_toTopOf="@+id/detail_movie_nome"
+            app:layout_constraintBottom_toTopOf="@+id/detail_serie_nome"
             app:layout_constraintStart_toEndOf="@+id/botao_favorito"
             android:src="@drawable/ic_remove_red_eye_black_24dp"
             android:focusable="true"
             tools:ignore="VectorDrawableCompat" />
 
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/play_fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginBottom="16dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:src="@drawable/ic_movie_black_24dp"
+            app:layout_constraintBottom_toTopOf="@+id/detail_serie_nome"
+            app:layout_constraintStart_toEndOf="@+id/botao_visto" />
 
+
+        <TextView
+            android:id="@+id/textView9"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Temporadas:"
+            android:textColor="@android:color/white"
+            app:layout_constraintStart_toStartOf="@+id/detail_serie_tipo"
+            app:layout_constraintTop_toBottomOf="@+id/detail_serie_tipo"
+            tools:ignore="MissingConstraints" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
