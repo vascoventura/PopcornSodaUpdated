@@ -22,7 +22,7 @@
             android:layout_height="wrap_content"
             android:textColor="#FFFFFF"
             android:id="@+id/editText_nome_filme_inserir"
-            android:inputType="text"/>
+            android:inputType="textPersonName"/>
     </com.google.android.material.textfield.TextInputLayout>
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"

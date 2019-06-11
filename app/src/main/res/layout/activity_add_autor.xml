@@ -13,7 +13,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-
         android:hint="Nome"
         android:textColorHint="#9900BCD4">
 
@@ -21,7 +20,7 @@
             android:id="@+id/editTextNome_autor"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="text"
+            android:inputType="textPersonName"
             android:textColor="#FFFFFF" />
     </com.google.android.material.textfield.TextInputLayout>
 

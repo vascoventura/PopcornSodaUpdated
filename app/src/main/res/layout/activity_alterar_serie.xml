@@ -19,7 +19,7 @@
             android:id="@+id/editText_nome_serie_alterar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="text"
+            android:inputType="textPersonName"
             android:textColor="#FFFFFF" />
     </com.google.android.material.textfield.TextInputLayout>
 
