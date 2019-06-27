@@ -2,12 +2,14 @@ package com.example.popcornsoda.adapters;
 
 import android.content.Context;
 import android.database.Cursor;
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.popcornsoda.R;
 import com.example.popcornsoda.models.Autor;
 import com.example.popcornsoda.ui.Autores;
@@ -107,5 +109,6 @@ public class AdaptadorLVAutores extends RecyclerView.Adapter<AdaptadorLVAutores.
         private void seleciona() {
             itemView.setBackgroundResource(R.color.colorAccent);
         }
+
     }
 }

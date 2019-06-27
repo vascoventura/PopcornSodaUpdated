@@ -6,14 +6,19 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.popcornsoda.R;
 import com.example.popcornsoda.models.Movie;
-import com.example.popcornsoda.models.Serie;
 import com.example.popcornsoda.ui.Filmes;
 
+
 public class AdaptadorLVFilmes extends RecyclerView.Adapter<AdaptadorLVFilmes.ViewHolderFilme> {
+
+    public static final String ID_FILME = "ID_FILME" ;
+
     private Cursor cursor;
     private Context context;
 
@@ -27,6 +32,7 @@ public class AdaptadorLVFilmes extends RecyclerView.Adapter<AdaptadorLVFilmes.Vi
             notifyDataSetChanged();
         }
     }
+
 
     @NonNull
     @Override
@@ -106,9 +112,10 @@ public class AdaptadorLVFilmes extends RecyclerView.Adapter<AdaptadorLVFilmes.Vi
 
             viewHolderFilmeSelecionado = this;
 
+            ((Filmes) context).atualizaOpcoesMenu();
+
             seleciona();
         }
-
 
         private void desSeleciona() {
             itemView.setBackgroundResource(R.color.colorPrimary);
@@ -117,5 +124,6 @@ public class AdaptadorLVFilmes extends RecyclerView.Adapter<AdaptadorLVFilmes.Vi
         private void seleciona() {
             itemView.setBackgroundResource(R.color.colorAccent);
         }
+
     }
 }

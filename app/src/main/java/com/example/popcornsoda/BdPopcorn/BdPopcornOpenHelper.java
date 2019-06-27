@@ -3,12 +3,19 @@ package com.example.popcornsoda.BdPopcorn;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+
 import androidx.annotation.Nullable;
 
 public class BdPopcornOpenHelper extends SQLiteOpenHelper {
 
     public static final String NOME_BASE_DADOS = "Popcorn.db";
-    public static final int VERSAO_BASE_DADOS = 1;
+
+    private static final int VERSAO_BASE_DADOS = 1;
+
+    public static final String LOGTAG = "FAVORITE";
+
+    SQLiteOpenHelper dbhandler;
+    SQLiteDatabase db;
 
     public BdPopcornOpenHelper(@Nullable Context context) {
         super(context, NOME_BASE_DADOS, null, VERSAO_BASE_DADOS);
@@ -24,6 +31,5 @@ public class BdPopcornOpenHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-
     }
 }

@@ -1,1 +1,17 @@
-<resources></resources>
+<resources>
+    <string name="a_dicionar">Adicionar</string>
+    <string name="e_liminar">Eliminar</string>
+    <string name="e_ditar">Editar</string>
+    <string name="d_etalhe">Detalhe</string>
+    <string name="n_ome">Nome</string>
+    <string name="t_ipo">Tipo</string>
+    <string name="a_utor">Autor</string>
+    <string name="c_lassificacao">Classificação</string>
+    <string name="a_no">Ano</string>
+    <string name="t_emporadas">Temporadas</string>
+    <string name="d_escricao">Descrição</string>
+    <string name="f_ilmes">Filmes</string>
+    <string name="s_eries">Series</string>
+    <string name="a_utores">Autores</string>
+    <string name="n_acionalidade">Nacionalidade</string>
+</resources>

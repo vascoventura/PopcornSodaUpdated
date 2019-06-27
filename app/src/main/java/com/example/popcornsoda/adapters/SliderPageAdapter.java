@@ -1,13 +1,14 @@
 package com.example.popcornsoda.adapters;
 
 import android.content.Context;
-import androidx.annotation.NonNull;
-import androidx.viewpager.widget.PagerAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.viewpager.widget.PagerAdapter;
 
 import com.example.popcornsoda.R;
 
@@ -32,8 +33,11 @@ public class SliderPageAdapter extends PagerAdapter{
 
         ImageView slideImage = slideLayout.findViewById(R.id.slider_img);
         TextView slideText = slideLayout.findViewById(R.id.slider_titulo);
+        TextView slideText2 = slideLayout.findViewById(R.id.slider_descricao);
+
         slideImage.setImageResource(mList.get(position).getImage());
         slideText.setText(mList.get(position).getTitle());
+        slideText2.setText(mList.get(position).getDescricao());
 
         container.addView(slideLayout);
         return slideLayout;

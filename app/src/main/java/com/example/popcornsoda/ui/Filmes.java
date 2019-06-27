@@ -1,36 +1,31 @@
 package com.example.popcornsoda.ui;
 
-import android.annotation.SuppressLint;
-import android.app.ActivityOptions;
 import android.content.Intent;
 import android.database.Cursor;
+import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-
-import com.example.popcornsoda.BdPopcorn.ContentProviderPopcorn;
-import com.google.android.material.tabs.TabLayout;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.loader.app.LoaderManager;
 import androidx.loader.content.CursorLoader;
 import androidx.loader.content.Loader;
-import androidx.viewpager.widget.ViewPager;
-import androidx.appcompat.app.AppCompatActivity;
-import android.os.Bundle;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
-import android.widget.ImageView;
-import android.widget.TextView;
-import android.widget.Toast;
+import androidx.viewpager.widget.ViewPager;
+
 import com.example.popcornsoda.BdPopcorn.BdTableFilmes;
-import com.example.popcornsoda.adapters.AdaptadorLVFilmes;
-import com.example.popcornsoda.models.Movie;
-import com.example.popcornsoda.adapters.MovieAdapter;
-import com.example.popcornsoda.adapters.MovieItensClickListener;
+import com.example.popcornsoda.BdPopcorn.ContentProviderPopcorn;
 import com.example.popcornsoda.R;
+import com.example.popcornsoda.adapters.AdaptadorLVFilmes;
 import com.example.popcornsoda.adapters.Slider;
 import com.example.popcornsoda.adapters.SliderPageAdapter;
+import com.example.popcornsoda.models.Movie;
+import com.google.android.material.tabs.TabLayout;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
@@ -54,6 +49,7 @@ public class Filmes extends AppCompatActivity implements LoaderManager.LoaderCal
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_filmes);
+        Toolbar toolbar = findViewById(R.id.toolbar);
 
         getSupportLoaderManager().initLoader(ID_CURSO_LOADER_FILMES, null, this);
 
@@ -71,13 +67,13 @@ public class Filmes extends AppCompatActivity implements LoaderManager.LoaderCal
         RecyclerView moviesRV = findViewById(R.id.Rv_movieList);
 
         //Lista Vertical
-        RecyclerView itensHorizontal = (RecyclerView) findViewById(R.id.lista_filmes_vertical);
+        RecyclerView itensHorizontal = findViewById(R.id.lista_filmes_vertical);
 
         //SLIDER
         itensSlider = new ArrayList<>();
-        itensSlider.add(new Slider(R.drawable.venom, "Venom: A não perder"));
-        itensSlider.add(new Slider(R.drawable.the_prodigy, "The Prodigy: Novidade no PopcornSoda"));
-        itensSlider.add(new Slider(R.drawable.green_book, "Green Book: Uma história que nos inspira"));
+        itensSlider.add(new Slider(R.drawable.venom, "Venom:", "A não perder"));
+        itensSlider.add(new Slider(R.drawable.suicide_squad, "Suicide Squad:","Filmagens da sequela começam já em setembro!"));
+        itensSlider.add(new Slider(R.drawable.green_book, "Green Book:", "Uma história que nos inspira"));
 
         SliderPageAdapter adapter = new SliderPageAdapter(this, itensSlider);
         sliderpager.setAdapter(adapter);
@@ -127,13 +123,17 @@ public class Filmes extends AppCompatActivity implements LoaderManager.LoaderCal
 
         menu.findItem(R.id.itemEditar).setVisible(mostraAlterarEliminar);
         menu.findItem(R.id.itemEliminar).setVisible(mostraAlterarEliminar);
+        menu.findItem(R.id.itemDetalhe).setVisible(mostraAlterarEliminar);
+        menu.findItem(R.id.itemAdicionar).setVisible(false);
     }
 
     //Menu
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater_menu = getMenuInflater();
-        inflater_menu.inflate(R.menu.menu_tabelas,menu);
+        getMenuInflater().inflate(R.menu.menu_tabelas, menu);
+
+        this.menu = menu;
+
         return true;
     }
 

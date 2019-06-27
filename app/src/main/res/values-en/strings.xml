@@ -1,3 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="a_dicionar">Add</string>
+    <string name="e_liminar">Delete</string>
+    <string name="e_ditar">Edit</string>
+    <string name="d_etalhe">Details</string>
+    <string name="n_ome">Name</string>
+    <string name="t_ipo">Type</string>
+    <string name="a_utor">Author</string>
+    <string name="c_lassificacao">Rating</string>
+    <string name="a_no">Year</string>
+    <string name="t_emporadas">Seasons</string>
+    <string name="d_escricao">Description</string>
+    <string name="f_ilmes">Movies</string>
+    <string name="s_eries">Tv Shows</string>
+    <string name="a_utores">Authors</string>
+    <string name="n_acionalidade">Nacionality</string>
 </resources>

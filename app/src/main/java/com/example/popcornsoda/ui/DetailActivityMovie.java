@@ -1,29 +1,29 @@
 package com.example.popcornsoda.ui;
 
 
-import com.example.popcornsoda.BdPopcorn.BdTableFilmes;
-import com.example.popcornsoda.BdPopcorn.ContentProviderPopcorn;
-import com.example.popcornsoda.models.Movie;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.popcornsoda.BdPopcorn.BdTableFilmes;
+import com.example.popcornsoda.BdPopcorn.ContentProviderPopcorn;
 import com.example.popcornsoda.R;
+import com.example.popcornsoda.models.Movie;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class DetailActivityMovie extends AppCompatActivity {
 
 
     private Uri enderecoFilme;
+    private boolean estado_favorito;
+    private Movie filme;
 
 
     @Override
@@ -34,12 +34,12 @@ public class DetailActivityMovie extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 
-        TextView textViewNome = (TextView) findViewById(R.id.detail_movie_nome);
-        TextView textViewTipo = (TextView) findViewById(R.id.detail_movie_tipo);
-        TextView textViewAutorFilme = (TextView) findViewById(R.id.detail_movie_autor);
-        TextView textViewClassificacao = (TextView) findViewById(R.id.detail_movie_classificacao);
-        TextView textViewAno = (TextView) findViewById(R.id.detail_movie_ano);
-        TextView textViewDescricao = (TextView) findViewById(R.id.detail_movie_descricao);
+        TextView textViewNome = findViewById(R.id.detail_movie_nome);
+        TextView textViewTipo =  findViewById(R.id.detail_movie_tipo);
+        TextView textViewAutorFilme = findViewById(R.id.detail_movie_autor);
+        TextView textViewClassificacao = findViewById(R.id.detail_movie_classificacao);
+        TextView textViewAno = findViewById(R.id.detail_movie_ano);
+        TextView textViewDescricao = findViewById(R.id.detail_movie_descricao);
         FloatingActionButton favorito = findViewById(R.id.botao_favorito);
         FloatingActionButton visto = findViewById(R.id.botao_visto);
         FloatingActionButton trailer = findViewById(R.id.detail_movie_trailer);
@@ -53,10 +53,6 @@ public class DetailActivityMovie extends AppCompatActivity {
         favorito.setAnimation(AnimationUtils.loadAnimation(this, R.anim.scale_animation));
         visto.setAnimation(AnimationUtils.loadAnimation(this, R.anim.scale_animation));
         trailer.setAnimation(AnimationUtils.loadAnimation(this, R.anim.scale_animation));
-
-
-
-
 
 
 
@@ -109,11 +105,24 @@ public class DetailActivityMovie extends AppCompatActivity {
 
     }
 
-    private boolean adicionaFavorito() {
-        boolean estado_favorito = true;
 
-        if(estado_favorito = false){
-            Toast.makeText(this, "Adicionado aos favoritos!", Toast.LENGTH_SHORT).show();
+    private boolean adicionaFavorito() {
+
+        if(!estado_favorito){
+           /* try {
+                getContentResolver().update(enderecoFilme, filme.getContentValues(), null, null);
+
+                Toast.makeText(this, "Filme guardado com sucesso", Toast.LENGTH_SHORT).show();
+                finish();
+            } catch (Exception e) {
+                Snackbar.make(
+                        editTextNomeFilme,
+                        "Erro ao guardar filme",
+                        Snackbar.LENGTH_LONG)
+                        .show();
+                e.printStackTrace();
+            }*/
+            Toast.makeText(this, "Adicionado aos favoritos", Toast.LENGTH_SHORT).show();
             estado_favorito = true;
             return true;
         }else{
@@ -123,25 +132,5 @@ public class DetailActivityMovie extends AppCompatActivity {
         }
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_conteudo, menu);
-        return true;
-    }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.itemEditarConteudo) {
-            //todo:alterar;
-            return true;
-        } else if (id == R.id.itemEliminarConteudo) {
-            //todo: eliminar
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
 }

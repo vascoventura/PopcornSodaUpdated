@@ -1,16 +1,18 @@
 package com.example.popcornsoda.adapters;
 
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
+import android.content.Context;
+import android.database.Cursor;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.database.Cursor;
-import android.content.Context;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.popcornsoda.R;
-import com.example.popcornsoda.models.Movie;
 import com.example.popcornsoda.models.Serie;
+import com.example.popcornsoda.ui.Series;
 
 public class AdaptadorLVSeries extends RecyclerView.Adapter<AdaptadorLVSeries.ViewHolderSerie> {
     private Cursor cursor;
@@ -105,6 +107,8 @@ public class AdaptadorLVSeries extends RecyclerView.Adapter<AdaptadorLVSeries.Vi
             }
 
             viewHolderSerieSelecionada = this;
+
+            ((Series) context).atualizaOpcoesMenu();
 
             seleciona();
         }

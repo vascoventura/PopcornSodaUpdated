@@ -4,23 +4,24 @@ package com.example.popcornsoda.ui;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.loader.app.LoaderManager;
 import androidx.loader.content.CursorLoader;
 import androidx.loader.content.Loader;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
-import android.widget.Toast;
 
 import com.example.popcornsoda.BdPopcorn.BdTableSeries;
 import com.example.popcornsoda.BdPopcorn.ContentProviderPopcorn;
 import com.example.popcornsoda.R;
 import com.example.popcornsoda.adapters.AdaptadorLVSeries;
+import com.example.popcornsoda.models.Serie;
 
 public class Series extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
 
@@ -33,6 +34,8 @@ public class Series extends AppCompatActivity implements LoaderManager.LoaderCal
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_series);
+        Toolbar toolbar = findViewById(R.id.toolbar);
+
 
         getSupportLoaderManager().initLoader(ID_CURSO_LOADER_SERIES, null, this);
 
@@ -43,11 +46,27 @@ public class Series extends AppCompatActivity implements LoaderManager.LoaderCal
 
     }
 
+    private Menu menu;
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu_tabelas, menu);
-        return super.onCreateOptionsMenu(menu);
+        getMenuInflater().inflate(R.menu.menu_tabelas, menu);
+
+        this.menu = menu;
+
+        return true;
+
+    }
+
+    public void atualizaOpcoesMenu() {
+        Serie serie = adaptadorSeries.getSerieSelecionada();
+
+        boolean mostraAlterarEliminar = (serie != null);
+
+        menu.findItem(R.id.itemEditar).setVisible(mostraAlterarEliminar);
+        menu.findItem(R.id.itemEliminar).setVisible(mostraAlterarEliminar);
+        menu.findItem(R.id.itemDetalhe).setVisible(mostraAlterarEliminar);
+        menu.findItem(R.id.itemAdicionar).setVisible(false);
     }
 
     @Override

@@ -1,17 +1,18 @@
 package com.example.popcornsoda.ui;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.loader.app.LoaderManager;
-import androidx.loader.content.Loader;
-
 import android.database.Cursor;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.loader.app.LoaderManager;
+import androidx.loader.content.Loader;
 
 import com.example.popcornsoda.BdPopcorn.BdTableAutores;
 import com.example.popcornsoda.BdPopcorn.ContentProviderPopcorn;
@@ -31,12 +32,15 @@ public class AddAutor extends AppCompatActivity implements LoaderManager.LoaderC
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_autor);
+        Toolbar toolbar = findViewById(R.id.toolbar);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        editTextNomeAutor = (EditText) findViewById(R.id.editTextNome_autor);
-        editTextAnoAutor = (EditText) findViewById(R.id.editTextAno_autor);
-        editTextNacionalidadeAutor = (EditText) findViewById(R.id.editTextNacionalidade_autor);
+        editTextNomeAutor = findViewById(R.id.editTextNome_autor);
+        editTextAnoAutor = findViewById(R.id.editTextAno_autor);
+        editTextNacionalidadeAutor = findViewById(R.id.editTextNacionalidade_autor);
+
+        getSupportLoaderManager().initLoader(ID_CURSO_LOADER_AUTORES, null, this);
     }
 
     @Override
@@ -59,7 +63,7 @@ public class AddAutor extends AppCompatActivity implements LoaderManager.LoaderC
         if (id == R.id.item_guardar) {
             guardar();
             return true;
-        } else if (id == R.id.action_cancelar) {
+        } else if (id == R.id.item_cancelar) {
             finish();
             return true;
         }

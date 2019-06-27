@@ -1,67 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<androidx.constraintlayout.widget.ConstraintLayout
-
+<ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_alignParentLeft="true"
-    android:layout_alignParentTop="false"
-    android:layout_alignParentRight="false"
-    android:layout_centerInParent="false"
-    android:layout_centerHorizontal="false"
-    android:layout_centerVertical="false"
-    android:background="@color/colorPrimary"
-    android:baselineAligned="true"
-    android:orientation="vertical">
+    android:background="@color/colorPrimary">
 
-    <Button
-        android:id="@+id/botaofilmes"
-        android:layout_width="350dp"
-        android:layout_height="150dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
-        android:background="@drawable/filme"
-        android:text="Filmes"
-        android:textColor="@color/button_text"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        android:baselineAligned="true"
+        android:orientation="vertical">
 
-    <Button
-        android:id="@+id/botaoseries"
-        android:layout_width="350dp"
-        android:layout_height="150dp"
-        android:layout_marginTop="8dp"
-        android:background="@drawable/series"
-        android:text="Series"
-        android:textColor="@color/button_text"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="@+id/botaofilmes"
-        app:layout_constraintTop_toBottomOf="@+id/botaofilmes"
-        tools:ignore="MissingConstraints" />
+        <Button
+            android:id="@+id/botaofilmes"
+            android:layout_width="350dp"
+            android:layout_height="150dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            android:background="@drawable/filme"
+            android:text="@string/f_ilmes"
+            android:textColor="@color/button_text"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-
-    <Button
-        android:id="@+id/botaoautores"
-        android:layout_width="350dp"
-        android:layout_height="150dp"
-        android:layout_marginTop="8dp"
-        android:background="@drawable/autores"
-        android:text="Autores"
-        android:textColor="@color/button_text"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="@+id/botaoseries"
-        app:layout_constraintTop_toBottomOf="@+id/botaoseries" />
+        <Button
+            android:id="@+id/botaoseries"
+            android:layout_width="350dp"
+            android:layout_height="150dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/series"
+            android:text="@string/s_eries"
+            android:textColor="@color/button_text"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@+id/botaofilmes"
+            app:layout_constraintTop_toBottomOf="@+id/botaofilmes"
+            tools:ignore="MissingConstraints" />
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <Button
+            android:id="@+id/botaoautores"
+            android:layout_width="350dp"
+            android:layout_height="150dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/autores"
+            android:text="@string/a_utores"
+            android:textColor="@color/button_text"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@+id/botaoseries"
+            app:layout_constraintTop_toBottomOf="@+id/botaoseries" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>

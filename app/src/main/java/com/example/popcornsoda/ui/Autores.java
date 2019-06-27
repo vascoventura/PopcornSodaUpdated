@@ -2,18 +2,19 @@ package com.example.popcornsoda.ui;
 
 import android.content.Intent;
 import android.database.Cursor;
+import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.loader.app.LoaderManager;
 import androidx.loader.content.CursorLoader;
 import androidx.loader.content.Loader;
-import androidx.appcompat.app.AppCompatActivity;
-import android.os.Bundle;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.widget.Toast;
 
 import com.example.popcornsoda.BdPopcorn.BdTableAutores;
 import com.example.popcornsoda.BdPopcorn.ContentProviderPopcorn;
@@ -33,6 +34,8 @@ public class Autores extends AppCompatActivity  implements LoaderManager.LoaderC
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_autores);
+        Toolbar toolbar = findViewById(R.id.toolbar);
+
 
         getSupportLoaderManager().initLoader(ID_CURSO_LOADER_AUTORES, null, this);
 
@@ -61,6 +64,7 @@ public class Autores extends AppCompatActivity  implements LoaderManager.LoaderC
 
         menu.findItem(R.id.itemEditar).setVisible(mostraAlterarEliminar);
         menu.findItem(R.id.itemEliminar).setVisible(mostraAlterarEliminar);
+        menu.findItem(R.id.itemAdicionar).setVisible(false);
     }
 
     @Override
