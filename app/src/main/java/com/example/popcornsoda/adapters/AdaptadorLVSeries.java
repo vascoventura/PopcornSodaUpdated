@@ -1,6 +1,7 @@
 package com.example.popcornsoda.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,11 +13,18 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.popcornsoda.R;
 import com.example.popcornsoda.models.Serie;
+import com.example.popcornsoda.ui.DetailActivtySerie;
 import com.example.popcornsoda.ui.Series;
 
 public class AdaptadorLVSeries extends RecyclerView.Adapter<AdaptadorLVSeries.ViewHolderSerie> {
+
+    public static final String ID_SERIE = "ID_SERIE" ;
+
     private Cursor cursor;
     private Context context;
+    private boolean selecao = false;
+    private boolean click = false;
+
 
     public AdaptadorLVSeries(Context context){
         this.context = context;
@@ -29,11 +37,14 @@ public class AdaptadorLVSeries extends RecyclerView.Adapter<AdaptadorLVSeries.Vi
         }
     }
 
+    public boolean isSelecao() {
+        return selecao;
+    }
+
     @NonNull
     @Override
     public ViewHolderSerie onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemSerie = LayoutInflater.from(context).inflate(R.layout.item_serie, parent, false);
-
         return new ViewHolderSerie(itemSerie);
     }
 
@@ -43,7 +54,6 @@ public class AdaptadorLVSeries extends RecyclerView.Adapter<AdaptadorLVSeries.Vi
         cursor.moveToPosition(position);
         Serie serie = Serie.fromCursor(cursor);
         holderSerie.setSerie(serie);
-
     }
 
     @Override
@@ -57,14 +67,16 @@ public class AdaptadorLVSeries extends RecyclerView.Adapter<AdaptadorLVSeries.Vi
 
 
     public Serie getSerieSelecionada() {
-        if(viewHolderSerieSelecionada == null) return null;
-
-        return viewHolderSerieSelecionada.serie;
+        if(viewHolderSerieSelecionada == null){
+            return null;
+        }else{
+            return viewHolderSerieSelecionada.serie;
+        }
     }
 
     private static ViewHolderSerie viewHolderSerieSelecionada = null;
 
-    public class ViewHolderSerie extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public class ViewHolderSerie extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
         private TextView textViewNome;
         private TextView textViewTipo;
         private TextView textViewAno;
@@ -85,6 +97,7 @@ public class AdaptadorLVSeries extends RecyclerView.Adapter<AdaptadorLVSeries.Vi
             textViewClassificacao = (TextView) itemView.findViewById(R.id.textViewClassificacaoSerie);
 
             itemView.setOnClickListener(this);
+            itemView.setOnLongClickListener(this);
 
         }
 
@@ -102,24 +115,46 @@ public class AdaptadorLVSeries extends RecyclerView.Adapter<AdaptadorLVSeries.Vi
 
         @Override
         public void onClick(View v) {
-            if (viewHolderSerieSelecionada != null) {
-                viewHolderSerieSelecionada.desSeleciona();
+
+            if(click) {
+                long idSerie = serie.getId_serie();
+                System.out.println("ID_SERIE: " + idSerie);
+                Context context = v.getContext();
+
+                Intent intent = new Intent();
+                intent.setClass(context, DetailActivtySerie.class);
+                intent.putExtra(ID_SERIE, idSerie);
+                context.startActivity(intent);
             }
-
-            viewHolderSerieSelecionada = this;
-
-            ((Series) context).atualizaOpcoesMenu();
-
-            seleciona();
+            click = true;
         }
 
 
         private void desSeleciona() {
             itemView.setBackgroundResource(R.color.colorPrimary);
+            selecao = false;
         }
 
         private void seleciona() {
             itemView.setBackgroundResource(R.color.colorAccent);
+            selecao = true;
+        }
+
+        @Override
+        public boolean onLongClick(View v) {
+            click = false;
+            if(selecao){
+                viewHolderSerieSelecionada.desSeleciona();
+                ((Series) context).atualizaOpcoesMenu();
+
+
+            }else{
+                viewHolderSerieSelecionada = this;
+                viewHolderSerieSelecionada.seleciona();
+                ((Series) context).atualizaOpcoesMenu();
+
+            }
+            return false;
         }
     }
 }

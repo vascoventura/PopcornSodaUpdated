@@ -45,28 +45,36 @@ public class Series extends AppCompatActivity implements LoaderManager.LoaderCal
         recyclerViewSeries.setLayoutManager( new LinearLayoutManager(this) );
 
     }
+    @Override
+    protected void onResume() {
+        getSupportLoaderManager().restartLoader(ID_CURSO_LOADER_SERIES, null, this);
+
+        super.onResume();
+    }
+
+    //Menu
 
     private Menu menu;
+
+    public void atualizaOpcoesMenu() {
+        if(adaptadorSeries.isSelecao()){
+            menu.findItem(R.id.itemEditar).setVisible(true);
+            menu.findItem(R.id.itemEliminar).setVisible(true);
+            menu.findItem(R.id.itemDetalhe).setVisible(true);
+            menu.findItem(R.id.itemAdicionar).setVisible(false);
+        }else{
+            menu.findItem(R.id.itemEditar).setVisible(false);
+            menu.findItem(R.id.itemEliminar).setVisible(false);
+            menu.findItem(R.id.itemDetalhe).setVisible(false);
+            menu.findItem(R.id.itemAdicionar).setVisible(true);
+        }
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_tabelas, menu);
-
         this.menu = menu;
-
         return true;
-
-    }
-
-    public void atualizaOpcoesMenu() {
-        Serie serie = adaptadorSeries.getSerieSelecionada();
-
-        boolean mostraAlterarEliminar = (serie != null);
-
-        menu.findItem(R.id.itemEditar).setVisible(mostraAlterarEliminar);
-        menu.findItem(R.id.itemEliminar).setVisible(mostraAlterarEliminar);
-        menu.findItem(R.id.itemDetalhe).setVisible(mostraAlterarEliminar);
-        menu.findItem(R.id.itemAdicionar).setVisible(false);
     }
 
     @Override
@@ -95,7 +103,6 @@ public class Series extends AppCompatActivity implements LoaderManager.LoaderCal
                 startActivity(intent4);
                 return true;
 
-
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -116,12 +123,5 @@ public class Series extends AppCompatActivity implements LoaderManager.LoaderCal
     public void onLoaderReset(@NonNull Loader<Cursor> loader) {
         adaptadorSeries.setCursor(null);
 
-    }
-
-    @Override
-    protected void onResume() {
-        getSupportLoaderManager().restartLoader(ID_CURSO_LOADER_SERIES, null, this);
-
-        super.onResume();
     }
 }

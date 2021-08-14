@@ -23,7 +23,6 @@ public class DetailActivityMovie extends AppCompatActivity {
 
     private Uri enderecoFilme;
     private boolean estado_favorito;
-    private Movie filme;
 
 
     @Override
@@ -95,7 +94,7 @@ public class DetailActivityMovie extends AppCompatActivity {
         Movie movie = Movie.fromCursor(cursor);
 
         textViewNome.setText(movie.getNome_filme());
-        textViewTipo.setText(movie.getTipo_filme());
+        textViewTipo.setText(movie.getNomeCategoria());
         textViewAutorFilme.setText(movie.getNomeAutor());
         textViewClassificacao.setText(String.valueOf(movie.getClassificacao_filme()));
         textViewAno.setText(String.valueOf(movie.getAno_filme()));

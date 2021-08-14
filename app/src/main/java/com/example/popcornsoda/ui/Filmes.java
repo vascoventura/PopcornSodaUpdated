@@ -58,16 +58,19 @@ public class Filmes extends AppCompatActivity implements LoaderManager.LoaderCal
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        //Lista Vertical
+        RecyclerView itensHorizontal = (RecyclerView) findViewById(R.id.lista_filmes_vertical);
+        adaptadorFilmes = new AdaptadorLVFilmes(this);
+        itensHorizontal.setAdapter(adaptadorFilmes);
+        itensHorizontal.setLayoutManager(new LinearLayoutManager(this));
 
-        //Conteudos da pagina
+
+        //Conteudos da pagina (Adicoes)
 
 
         sliderpager = findViewById(R.id.slider_pager);
         TabLayout indicator = findViewById(R.id.indicator);
         RecyclerView moviesRV = findViewById(R.id.Rv_movieList);
-
-        //Lista Vertical
-        RecyclerView itensHorizontal = findViewById(R.id.lista_filmes_vertical);
 
         //SLIDER
         itensSlider = new ArrayList<>();
@@ -99,12 +102,9 @@ public class Filmes extends AppCompatActivity implements LoaderManager.LoaderCal
         moviesRV.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
 
 
-        //Lista Vertical*/
+        */
 
 
-        adaptadorFilmes = new AdaptadorLVFilmes(this);
-        itensHorizontal.setAdapter(adaptadorFilmes);
-        itensHorizontal.setLayoutManager(new LinearLayoutManager(this));
 
     }
 
@@ -117,23 +117,24 @@ public class Filmes extends AppCompatActivity implements LoaderManager.LoaderCal
     private Menu menu;
 
     public void atualizaOpcoesMenu() {
-        Movie filme = adaptadorFilmes.getFilmeSelecionada();
-
-        boolean mostraAlterarEliminar = (filme != null);
-
-        menu.findItem(R.id.itemEditar).setVisible(mostraAlterarEliminar);
-        menu.findItem(R.id.itemEliminar).setVisible(mostraAlterarEliminar);
-        menu.findItem(R.id.itemDetalhe).setVisible(mostraAlterarEliminar);
-        menu.findItem(R.id.itemAdicionar).setVisible(false);
+        if(adaptadorFilmes.isSelecao()){
+            menu.findItem(R.id.itemEditar).setVisible(true);
+            menu.findItem(R.id.itemEliminar).setVisible(true);
+            menu.findItem(R.id.itemDetalhe).setVisible(true);
+            menu.findItem(R.id.itemAdicionar).setVisible(false);
+        }else{
+            menu.findItem(R.id.itemEditar).setVisible(false);
+            menu.findItem(R.id.itemEliminar).setVisible(false);
+            menu.findItem(R.id.itemDetalhe).setVisible(false);
+            menu.findItem(R.id.itemAdicionar).setVisible(true);
+        }
     }
 
     //Menu
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_tabelas, menu);
-
         this.menu = menu;
-
         return true;
     }
 
@@ -164,7 +165,7 @@ public class Filmes extends AppCompatActivity implements LoaderManager.LoaderCal
                 return true;
 
 
-                default:
+            default:
                 return super.onOptionsItemSelected(item);
         }
     }
@@ -214,18 +215,19 @@ public class Filmes extends AppCompatActivity implements LoaderManager.LoaderCal
     }*/
 
     class SliderTime extends TimerTask {
-            @Override
-            public void run() {
-                Filmes.this.runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        if (sliderpager.getCurrentItem() < itensSlider.size() - 1) {
-                            sliderpager.setCurrentItem(sliderpager.getCurrentItem() + 1);
-                        } else {
-                            sliderpager.setCurrentItem(0);
-                        }
+        @Override
+        public void run() {
+            Filmes.this.runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    if (sliderpager.getCurrentItem() < itensSlider.size() - 1) {
+                        sliderpager.setCurrentItem(sliderpager.getCurrentItem() + 1);
+                    } else {
+                        sliderpager.setCurrentItem(0);
                     }
-                });
-            }
+                }
+            });
         }
-        }
+    }
+
+}

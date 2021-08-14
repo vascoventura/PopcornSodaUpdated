@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
         btn3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getApplicationContext(), "Secção de Autores", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Secção de Realizadores", Toast.LENGTH_SHORT).show();
                 openAutores();
             }
         });

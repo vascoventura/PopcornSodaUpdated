@@ -13,16 +13,26 @@ public class BdTableFilmes implements BaseColumns {
     public static final String NOME_TABELA = "filmes";
 
     public static final String ALIAS_NOME_AUTOR = "nome_autor";
+    public static final String ALIAS_NOME_CATEGORIA = "nome_categoria";
 
     public static final String CAMPO_NOME = "nome_filme";
-    public static final String CAMPO_TIPO = "tipo_filme";
+    public static final String CAMPO_CATEGORIA = "categoria_filme";
     public static final String CAMPO_AUTOR = "autor_filme";
     public static final String CAMPO_CLASSIFICACAO = "classificacao_filme";
     public static final String CAMPO_ANO = "ano_filme";
     public static final String CAMPO_DESCRICAO = "descricao_filme";
+    public static final String CAMPO_CAPA = "capa_filme";
+    public static final String CAMPO_FUNDO = "fundo_filme";
+    public static final String CAMPO_FAVORITO = "favorito_filme";
+    public static final String CAMPO_VISTO = "visto_filme";
+    public static final String CAMPO_LINK = "descricao_filme";
+
+
+
+
     public static final String CAMPO_NOME_AUTOR = BdTableAutores.NOME_TABELA + "." + BdTableAutores.CAMPO_NOME + " AS " + ALIAS_NOME_AUTOR; // tabela de autores (só de leitura)
 
-    public static final String[] TODAS_COLUNAS = new String[] { NOME_TABELA + "." + _ID, CAMPO_NOME, CAMPO_TIPO, CAMPO_AUTOR, CAMPO_NOME_AUTOR, CAMPO_CLASSIFICACAO, CAMPO_ANO, CAMPO_DESCRICAO };
+    public static final String[] TODAS_COLUNAS = new String[] { NOME_TABELA + "." + _ID, CAMPO_NOME, CAMPO_CATEGORIA, CAMPO_AUTOR, CAMPO_NOME_AUTOR, CAMPO_CLASSIFICACAO, CAMPO_ANO, CAMPO_DESCRICAO };
 
 
     private SQLiteDatabase db;
@@ -36,7 +46,7 @@ public class BdTableFilmes implements BaseColumns {
                 "CREATE TABLE " + NOME_TABELA + "(" +
                         _ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
                             CAMPO_NOME + " TEXT NOT NULL," +
-                            CAMPO_TIPO + " TEXT NOT NULL," +
+                            CAMPO_CATEGORIA + " TEXT NOT NULL," +
                             CAMPO_AUTOR + " TEXT NOT NULL," +
                             CAMPO_CLASSIFICACAO + " DOUBLE NOT NULL," +
                             CAMPO_ANO + " INTEGER NOT NULL," +

@@ -11,8 +11,6 @@ public class Movie {
 
     private long id_filme;
     private String nome_filme;
-    private String tipo_filme;
-    private long autor_filme;
     private double classificacao_filme;
     private int ano_filme;
     private String descricao_filme;
@@ -21,12 +19,15 @@ public class Movie {
     private boolean favorito_filme;
     private boolean visto_filme;
     private String link_trailer_filme;
+
+    private long categoria_filme;
+    private String nomeCategoria;
+    private long autor_filme;
     private String nomeAutor;
 
 
 
     //construtores
-
 
     public Movie(long id, String nome_filme, double classificacao_filme, int foto_capa_filme, boolean favorito_filme) {
         this.id_filme = id;
@@ -94,12 +95,20 @@ public class Movie {
         this.nome_filme = nome_filme;
     }
 
-    public String getTipo_filme() {
-        return tipo_filme;
+    public long getCategoria_filme() {
+        return categoria_filme;
     }
 
-    public void setTipo_filme(String tipo_filme) {
-        this.tipo_filme = tipo_filme;
+    public void setCategoria_filme(long categoria_filme) {
+        this.categoria_filme = categoria_filme;
+    }
+
+    public String getNomeCategoria() {
+        return nomeCategoria;
+    }
+
+    public void setNomeCategoria(String nomeCategoria) {
+        this.nomeCategoria = nomeCategoria;
     }
 
     public long getAutor_filme() {
@@ -180,7 +189,7 @@ public class Movie {
         ContentValues valores = new ContentValues();
 
         valores.put(BdTableFilmes.CAMPO_NOME, nome_filme);
-        valores.put(BdTableFilmes.CAMPO_TIPO, tipo_filme);
+        valores.put(BdTableFilmes.CAMPO_CATEGORIA, categoria_filme);
         valores.put(BdTableFilmes.CAMPO_AUTOR, autor_filme);
         valores.put(BdTableFilmes.CAMPO_CLASSIFICACAO, classificacao_filme);
         valores.put(BdTableFilmes.CAMPO_ANO, ano_filme);
@@ -199,8 +208,8 @@ public class Movie {
                 cursor.getColumnIndex(BdTableFilmes.CAMPO_NOME)
         );
 
-        String tipo = cursor.getString(
-                cursor.getColumnIndex(BdTableFilmes.CAMPO_TIPO)
+        long categoria = cursor.getLong(
+                cursor.getColumnIndex(BdTableFilmes.CAMPO_CATEGORIA)
         );
 
         long autor = cursor.getLong(
@@ -227,7 +236,7 @@ public class Movie {
 
         movie.setId_filme(id);
         movie.setNome_filme(nome);
-        movie.setTipo_filme(tipo);
+        movie.setCategoria_filme(categoria);
         movie.setAutor_filme(autor);
         movie.setClassificacao_filme(classificacao);
         movie.setAno_filme(ano);
