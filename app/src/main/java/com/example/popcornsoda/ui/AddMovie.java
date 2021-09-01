@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.SimpleCursorAdapter;
 import android.widget.Spinner;
+import android.widget.Switch;
 import android.widget.Toast;
 import com.example.popcornsoda.BdPopcorn.BdTableAutores;
 import com.example.popcornsoda.BdPopcorn.BdTableCategorias;
@@ -23,6 +24,7 @@ import com.google.android.material.snackbar.Snackbar;
 public class AddMovie extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor>  {
 
     private static final int ID_CURSO_LOADER_AUTORES = 0;
+    private static final int ID_CURSO_LOADER_CATEGORIAS = 0;
 
     private EditText editTextNomeFilme;
     private EditText editTextClassificacaoFilme;
@@ -31,6 +33,9 @@ public class AddMovie extends AppCompatActivity implements LoaderManager.LoaderC
     private Spinner spinnerAutor;
     private Spinner spinnerCategoria;
     private EditText editTextLinkFilme;
+    private Switch switchFavoritoFilme;
+    private Switch switchVistoFilme;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,13 +53,21 @@ public class AddMovie extends AppCompatActivity implements LoaderManager.LoaderC
         spinnerAutor = findViewById(R.id.spinnerCategorias_series_inserir);
         spinnerCategoria = findViewById(R.id.spinnerCategorias);
 
+        switchFavoritoFilme = findViewById(R.id.botao_favorito_add_filme);
+        switchVistoFilme = findViewById(R.id.botao_visto_add_filme);
+
+
         getSupportLoaderManager().initLoader(ID_CURSO_LOADER_AUTORES, null, this);
+        getSupportLoaderManager().initLoader(ID_CURSO_LOADER_CATEGORIAS, null, this);
+
+
     }
 
 
     @Override
     protected void onResume() {
         getSupportLoaderManager().restartLoader(ID_CURSO_LOADER_AUTORES, null, this);
+        getSupportLoaderManager().restartLoader(ID_CURSO_LOADER_CATEGORIAS, null, this);
 
         super.onResume();
     }
@@ -78,7 +91,7 @@ public class AddMovie extends AppCompatActivity implements LoaderManager.LoaderC
                 new String[]{BdTableCategorias.CAMPO_NOME},
                 new int[]{android.R.id.text1}
         );
-        spinnerAutor.setAdapter(adaptadorCategorias);
+        spinnerCategoria.setAdapter(adaptadorCategorias);
     }
 
     @Override
@@ -168,6 +181,14 @@ public class AddMovie extends AppCompatActivity implements LoaderManager.LoaderC
         long idAutor = spinnerAutor.getSelectedItemId();
         long idCategoria = spinnerCategoria.getSelectedItemId();
 
+
+        boolean favorito;
+        boolean visto;
+
+        System.out.println(switchFavoritoFilme.getText());
+        System.out.println(switchVistoFilme.getText());
+
+
         // guardar os dados
         Movie filme = new Movie();
 
@@ -185,13 +206,12 @@ public class AddMovie extends AppCompatActivity implements LoaderManager.LoaderC
 
         try {
             getContentResolver().insert(ContentProviderPopcorn.ENDERECO_FILMES, filme.getContentValues());
-
-            Toast.makeText(this, "Filme guardado com sucesso", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Filme Guardado Com Sucesso", Toast.LENGTH_SHORT).show();
             finish();
         } catch (Exception e) {
             Snackbar.make(
                     editTextNomeFilme,
-                    "Erro: Não foi possível criar o filme",
+                    "Erro: Filme Não Guardado",
                     Snackbar.LENGTH_LONG)
                     .show();
 
@@ -203,10 +223,11 @@ public class AddMovie extends AppCompatActivity implements LoaderManager.LoaderC
     @NonNull
     @Override
     public Loader<Cursor> onCreateLoader(int id, @Nullable Bundle args) {
-        androidx.loader.content.CursorLoader cursorLoader = new androidx.loader.content.CursorLoader(this, ContentProviderPopcorn.ENDERECO_AUTORES, BdTableAutores.TODAS_COLUNAS, null, null, BdTableAutores.CAMPO_NOME
-        );
-        //androidx.loader.content.CursorLoader cursorLoader1 = new androidx.loader.content.CursorLoader(this, ContentProviderPopcorn.ENDERECO_CATEGORIAS, BdTableCategorias.TODAS_COLUNAS, null, null, BdTableCategorias.CAMPO_NOME);
 
+        androidx.loader.content.CursorLoader cursorLoader = new androidx.loader.content.CursorLoader(this, ContentProviderPopcorn.ENDERECO_AUTORES, BdTableAutores.TODAS_COLUNAS, null, null, BdTableAutores.CAMPO_NOME
+
+        //androidx.loader.content.CursorLoader cursorLoader = new androidx.loader.content.CursorLoader(this, ContentProviderPopcorn.ENDERECO_CATEGORIAS, BdTableCategorias.TODAS_COLUNAS, null, null, BdTableCategorias.CAMPO_NOME
+        );
 
         return cursorLoader;
 
