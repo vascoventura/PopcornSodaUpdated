@@ -13,26 +13,36 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-
+        <activity
+            android:name=".ui.AddCategory"
+            android:exported="true" />
         <activity
             android:name=".ui.DetailActivtySerie"
             android:parentActivityName=".ui.Series" />
-        <activity android:name=".ui.ApagarSerie"
-            android:parentActivityName=".ui.Series"/>
-        <activity android:name=".ui.ApagarAutor"
-            android:parentActivityName=".ui.Autores"/>
-        <activity android:name=".ui.ApagarMovie"
-            android:parentActivityName=".ui.Filmes"/>
-        <activity android:name=".ui.AlterarSerie"
-            android:parentActivityName=".ui.Series"/>
-        <activity android:name=".ui.AlterarAutor"
-            android:parentActivityName=".ui.Autores"/>
-        <activity android:name=".ui.AlterarMovie"
-            android:parentActivityName=".ui.Filmes"/>
-        <activity android:name=".ui.AddSerie"
-            android:parentActivityName=".ui.Series"/>
-        <activity android:name=".ui.AddMovie"
-            android:parentActivityName=".ui.Filmes"/>
+        <activity
+            android:name=".ui.ApagarSerie"
+            android:parentActivityName=".ui.Series" />
+        <activity
+            android:name=".ui.ApagarAutor"
+            android:parentActivityName=".ui.Autores" />
+        <activity
+            android:name=".ui.ApagarMovie"
+            android:parentActivityName=".ui.Filmes" />
+        <activity
+            android:name=".ui.AlterarSerie"
+            android:parentActivityName=".ui.Series" />
+        <activity
+            android:name=".ui.AlterarAutor"
+            android:parentActivityName=".ui.Autores" />
+        <activity
+            android:name=".ui.AlterarMovie"
+            android:parentActivityName=".ui.Filmes" />
+        <activity
+            android:name=".ui.AddSerie"
+            android:parentActivityName=".ui.Series" />
+        <activity
+            android:name=".ui.AddMovie"
+            android:parentActivityName=".ui.Filmes" />
         <activity
             android:name=".ui.Autores"
             android:label="Autores"

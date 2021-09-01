@@ -12,6 +12,22 @@ public class Autor {
     private int ano_nascimento;
     private String nacionalidade;
 
+    //Construtores
+
+    public Autor(){
+
+    }
+
+
+    public Autor(long id, String nome_autor, int ano_nascimento, String nacionalidade) {
+        this.id = id;
+        this.nome_autor = nome_autor;
+        this.ano_nascimento = ano_nascimento;
+        this.nacionalidade = nacionalidade;
+    }
+
+    //Getters e Setters
+
 
     public long getId(){
         return id;
@@ -44,6 +60,9 @@ public class Autor {
     public void setNacionalidade(String nacionalidade) {
         this.nacionalidade = nacionalidade;
     }
+
+
+    //Content Values
 
     public ContentValues getContentValues(){
         ContentValues valores = new ContentValues();

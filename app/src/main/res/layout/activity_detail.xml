@@ -24,7 +24,7 @@
 
 
         <ImageView
-            android:id="@+id/imageView4"
+            android:id="@+id/imageViewFundo"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:background="#00C08A8A"
@@ -50,7 +50,7 @@
             app:layout_constraintStart_toEndOf="@+id/botao_visto" />
 
         <ImageView
-            android:id="@+id/detailMovie_img"
+            android:id="@+id/imageViewCapa"
             android:layout_width="137dp"
             android:layout_height="188dp"
             android:layout_marginStart="16dp"
@@ -76,7 +76,7 @@
             android:textColor="@android:color/white"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/detailMovie_img"
+            app:layout_constraintStart_toEndOf="@+id/imageViewCapa"
             app:layout_constraintTop_toBottomOf="@+id/detail_movie_cover" />
 
         <TextView
@@ -91,17 +91,20 @@
             android:text="TextView"
             android:textColor="@android:color/white"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/detailMovie_img"
+            app:layout_constraintStart_toEndOf="@+id/imageViewCapa"
             app:layout_constraintTop_toBottomOf="@+id/detail_movie_nome" />
 
         <ImageView
             android:id="@+id/imageView_movie_classificacao"
-            android:layout_width="49dp"
-            android:layout_height="60dp"
+            android:layout_width="76dp"
+            android:layout_height="83dp"
             android:layout_marginTop="8dp"
-            app:layout_constraintBottom_toBottomOf="@+id/detailMovie_img"
-            app:layout_constraintEnd_toEndOf="@+id/detailMovie_img"
-            app:layout_constraintTop_toBottomOf="@+id/detailMovie_img"
+            android:layout_marginEnd="-7dp"
+            android:layout_marginRight="-7dp"
+            app:layout_constraintBottom_toBottomOf="@+id/imageViewCapa"
+            app:layout_constraintEnd_toEndOf="@+id/imageViewCapa"
+            app:layout_constraintTop_toBottomOf="@+id/imageViewCapa"
+            app:layout_constraintVertical_bias="0.615"
             app:srcCompat="@android:drawable/btn_star_big_on" />
 
         <TextView
@@ -126,11 +129,10 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginLeft="16dp"
-            android:layout_marginTop="16dp"
             android:text="TextView"
             android:textColor="@android:color/white"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/detailMovie_img" />
+            app:layout_constraintTop_toBottomOf="@+id/imageView_movie_classificacao" />
 
         <TextView
             android:id="@+id/detail_movie_ano"
@@ -167,14 +169,14 @@
             android:id="@+id/botao_favorito"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginLeft="16dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginLeft="24dp"
             android:layout_marginBottom="16dp"
             android:focusable="true"
             android:src="@drawable/ic_favorite_black_24dp"
             app:backgroundTint="#F1B814"
             app:layout_constraintBottom_toTopOf="@+id/detail_movie_nome"
-            app:layout_constraintStart_toEndOf="@+id/detailMovie_img"
+            app:layout_constraintStart_toEndOf="@+id/imageViewCapa"
             tools:ignore="VectorDrawableCompat" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton

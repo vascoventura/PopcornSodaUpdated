@@ -96,7 +96,7 @@ public class DetailActivtySerie extends AppCompatActivity {
         Serie serie = Serie.fromCursor(cursor);
 
         textViewNomeSerie.setText(serie.getNome_serie());
-        textViewTipoSerie.setText(serie.getTipo_serie());
+        textViewTipoSerie.setText(serie.getNomeCategoria());
         textViewAutorSerie.setText(serie.getNomeAutor());
         textViewClassificacaoSerie.setText(String.valueOf(serie.getClassificacao_serie()));
         textViewAnoSerie.setText(String.valueOf(serie.getAno_serie()));

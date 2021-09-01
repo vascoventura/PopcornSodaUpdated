@@ -60,7 +60,6 @@ public class ApagarSerie extends AppCompatActivity {
 
 
         textViewNome.setText(serie.getNome_serie());
-        textViewTipo.setText(serie.getTipo_serie());
         textViewAutorSerie.setText(serie.getNomeAutor());
         textViewClassificacao.setText(String.valueOf(serie.getClassificacao_serie()));
         textViewAno.setText(String.valueOf(serie.getAno_serie()));

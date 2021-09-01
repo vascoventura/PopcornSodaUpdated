@@ -38,8 +38,8 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MyViewHolder
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder myViewHolder, int i) {
 
-        myViewHolder.TVtitle.setText(mData.get(i).getNome_filme());
-        myViewHolder.ImgMovie.setImageResource(mData.get(i).getFoto_capa_filme());
+        //myViewHolder.TVtitle.setText(mData.get(i).getNome_filme());
+        //myViewHolder.ImgMovie.setImageResource(mData.get(i).getFoto_capa_filme());
 
     }
 

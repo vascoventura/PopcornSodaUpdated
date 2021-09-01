@@ -3,10 +3,13 @@ package com.example.popcornsoda.ui;
 
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.view.animation.AnimationUtils;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -39,9 +42,12 @@ public class DetailActivityMovie extends AppCompatActivity {
         TextView textViewClassificacao = findViewById(R.id.detail_movie_classificacao);
         TextView textViewAno = findViewById(R.id.detail_movie_ano);
         TextView textViewDescricao = findViewById(R.id.detail_movie_descricao);
+        ImageView imageViewCapa = findViewById(R.id.imageViewCapa);
+        ImageView imageViewFundo = findViewById(R.id.imageViewFundo);
         FloatingActionButton favorito = findViewById(R.id.botao_favorito);
         FloatingActionButton visto = findViewById(R.id.botao_visto);
         FloatingActionButton trailer = findViewById(R.id.detail_movie_trailer);
+
 
         textViewNome.setAnimation(AnimationUtils.loadAnimation(this, R.anim.scale_animation));
         textViewTipo.setAnimation(AnimationUtils.loadAnimation(this, R.anim.scale_animation));
@@ -55,7 +61,7 @@ public class DetailActivityMovie extends AppCompatActivity {
 
 
 
-        //Botoes
+        //Botoes + queries
 
         favorito.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -99,6 +105,17 @@ public class DetailActivityMovie extends AppCompatActivity {
         textViewClassificacao.setText(String.valueOf(movie.getClassificacao_filme()));
         textViewAno.setText(String.valueOf(movie.getAno_filme()));
         textViewDescricao.setText(movie.getDescricao_filme());
+
+
+        //Conversoes de imagens
+
+        Bitmap bmp = BitmapFactory.decodeByteArray(movie.getFoto_capa_filme(), 0, movie.getFoto_capa_filme().length);
+        imageViewCapa.setImageBitmap(Bitmap.createScaledBitmap(bmp, imageViewCapa.getWidth(), imageViewCapa.getHeight(), false));
+
+        bmp = BitmapFactory.decodeByteArray(movie.getFoto_fundo_filme(), 0, movie.getFoto_fundo_filme().length);
+        imageViewFundo.setImageBitmap(Bitmap.createScaledBitmap(bmp, imageViewCapa.getWidth(), imageViewCapa.getHeight(), false));
+
+
 
         getSupportActionBar().setTitle(movie.getNome_filme());
 

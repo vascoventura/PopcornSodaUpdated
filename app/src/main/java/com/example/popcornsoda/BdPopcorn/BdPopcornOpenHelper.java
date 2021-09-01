@@ -26,10 +26,12 @@ public class BdPopcornOpenHelper extends SQLiteOpenHelper {
         new BdTableAutores(db).cria();
         new BdTableFilmes(db).cria();
         new BdTableSeries(db).cria();
+        new BdTableCategorias(db).cria();
 
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
     }
+
 }

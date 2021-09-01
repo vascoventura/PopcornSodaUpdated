@@ -21,17 +21,15 @@ import com.example.popcornsoda.BdPopcorn.BdTableAutores;
 import com.example.popcornsoda.BdPopcorn.BdTableSeries;
 import com.example.popcornsoda.BdPopcorn.ContentProviderPopcorn;
 import com.example.popcornsoda.R;
-import com.example.popcornsoda.models.Autor;
-import com.example.popcornsoda.models.Movie;
 import com.example.popcornsoda.models.Serie;
 import com.google.android.material.snackbar.Snackbar;
 
 public class AlterarSerie extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
     private static final int ID_CURSO_LOADER_AUTORES = 0;
 
-    private EditText editTextNomeSerie;
+    private EditText editTextNomeSerie, editTextLink;
     private EditText editTextTipoSerie;
-    private Spinner spinnerAutores;
+    private Spinner spinnerAutores, spinnerCategorias;
     private EditText editTextClassificacaoSerie;
     private EditText editTextAnoSerie;
     private EditText editTextTemporadas;
@@ -52,7 +50,7 @@ public class AlterarSerie extends AppCompatActivity implements LoaderManager.Loa
 
         editTextNomeSerie = (EditText) findViewById(R.id.editText_nome_serie_alterar);
         editTextTipoSerie = (EditText) findViewById(R.id.editText_tipo_serie_alterar);
-        spinnerAutores = (Spinner) findViewById(R.id.spinnerAutores);
+        spinnerAutores = (Spinner) findViewById(R.id.spinnerCategorias_series_inserir);
         editTextClassificacaoSerie = (EditText) findViewById(R.id.editText_classificacao_serie_alterar);
         editTextAnoSerie = (EditText) findViewById(R.id.editText_ano_serie_alterar);
         editTextTemporadas = (EditText) findViewById(R.id.editText_temporadas_serie_alterar);
@@ -83,7 +81,6 @@ public class AlterarSerie extends AppCompatActivity implements LoaderManager.Loa
         serie = serie.fromCursor(cursor);
 
         editTextNomeSerie.setText(serie.getNome_serie());
-        editTextTipoSerie.setText(serie.getTipo_serie());
         editTextClassificacaoSerie.setText(String.valueOf(serie.getClassificacao_serie()));
         editTextAnoSerie.setText(String.valueOf(serie.getAno_serie()));
         editTextTemporadas.setText(String.valueOf(serie.getTemporadas()));
@@ -225,16 +222,28 @@ public class AlterarSerie extends AppCompatActivity implements LoaderManager.Loa
         }
 
         long idAutor = spinnerAutores.getSelectedItemId();
+        long idCategoria = spinnerCategorias.getSelectedItemId();
+
+        String link = editTextLink.getText().toString();
+
+        if (link.trim().isEmpty()) {
+            editTextLink.setError("O campo não pode estar vazio!");
+            return;
+        }
 
         // guardar os dados
 
         serie.setNome_serie(nome);
-        serie.setTipo_serie(tipo);
         serie.setAutor_serie(idAutor);
         serie.setClassificacao_serie(classificacao);
         serie.setAno_serie(ano);
         serie.setTemporadas(temporada);
         serie.setDescricao_serie(descricao);
+        serie.setFoto_capa_serie(null);
+        serie.setFoto_fundo_serie(null);
+        serie.setFavorito_serie(false);
+        serie.setVisto_serie(false);
+        serie.setLink_trailer_serie(link);
 
 
         try {

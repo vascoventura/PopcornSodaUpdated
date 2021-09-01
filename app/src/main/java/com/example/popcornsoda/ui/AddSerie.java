@@ -14,6 +14,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.loader.app.LoaderManager;
 import androidx.loader.content.Loader;
 import com.example.popcornsoda.BdPopcorn.BdTableAutores;
+import com.example.popcornsoda.BdPopcorn.BdTableCategorias;
+import com.example.popcornsoda.BdPopcorn.BdTableFilmes;
 import com.example.popcornsoda.BdPopcorn.ContentProviderPopcorn;
 import com.example.popcornsoda.R;
 import com.example.popcornsoda.models.Serie;
@@ -22,10 +24,11 @@ import com.google.android.material.snackbar.Snackbar;
 public class AddSerie extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
 
     private static final int ID_CURSO_LOADER_AUTORES = 0;
+    private static final int ID_CURSO_LOADER_CATEGORIAS = 0;
 
 
-    EditText editTextNomeSerie, editTextTipoSerie, editTextClassificacaoSerie, editTextAnoSerie, editTextDescricaoSerie, editTextTemporadas;
-    Spinner spinnerAutor;
+    EditText editTextNomeSerie, editTextLinkSerie, editTextTipoSerie, editTextClassificacaoSerie, editTextAnoSerie, editTextDescricaoSerie, editTextTemporadas;
+    Spinner spinnerAutor, spinnerCategoria;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,11 +41,13 @@ public class AddSerie extends AppCompatActivity implements LoaderManager.LoaderC
 
         editTextNomeSerie = findViewById(R.id.editText_nome_serie_inserir);
         editTextTipoSerie = (EditText)findViewById(R.id.editText_tipo_serie_inserir);
-        spinnerAutor = (Spinner) findViewById(R.id.spinnerAutores);
+        spinnerAutor = (Spinner) findViewById(R.id.spinnerCategorias_series_inserir);
+        spinnerCategoria = (Spinner) findViewById(R.id.spinnerCategorias_series_inserir);
         editTextClassificacaoSerie = (EditText)findViewById(R.id.editText_classificacao_serie_inserir);
         editTextAnoSerie = (EditText)findViewById(R.id.editText_ano_serie_inserir);
         editTextTemporadas = (EditText) findViewById(R.id.editText_temporadas_serie_inserir);
         editTextDescricaoSerie = (EditText)findViewById(R.id.editText_descricao_serie_inserir);
+        editTextLinkSerie = (EditText)findViewById(R.id.editTextLink_ser_inserir);
 
         getSupportLoaderManager().initLoader(ID_CURSO_LOADER_AUTORES, null, this);
 
@@ -51,6 +56,7 @@ public class AddSerie extends AppCompatActivity implements LoaderManager.LoaderC
     @Override
     protected void onResume() {
         getSupportLoaderManager().restartLoader(ID_CURSO_LOADER_AUTORES, null, this);
+        getSupportLoaderManager().restartLoader(ID_CURSO_LOADER_CATEGORIAS, null, this);
 
         super.onResume();
     }
@@ -64,6 +70,17 @@ public class AddSerie extends AppCompatActivity implements LoaderManager.LoaderC
                 new int[]{android.R.id.text1}
         );
         spinnerAutor.setAdapter(adaptadorAutores);
+    }
+
+    private void mostraCategoriasSpinner(Cursor cursorCategorias) {
+        SimpleCursorAdapter adaptadorCategorias = new SimpleCursorAdapter(
+                this,
+                android.R.layout.simple_list_item_1,
+                cursorCategorias,
+                new String[]{BdTableCategorias.CAMPO_NOME},
+                new int[]{android.R.id.text1}
+        );
+        spinnerCategoria.setAdapter(adaptadorCategorias);
     }
 
     @Override
@@ -100,14 +117,6 @@ public class AddSerie extends AppCompatActivity implements LoaderManager.LoaderC
             editTextNomeSerie.setError("O campo não pode estar vazio!");
             return;
         }
-
-        String tipo = editTextTipoSerie.getText().toString();
-
-        if (tipo.trim().isEmpty()) {
-            editTextTipoSerie.setError("O campo não pode estar vazio!");
-            return;
-        }
-
 
         double classificacao;
 
@@ -160,24 +169,36 @@ public class AddSerie extends AppCompatActivity implements LoaderManager.LoaderC
 
         String descricao = editTextDescricaoSerie.getText().toString();
 
-        if (tipo.trim().isEmpty()) {
+        if (descricao.trim().isEmpty()) {
             editTextDescricaoSerie.setError("O campo não pode estar vazio!");
             return;
         }
 
         long idAutor = spinnerAutor.getSelectedItemId();
+        long idCategoria = spinnerCategoria.getSelectedItemId();
+
+        String link = editTextLinkSerie.getText().toString();
+
+        if (link.trim().isEmpty()) {
+            editTextLinkSerie.setError("O campo não pode estar vazio!");
+            return;
+        }
 
         // guardar os dados
         Serie serie = new Serie();
 
         serie.setNome_serie(nome);
-        serie.setTipo_serie(tipo);
+        serie.setCategoria_serie(idCategoria);
         serie.setAutor_serie(idAutor);
         serie.setClassificacao_serie(classificacao);
         serie.setAno_serie(ano);
         serie.setTemporadas(temporada);
         serie.setDescricao_serie(descricao);
-
+        serie.setFoto_capa_serie(null);
+        serie.setFoto_fundo_serie(null);
+        serie.setFavorito_serie(false);
+        serie.setVisto_serie(false);
+        serie.setLink_trailer_serie(link);
 
         try {
             getContentResolver().insert(ContentProviderPopcorn.ENDERECO_SERIES, serie.getContentValues());
@@ -200,7 +221,6 @@ public class AddSerie extends AppCompatActivity implements LoaderManager.LoaderC
     public Loader<Cursor> onCreateLoader(int id, @Nullable Bundle args) {
         androidx.loader.content.CursorLoader cursorLoader = new androidx.loader.content.CursorLoader(this, ContentProviderPopcorn.ENDERECO_AUTORES, BdTableAutores.TODAS_COLUNAS, null, null, BdTableAutores.CAMPO_NOME
         );
-
         return cursorLoader;
     }
 
@@ -208,12 +228,15 @@ public class AddSerie extends AppCompatActivity implements LoaderManager.LoaderC
     @Override
     public void onLoadFinished(@NonNull Loader<Cursor> loader, Cursor data) {
         mostraAutoresSpinner(data);
+        mostraCategoriasSpinner(data);
     }
 
 
     @Override
     public void onLoaderReset(@NonNull Loader<Cursor> loader) {
+
         mostraAutoresSpinner(null);
+        mostraCategoriasSpinner(null);
     }
 
 }

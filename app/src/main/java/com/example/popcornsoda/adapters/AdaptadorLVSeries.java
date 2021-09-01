@@ -105,7 +105,7 @@ public class AdaptadorLVSeries extends RecyclerView.Adapter<AdaptadorLVSeries.Vi
             this.serie = serie;
 
             textViewNome.setText(serie.getNome_serie());
-            textViewTipo.setText(String.valueOf(serie.getTipo_serie()));
+            textViewTipo.setText(serie.getNomeCategoria());
             textViewAutor.setText(serie.getNomeAutor());
             textViewAno.setText(String.valueOf(serie.getAno_serie()));
             textViewTemporadas.setText(String.valueOf(serie.getTemporadas()));

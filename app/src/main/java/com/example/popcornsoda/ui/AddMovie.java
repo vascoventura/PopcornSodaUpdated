@@ -14,6 +14,7 @@ import android.widget.SimpleCursorAdapter;
 import android.widget.Spinner;
 import android.widget.Toast;
 import com.example.popcornsoda.BdPopcorn.BdTableAutores;
+import com.example.popcornsoda.BdPopcorn.BdTableCategorias;
 import com.example.popcornsoda.BdPopcorn.ContentProviderPopcorn;
 import com.example.popcornsoda.R;
 import com.example.popcornsoda.models.Movie;
@@ -24,11 +25,12 @@ public class AddMovie extends AppCompatActivity implements LoaderManager.LoaderC
     private static final int ID_CURSO_LOADER_AUTORES = 0;
 
     private EditText editTextNomeFilme;
-    private EditText editTextTipoFilme;
     private EditText editTextClassificacaoFilme;
     private EditText editTextAnoFilme;
     private EditText editTextDescricaoFilme;
     private Spinner spinnerAutor;
+    private Spinner spinnerCategoria;
+    private EditText editTextLinkFilme;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,11 +40,13 @@ public class AddMovie extends AppCompatActivity implements LoaderManager.LoaderC
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         editTextNomeFilme = findViewById(R.id.editText_nome_filme_inserir);
-        editTextTipoFilme = findViewById(R.id.editText_tipo_filme_inserir);
-        spinnerAutor = findViewById(R.id.spinnerAutores);
         editTextClassificacaoFilme = findViewById(R.id.editText_classificacao_filme_inserir);
         editTextAnoFilme = findViewById(R.id.editText_ano_filme_inserir);
         editTextDescricaoFilme = findViewById(R.id.editText_descricao_filme_inserir);
+        editTextLinkFilme = findViewById(R.id.editTextLink_inserir);
+
+        spinnerAutor = findViewById(R.id.spinnerCategorias_series_inserir);
+        spinnerCategoria = findViewById(R.id.spinnerCategorias);
 
         getSupportLoaderManager().initLoader(ID_CURSO_LOADER_AUTORES, null, this);
     }
@@ -64,6 +68,17 @@ public class AddMovie extends AppCompatActivity implements LoaderManager.LoaderC
                 new int[]{android.R.id.text1}
         );
         spinnerAutor.setAdapter(adaptadorAutores);
+    }
+
+    private void mostraCategoriasSpinner(Cursor cursorCategorias) {
+        SimpleCursorAdapter adaptadorCategorias = new SimpleCursorAdapter(
+                this,
+                android.R.layout.simple_list_item_1,
+                cursorCategorias,
+                new String[]{BdTableCategorias.CAMPO_NOME},
+                new int[]{android.R.id.text1}
+        );
+        spinnerAutor.setAdapter(adaptadorCategorias);
     }
 
     @Override
@@ -101,15 +116,7 @@ public class AddMovie extends AppCompatActivity implements LoaderManager.LoaderC
             return;
         }
 
-        String tipo = editTextTipoFilme.getText().toString();
 
-        if (tipo.trim().isEmpty()) {
-            editTextTipoFilme.setError("O campo não pode estar vazio!");
-            return;
-        }
-
-
-        double classificacao;
 
         String strClassificacao = editTextClassificacaoFilme.getText().toString();
 
@@ -118,6 +125,7 @@ public class AddMovie extends AppCompatActivity implements LoaderManager.LoaderC
             return;
         }
 
+        double classificacao;
         try {
             classificacao = Double.parseDouble(strClassificacao);
         } catch (NumberFormatException e) {
@@ -145,23 +153,35 @@ public class AddMovie extends AppCompatActivity implements LoaderManager.LoaderC
 
         String descricao = editTextDescricaoFilme.getText().toString();
 
-        if (tipo.trim().isEmpty()) {
+        if (descricao.trim().isEmpty()) {
             editTextDescricaoFilme.setError("O campo não pode estar vazio!");
             return;
         }
 
+        String link = editTextLinkFilme.getText().toString();
+
+        if (link.trim().isEmpty()) {
+            editTextLinkFilme.setError("O campo não pode estar vazio!");
+            return;
+        }
+
         long idAutor = spinnerAutor.getSelectedItemId();
+        long idCategoria = spinnerCategoria.getSelectedItemId();
 
         // guardar os dados
         Movie filme = new Movie();
 
         filme.setNome_filme(nome);
-        filme.setTipo_filme(tipo);
+        filme.setCategoria_filme(idCategoria);
         filme.setAutor_filme(idAutor);
-        filme.setAno_filme(ano);
         filme.setClassificacao_filme(classificacao);
+        filme.setAno_filme(ano);
         filme.setDescricao_filme(descricao);
-
+        filme.setFoto_capa_filme(null);
+        filme.setFoto_fundo_filme(null);
+        filme.setFavorito_filme(false);
+        filme.setVisto_filme(false);
+        filme.setLink_trailer_filme(link);
 
         try {
             getContentResolver().insert(ContentProviderPopcorn.ENDERECO_FILMES, filme.getContentValues());
@@ -185,20 +205,27 @@ public class AddMovie extends AppCompatActivity implements LoaderManager.LoaderC
     public Loader<Cursor> onCreateLoader(int id, @Nullable Bundle args) {
         androidx.loader.content.CursorLoader cursorLoader = new androidx.loader.content.CursorLoader(this, ContentProviderPopcorn.ENDERECO_AUTORES, BdTableAutores.TODAS_COLUNAS, null, null, BdTableAutores.CAMPO_NOME
         );
+        //androidx.loader.content.CursorLoader cursorLoader1 = new androidx.loader.content.CursorLoader(this, ContentProviderPopcorn.ENDERECO_CATEGORIAS, BdTableCategorias.TODAS_COLUNAS, null, null, BdTableCategorias.CAMPO_NOME);
+
 
         return cursorLoader;
+
     }
+
+
 
 
     @Override
     public void onLoadFinished(@NonNull Loader<Cursor> loader, Cursor data) {
         mostraAutoresSpinner(data);
+        //mostraCategoriasSpinner(data);
     }
 
 
     @Override
     public void onLoaderReset(@NonNull Loader<Cursor> loader) {
         mostraAutoresSpinner(null);
+        mostraCategoriasSpinner(null);
     }
 
 }

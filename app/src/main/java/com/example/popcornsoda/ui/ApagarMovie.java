@@ -56,7 +56,6 @@ public class ApagarMovie extends AppCompatActivity {
         Movie movie = Movie.fromCursor(cursor);
 
         textViewNome.setText(movie.getNome_filme());
-        textViewTipo.setText(movie.getTipo_filme());
         textViewAutorFilme.setText(movie.getNomeAutor());
         textViewClassificacao.setText(String.valueOf(movie.getClassificacao_filme()));
         textViewAno.setText(String.valueOf(movie.getAno_filme()));

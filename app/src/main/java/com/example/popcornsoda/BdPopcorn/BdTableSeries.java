@@ -7,27 +7,44 @@ import android.provider.BaseColumns;
 import android.text.TextUtils;
 import android.util.Log;
 
-import com.example.popcornsoda.BdPopcorn.BdTableAutores;
-
 
 public class BdTableSeries implements BaseColumns {
+
+
+
+
+
+
+
+
+
+
+
+
     public static final String NOME_TABELA = "series";
 
+    public static final String ALIAS_NOME_AUTOR = "nome_autor";
+    public static final String ALIAS_NOME_CATEGORIA = "nome_categoria";
+
     public static final String CAMPO_NOME = "nome_serie";
-    public static final String CAMPO_TIPO = "tipo_serie";
+    public static final String CAMPO_CATEGORIA = "categoria_serie";
     public static final String CAMPO_AUTOR = "autor_serie";
     public static final String CAMPO_CLASSIFICACAO = "classificacao_serie";
     public static final String CAMPO_ANO = "ano_serie";
     public static final String CAMPO_TEMPORADAS = "temporadas_serie";
     public static final String CAMPO_DESCRICAO = "descricao_serie";
+    public static final String CAMPO_CAPA = "capa_serie";
+    public static final String CAMPO_FUNDO = "fundo_serie";
+    public static final String CAMPO_FAVORITO = "favorito_serie";
+    public static final String CAMPO_VISTO = "visto_serie";
+    public static final String CAMPO_LINK = "link_serie";
 
-    public static final String ALIAS_NOME_AUTOR = "nome_autor";
-    public static final String CAMPO_NOME_AUTOR = BdTableAutores.NOME_TABELA + "." + BdTableAutores.CAMPO_NOME + " AS " + ALIAS_NOME_AUTOR; // tabela de categorias (só de leitura)
-
-    public static final String[] TODAS_COLUNAS = new String[] { NOME_TABELA + "." + _ID, CAMPO_NOME, CAMPO_TIPO, CAMPO_AUTOR, CAMPO_NOME_AUTOR, CAMPO_CLASSIFICACAO, CAMPO_ANO, CAMPO_TEMPORADAS, CAMPO_DESCRICAO };
+    public static final String CAMPO_NOME_AUTOR = BdTableAutores.NOME_TABELA + "." + BdTableAutores.CAMPO_NOME + " AS " + ALIAS_NOME_AUTOR; // tabela de autores (só de leitura)
+    public static final String CAMPO_NOME_CATEGORIA = BdTableCategorias.NOME_TABELA + "." + BdTableCategorias.CAMPO_NOME + " AS " + ALIAS_NOME_CATEGORIA; // tabela de categorias (só de leitura)
 
 
-    private SQLiteDatabase db;
+    public static final String[] TODAS_COLUNAS = new String[] { NOME_TABELA + "." + _ID, CAMPO_NOME, CAMPO_CATEGORIA,CAMPO_NOME_CATEGORIA, CAMPO_AUTOR, CAMPO_NOME_AUTOR, CAMPO_CLASSIFICACAO, CAMPO_ANO, CAMPO_TEMPORADAS, CAMPO_DESCRICAO, CAMPO_CAPA, CAMPO_FUNDO, CAMPO_FAVORITO, CAMPO_VISTO, CAMPO_LINK };
+    private final SQLiteDatabase db;
 
     public BdTableSeries(SQLiteDatabase db) {
         this.db = db;
@@ -38,25 +55,33 @@ public class BdTableSeries implements BaseColumns {
                 "CREATE TABLE " + NOME_TABELA + "(" +
                         _ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
                         CAMPO_NOME + " TEXT NOT NULL," +
-                        CAMPO_TIPO + " TEXT NOT NULL," +
+                        CAMPO_CATEGORIA + " TEXT NOT NULL," +
                         CAMPO_AUTOR + " TEXT NOT NULL," +
                         CAMPO_CLASSIFICACAO + " DOUBLE NOT NULL," +
                         CAMPO_ANO + " INTEGER NOT NULL," +
                         CAMPO_TEMPORADAS + " INTEGER NOT NULL," +
                         CAMPO_DESCRICAO + " TEXT NOT NULL," +
-                        " FOREIGN KEY (" + CAMPO_AUTOR + ") REFERENCES " + BdTableAutores.NOME_TABELA + "(" + BdTableAutores._ID + ")" +
-
+                        CAMPO_CAPA + " BLOG," +
+                        CAMPO_FUNDO + " BLOG," +
+                        CAMPO_FAVORITO + " BOOLEAN," +
+                        CAMPO_VISTO + " BOOLEAN," +
+                        CAMPO_LINK + " TEXT NOT NULL," +
+                        "FOREIGN KEY (" + CAMPO_AUTOR + ") REFERENCES " + BdTableAutores.NOME_TABELA + "(" + BdTableAutores._ID + ")," +
+                        "FOREIGN KEY (" + CAMPO_CATEGORIA + ") REFERENCES " + BdTableCategorias.NOME_TABELA + "(" + BdTableCategorias._ID + ")" +
                         ")"
         );
     }
 
-    public Cursor query(String[] columns, String selection, String[] selectionArgs, String groupBy, String having, String orderBy) {
+    public Cursor query(String[] columns, String selection, String[] selectionArgs) {
 
         String colunasSelect = TextUtils.join(",", columns);
 
         String sql = "SELECT " + colunasSelect + " FROM " +
-                NOME_TABELA + " INNER JOIN " + BdTableAutores.NOME_TABELA + " WHERE " + NOME_TABELA + "." + CAMPO_AUTOR + " = " + BdTableAutores.NOME_TABELA + "." + BdTableAutores._ID
-                ;
+                NOME_TABELA +
+                "," + BdTableAutores.NOME_TABELA +
+                "," + BdTableCategorias.NOME_TABELA +
+                " WHERE " + NOME_TABELA + "." + CAMPO_AUTOR + " = " + BdTableAutores.NOME_TABELA + "." + BdTableAutores._ID +
+                " AND " + NOME_TABELA + "." + CAMPO_CATEGORIA + " = " + BdTableCategorias.NOME_TABELA + "." + BdTableCategorias._ID;
 
         if (selection != null) {
             sql += " AND " + selection;

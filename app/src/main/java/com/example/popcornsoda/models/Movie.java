@@ -2,6 +2,8 @@ package com.example.popcornsoda.models;
 
 import android.content.ContentValues;
 import android.database.Cursor;
+import android.widget.ImageView;
+
 import com.example.popcornsoda.BdPopcorn.BdTableFilmes;
 
 
@@ -10,12 +12,13 @@ public class Movie {
     //Variaveis
 
     private long id_filme;
+
     private String nome_filme;
     private double classificacao_filme;
     private int ano_filme;
     private String descricao_filme;
-    private int foto_capa_filme;
-    private int foto_fundo_filme;
+    private byte[] foto_capa_filme;
+    private byte[] foto_fundo_filme;
     private boolean favorito_filme;
     private boolean visto_filme;
     private String link_trailer_filme;
@@ -28,63 +31,34 @@ public class Movie {
 
 
     //construtores
-
-    public Movie(long id, String nome_filme, double classificacao_filme, int foto_capa_filme, boolean favorito_filme) {
-        this.id_filme = id;
-        this.nome_filme = nome_filme;
-        this.classificacao_filme = classificacao_filme;
-        this.foto_capa_filme = foto_capa_filme;
-        this.favorito_filme = favorito_filme;
-    }
-
-    public Movie(String nome_filme, int foto_capa_filme, int foto_fundo_filme, String descricao_filme) {
-        this.nome_filme = nome_filme;
-        this.foto_capa_filme = foto_capa_filme;
-        this.foto_fundo_filme = foto_fundo_filme;
-        this.descricao_filme = descricao_filme;
-    }
-
-    public Movie(String nome_filme, int foto_capa_filme, int foto_fundo_filme){
-        this.nome_filme = nome_filme;
-        this.foto_capa_filme = foto_capa_filme;
-        this.foto_fundo_filme = foto_fundo_filme;
-    }
-
-    public Movie(String nome_filme, long autor, int ano, double classificacao_filme) {
-        this.nome_filme = nome_filme;
-        this.autor_filme = autor;
-        this.ano_filme = ano;
-        this.classificacao_filme = classificacao_filme;
-
-    }
-
-
-    public Movie(String nome_filme, double classificacao_filme, int foto_capa_filme) {
-        this.nome_filme = nome_filme;
-        this.classificacao_filme = classificacao_filme;
-        this.foto_capa_filme = foto_capa_filme;
-    }
-
     public Movie() {
     }
 
-    //Setters e Getters
-
-
-    public String getNomeAutor() {
-        return nomeAutor;
-    }
-
-    public void setNomeAutor(String nomeAutor) {
+    public Movie(long id_filme, String nome_filme, double classificacao_filme, int ano_filme, String descricao_filme, byte[] foto_capa_filme, byte[] foto_fundo_filme, boolean favorito_filme, boolean visto_filme, String link_trailer_filme, long categoria_filme, String nomeCategoria, long autor_filme, String nomeAutor) {
+        this.id_filme = id_filme;
+        this.nome_filme = nome_filme;
+        this.classificacao_filme = classificacao_filme;
+        this.ano_filme = ano_filme;
+        this.descricao_filme = descricao_filme;
+        this.foto_capa_filme = foto_capa_filme;
+        this.foto_fundo_filme = foto_fundo_filme;
+        this.favorito_filme = favorito_filme;
+        this.visto_filme = visto_filme;
+        this.link_trailer_filme = link_trailer_filme;
+        this.categoria_filme = categoria_filme;
+        this.nomeCategoria = nomeCategoria;
+        this.autor_filme = autor_filme;
         this.nomeAutor = nomeAutor;
     }
+
+    //Setters e Getters
 
     public long getId_filme() {
         return id_filme;
     }
 
-    public void setId_filme(long id) {
-        this.id_filme = id;
+    public void setId_filme(long id_filme) {
+        this.id_filme = id_filme;
     }
 
     public String getNome_filme() {
@@ -93,30 +67,6 @@ public class Movie {
 
     public void setNome_filme(String nome_filme) {
         this.nome_filme = nome_filme;
-    }
-
-    public long getCategoria_filme() {
-        return categoria_filme;
-    }
-
-    public void setCategoria_filme(long categoria_filme) {
-        this.categoria_filme = categoria_filme;
-    }
-
-    public String getNomeCategoria() {
-        return nomeCategoria;
-    }
-
-    public void setNomeCategoria(String nomeCategoria) {
-        this.nomeCategoria = nomeCategoria;
-    }
-
-    public long getAutor_filme() {
-        return autor_filme;
-    }
-
-    public void setAutor_filme(long autor_filme) {
-        this.autor_filme = autor_filme;
     }
 
     public double getClassificacao_filme() {
@@ -143,19 +93,19 @@ public class Movie {
         this.descricao_filme = descricao_filme;
     }
 
-    public int getFoto_capa_filme() {
+    public byte[] getFoto_capa_filme() {
         return foto_capa_filme;
     }
 
-    public void setFoto_capa_filme(int foto_capa_filme) {
+    public void setFoto_capa_filme(byte[] foto_capa_filme) {
         this.foto_capa_filme = foto_capa_filme;
     }
 
-    public int getFoto_fundo_filme() {
+    public byte[] getFoto_fundo_filme() {
         return foto_fundo_filme;
     }
 
-    public void setFoto_fundo_filme(int foto_fundo_filme) {
+    public void setFoto_fundo_filme(byte[] foto_fundo_filme) {
         this.foto_fundo_filme = foto_fundo_filme;
     }
 
@@ -183,6 +133,39 @@ public class Movie {
         this.link_trailer_filme = link_trailer_filme;
     }
 
+    public long getCategoria_filme() {
+        return categoria_filme;
+    }
+
+    public void setCategoria_filme(long categoria_filme) {
+        this.categoria_filme = categoria_filme;
+    }
+
+    public String getNomeCategoria() {
+        return nomeCategoria;
+    }
+
+    public void setNomeCategoria(String nomeCategoria) {
+        this.nomeCategoria = nomeCategoria;
+    }
+
+    public long getAutor_filme() {
+        return autor_filme;
+    }
+
+    public void setAutor_filme(long autor_filme) {
+        this.autor_filme = autor_filme;
+    }
+
+    public String getNomeAutor() {
+        return nomeAutor;
+    }
+
+    public void setNomeAutor(String nomeAutor) {
+        this.nomeAutor = nomeAutor;
+    }
+
+
     //ContentValues
 
     public ContentValues getContentValues() {
@@ -194,6 +177,11 @@ public class Movie {
         valores.put(BdTableFilmes.CAMPO_CLASSIFICACAO, classificacao_filme);
         valores.put(BdTableFilmes.CAMPO_ANO, ano_filme);
         valores.put(BdTableFilmes.CAMPO_DESCRICAO, descricao_filme);
+        valores.put(BdTableFilmes.CAMPO_CAPA, foto_capa_filme);
+        valores.put(BdTableFilmes.CAMPO_FUNDO, foto_fundo_filme);
+        valores.put(BdTableFilmes.CAMPO_FAVORITO, favorito_filme);
+        valores.put(BdTableFilmes.CAMPO_VISTO, visto_filme);
+        valores.put(BdTableFilmes.CAMPO_LINK, link_trailer_filme);
 
 
         return valores;
@@ -227,21 +215,43 @@ public class Movie {
         String descricao = cursor.getString(
                 cursor.getColumnIndex(BdTableFilmes.CAMPO_DESCRICAO)
         );
+        byte[] foto_capa = cursor.getBlob(
+                cursor.getColumnIndex(BdTableFilmes.CAMPO_CAPA)
+        );
+
+        byte[] foto_fundo = cursor.getBlob(
+                cursor.getColumnIndex(BdTableFilmes.CAMPO_FUNDO)
+        );
+        String link = cursor.getString(
+                cursor.getColumnIndex(BdTableFilmes.CAMPO_LINK)
+        );
 
         String nomeAutor = cursor.getString(
                 cursor.getColumnIndex(BdTableFilmes.ALIAS_NOME_AUTOR)
         );
 
+        String nomeCategoria = cursor.getString(
+                cursor.getColumnIndex(BdTableFilmes.ALIAS_NOME_CATEGORIA)
+        );
+
         Movie movie = new Movie();
 
         movie.setId_filme(id);
+
         movie.setNome_filme(nome);
         movie.setCategoria_filme(categoria);
         movie.setAutor_filme(autor);
         movie.setClassificacao_filme(classificacao);
         movie.setAno_filme(ano);
         movie.setDescricao_filme(descricao);
+        movie.setFoto_capa_filme(foto_capa);
+        movie.setFoto_fundo_filme(foto_fundo);
+        movie.setFavorito_filme(false);
+        movie.setVisto_filme(false);
+        movie.setLink_trailer_filme(link);
+
         movie.nomeAutor = nomeAutor;
+        movie.nomeCategoria = nomeCategoria;
 
 
         return movie;

@@ -25,14 +25,16 @@ public class BdTableFilmes implements BaseColumns {
     public static final String CAMPO_FUNDO = "fundo_filme";
     public static final String CAMPO_FAVORITO = "favorito_filme";
     public static final String CAMPO_VISTO = "visto_filme";
-    public static final String CAMPO_LINK = "descricao_filme";
+    public static final String CAMPO_LINK = "link_filme";
 
 
 
 
     public static final String CAMPO_NOME_AUTOR = BdTableAutores.NOME_TABELA + "." + BdTableAutores.CAMPO_NOME + " AS " + ALIAS_NOME_AUTOR; // tabela de autores (só de leitura)
+    public static final String CAMPO_NOME_CATEGORIA = BdTableCategorias.NOME_TABELA + "." + BdTableCategorias.CAMPO_NOME + " AS " + ALIAS_NOME_CATEGORIA; // tabela de categorias (só de leitura)
 
-    public static final String[] TODAS_COLUNAS = new String[] { NOME_TABELA + "." + _ID, CAMPO_NOME, CAMPO_CATEGORIA, CAMPO_AUTOR, CAMPO_NOME_AUTOR, CAMPO_CLASSIFICACAO, CAMPO_ANO, CAMPO_DESCRICAO };
+
+    public static final String[] TODAS_COLUNAS = new String[] { NOME_TABELA + "." + _ID, CAMPO_NOME, CAMPO_CATEGORIA,CAMPO_NOME_CATEGORIA, CAMPO_AUTOR, CAMPO_NOME_AUTOR, CAMPO_CLASSIFICACAO, CAMPO_ANO, CAMPO_DESCRICAO, CAMPO_CAPA, CAMPO_FUNDO, CAMPO_FAVORITO, CAMPO_VISTO, CAMPO_LINK };
 
 
     private SQLiteDatabase db;
@@ -51,8 +53,20 @@ public class BdTableFilmes implements BaseColumns {
                             CAMPO_CLASSIFICACAO + " DOUBLE NOT NULL," +
                             CAMPO_ANO + " INTEGER NOT NULL," +
                             CAMPO_DESCRICAO + " TEXT NOT NULL," +
-                            "FOREIGN KEY (" + CAMPO_AUTOR + ") REFERENCES " + BdTableAutores.NOME_TABELA + "(" + BdTableAutores._ID + ")" +
+                            CAMPO_CAPA + " BLOG," +
+                            CAMPO_FUNDO + " BLOG," +
+                            CAMPO_FAVORITO + " BOOLEAN," +
+                            CAMPO_VISTO + " BOOLEAN," +
+                            CAMPO_LINK + " TEXT NOT NULL," +
+                            "FOREIGN KEY (" + CAMPO_AUTOR + ") REFERENCES " + BdTableAutores.NOME_TABELA + "(" + BdTableAutores._ID + ")," +
+                            "FOREIGN KEY (" + CAMPO_CATEGORIA + ") REFERENCES " + BdTableCategorias.NOME_TABELA + "(" + BdTableCategorias._ID + ")" +
                             ")"
+        );
+    }
+
+    public void delete(){
+        db.delete(
+                NOME_TABELA,null, null
         );
     }
 
@@ -61,8 +75,11 @@ public class BdTableFilmes implements BaseColumns {
         String colunasSelect = TextUtils.join(",", columns);
 
         String sql = "SELECT " + colunasSelect + " FROM " +
-                NOME_TABELA + " INNER JOIN " + BdTableAutores.NOME_TABELA + " WHERE " + NOME_TABELA + "." + CAMPO_AUTOR + " = " + BdTableAutores.NOME_TABELA + "." + BdTableAutores._ID
-                ;
+                NOME_TABELA +
+                "," + BdTableAutores.NOME_TABELA +
+                "," + BdTableCategorias.NOME_TABELA +
+                " WHERE " + NOME_TABELA + "." + CAMPO_AUTOR + " = " + BdTableAutores.NOME_TABELA + "." + BdTableAutores._ID +
+                " AND " + NOME_TABELA + "." + CAMPO_CATEGORIA + " = " + BdTableCategorias.NOME_TABELA + "." + BdTableCategorias._ID;
 
         if (selection != null) {
             sql += " AND " + selection;
@@ -71,6 +88,8 @@ public class BdTableFilmes implements BaseColumns {
         Log.d("Tabela Filmes", "query: " + sql);
 
         return db.rawQuery(sql, selectionArgs);
+
+
     }
 
 

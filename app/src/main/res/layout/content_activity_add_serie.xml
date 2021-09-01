@@ -53,15 +53,38 @@
         android:id="@+id/textView2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
-        android:text="@string/a_utor"
+        android:text="Realizador"
         android:textAppearance="@style/TextAppearance.AppCompat.Small"
-        android:textColor="#9900BCD4"
-        android:layout_marginStart="8dp" />
+        android:textColor="#9900BCD4" />
 
     <Spinner
-        android:id="@+id/spinnerAutores"
+        android:id="@+id/spinnerCategorias_series_inserir"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="#FFFFFF"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:spinnerMode="dialog" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:text="Categoria"
+        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+        android:textColor="#9900BCD4" />
+
+    <Spinner
+        android:id="@+id/spinnerCategorias_ser_inserir"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textColor="#FFFFFF"
@@ -131,6 +154,20 @@
             android:layout_height="wrap_content"
             android:inputType="text"
             android:textColor="#FFFFFF" />
+    </com.google.android.material.textfield.TextInputLayout>
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColorHint="#9900BCD4"
+        android:hint="Trailer da Série">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/editTextLink_ser_inserir"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#FFFFFF"
+            android:layout_marginTop="8dp"
+            android:inputType="numberDecimal" />
     </com.google.android.material.textfield.TextInputLayout>
 </LinearLayout>
 

@@ -67,6 +67,9 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.itemSair){
             finish();
+        } else if(item.getItemId() == R.id.adicionarCategoria){
+            Intent intent5 = new Intent(this, AddCategory.class);
+            startActivity(intent5);
         }
         return super.onOptionsItemSelected(item);
     }
@@ -74,8 +77,8 @@ public class MainActivity extends AppCompatActivity {
     //Calling Activities
 
     private void openFilmes() {
-        Intent intent1 = new Intent(this, Filmes.class);
-        startActivity(intent1);
+        Intent intent = new Intent(this, Filmes.class);
+        startActivity(intent);
     }
 
     private void openSeries() {

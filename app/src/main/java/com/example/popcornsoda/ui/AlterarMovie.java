@@ -20,18 +20,17 @@ import com.example.popcornsoda.BdPopcorn.BdTableFilmes;
 import com.example.popcornsoda.BdPopcorn.ContentProviderPopcorn;
 import com.example.popcornsoda.R;
 import com.example.popcornsoda.models.Movie;
-import com.example.popcornsoda.ui.Filmes;
 import com.google.android.material.snackbar.Snackbar;
 
 public class AlterarMovie extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
     private static final int ID_CURSO_LOADER_AUTORES = 0;
 
     private EditText editTextNomeFilme;
-    private EditText editTextTipoFilme;
-    private Spinner spinnerAutores;
+    private Spinner spinnerAutores, spinnerCategorias;
     private EditText editTextClassificacaoFilme;
     private EditText editTextAnoFilme;
-    private EditText editTextDescricaoFilme;
+    private EditText editTextDescricaoFilme, editTextLink;
+
 
     private Movie filme = null;
 
@@ -51,8 +50,7 @@ public class AlterarMovie extends AppCompatActivity implements LoaderManager.Loa
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         editTextNomeFilme = findViewById(R.id.editText_nome_filme_alterar);
-        editTextTipoFilme = findViewById(R.id.editText_tipo_filme_alterar);
-        spinnerAutores = findViewById(R.id.spinnerAutores);
+        spinnerAutores = findViewById(R.id.spinnerCategorias_series_inserir);
         editTextClassificacaoFilme = findViewById(R.id.editText_classificacao_filme_alterar);
         editTextAnoFilme =  findViewById(R.id.editText_ano_filme_alterar);
         editTextDescricaoFilme = findViewById(R.id.editText_descricao_filme_alterar);
@@ -83,7 +81,6 @@ public class AlterarMovie extends AppCompatActivity implements LoaderManager.Loa
         filme = Movie.fromCursor(cursor);
 
         editTextNomeFilme.setText(filme.getNome_filme());
-        editTextTipoFilme.setText(filme.getTipo_filme());
         editTextClassificacaoFilme.setText(String.valueOf(filme.getClassificacao_filme()));
         editTextAnoFilme.setText(String.valueOf(filme.getAno_filme()));
         editTextDescricaoFilme.setText(filme.getDescricao_filme());
@@ -158,15 +155,7 @@ public class AlterarMovie extends AppCompatActivity implements LoaderManager.Loa
             return;
         }
 
-        String tipo = editTextTipoFilme.getText().toString();
 
-        if (tipo.trim().isEmpty()) {
-            editTextTipoFilme.setError("O campo não pode estar vazio!");
-            return;
-        }
-
-
-        double classificacao;
 
         String strClassificacao = editTextClassificacaoFilme.getText().toString();
 
@@ -175,6 +164,7 @@ public class AlterarMovie extends AppCompatActivity implements LoaderManager.Loa
             return;
         }
 
+        double classificacao;
         try {
             classificacao = Double.parseDouble(strClassificacao);
         } catch (NumberFormatException e) {
@@ -202,20 +192,33 @@ public class AlterarMovie extends AppCompatActivity implements LoaderManager.Loa
 
         String descricao = editTextDescricaoFilme.getText().toString();
 
-        if (tipo.trim().isEmpty()) {
+        if (descricao.trim().isEmpty()) {
             editTextDescricaoFilme.setError("O campo não pode estar vazio!");
             return;
         }
 
+        String link = editTextLink.getText().toString();
+
+        if (link.trim().isEmpty()) {
+            editTextLink.setError("O campo não pode estar vazio!");
+            return;
+        }
+
         long idAutor = spinnerAutores.getSelectedItemId();
+        long idCategoria = spinnerCategorias.getSelectedItemId();
 
         // guardar os dados
         filme.setNome_filme(nome);
-        filme.setTipo_filme(tipo);
+        filme.setCategoria_filme(idCategoria);
         filme.setAutor_filme(idAutor);
         filme.setClassificacao_filme(classificacao);
         filme.setAno_filme(ano);
         filme.setDescricao_filme(descricao);
+        filme.setFoto_capa_filme(null);
+        filme.setFoto_fundo_filme(null);
+        filme.setFavorito_filme(false);
+        filme.setVisto_filme(false);
+        filme.setLink_trailer_filme(link);
 
 
         try {

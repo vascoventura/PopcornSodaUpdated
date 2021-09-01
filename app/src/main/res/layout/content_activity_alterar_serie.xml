@@ -59,7 +59,7 @@
         android:layout_marginStart="8dp" />
 
     <Spinner
-        android:id="@+id/spinnerAutores"
+        android:id="@+id/spinnerCategorias_series_inserir"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textColor="#FFFFFF"

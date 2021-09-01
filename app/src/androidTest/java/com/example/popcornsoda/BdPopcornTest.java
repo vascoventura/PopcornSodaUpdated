@@ -150,7 +150,7 @@ public class BdPopcornTest {
         Movie movie = getFilmeComID(cursorFilmes, id);
 
         assertEquals(nome,  movie.getNome_filme());
-        assertEquals(tipo,  movie.getTipo_filme());
+
         assertEquals(idRubenFleischer,  movie.getAutor_filme());
         assertEquals(classificacao,  movie.getClassificacao_filme(), 1);
         assertEquals(ano,  movie.getAno_filme());
@@ -169,7 +169,6 @@ public class BdPopcornTest {
 
         movie = getFilmeComID(cursorFilmes, id);
         assertEquals(nome,  movie.getNome_filme());
-        assertEquals(tipo,  movie.getTipo_filme());
         assertEquals(idPeterFarelly,  movie.getAutor_filme());
         assertEquals(classificacao,  movie.getClassificacao_filme(), 1);
         assertEquals(ano,  movie.getAno_filme());
@@ -191,7 +190,6 @@ public class BdPopcornTest {
 
 
         movie.setNome_filme(nome);
-        movie.setTipo_filme(tipo);
         movie.setAutor_filme(idRubenFleischer);
         movie.setClassificacao_filme(classificacao);
         movie.setAno_filme(ano);
@@ -203,7 +201,6 @@ public class BdPopcornTest {
 
         movie = getFilmeComID(cursorFilmes, id);
         assertEquals(nome,  movie.getNome_filme());
-        assertEquals(tipo,  movie.getTipo_filme());
         assertEquals(idRubenFleischer,  movie.getAutor_filme());
         assertEquals(classificacao,  movie.getClassificacao_filme(), 1);
         assertEquals(ano,  movie.getAno_filme());
@@ -241,7 +238,6 @@ public class BdPopcornTest {
 
         Serie serie = getSerieComID(cursorSeries, id);
         assertEquals(nome,  serie.getNome_serie());
-        assertEquals(tipo,  serie.getTipo_serie());
         assertEquals(idRubenFleischer,  serie.getAutor_serie());
         assertEquals(classificacao,  serie.getClassificacao_serie(), 1);
         assertEquals(ano,  serie.getAno_serie());
@@ -261,7 +257,6 @@ public class BdPopcornTest {
 
         serie = getSerieComID(cursorSeries, id);
         assertEquals(nome,  serie.getNome_serie());
-        assertEquals(tipo,  serie.getTipo_serie());
         assertEquals(idRubenFleischer,  serie.getAutor_serie());
         assertEquals(classificacao,  serie.getClassificacao_serie(), 1);
         assertEquals(ano,  serie.getAno_serie());
@@ -285,11 +280,10 @@ public class BdPopcornTest {
 
 
         serie.setNome_serie(nome);
-        serie.setTipo_serie(tipo);
         serie.setAutor_serie(idRubenFleischer);
         serie.setClassificacao_serie(classificacao);
         serie.setAno_serie(ano);
-        serie.setImagem_fundo_serie(temporadas);
+
         serie.setDescricao_serie(descricao);
 
         tabelaSeries.update(serie.getContentValues(), BdTableSeries._ID + "=?", new String[]{String.valueOf(id)});
@@ -298,7 +292,6 @@ public class BdPopcornTest {
 
         serie = getSerieComID(cursorSeries, id);
         assertEquals(nome,  serie.getNome_serie());
-        assertEquals(tipo,  serie.getTipo_serie());
         assertEquals(idRubenFleischer,  serie.getAutor_serie());
         assertEquals(classificacao,  serie.getClassificacao_serie(), 1);
         assertEquals(ano,  serie.getAno_serie());
@@ -333,7 +326,6 @@ public class BdPopcornTest {
         Serie serie = new Serie();
 
         serie.setNome_serie(nome);
-        serie.setTipo_serie(tipo);
         serie.setAutor_serie(autor);
         serie.setClassificacao_serie(classificacao);
         serie.setAno_serie(ano);
@@ -348,7 +340,7 @@ public class BdPopcornTest {
 
 
     private Cursor getSeries(BdTableSeries tabelaSeries) {
-        return tabelaSeries.query(BdTableSeries.TODAS_COLUNAS, null, null, null, null, null);
+        return tabelaSeries.query(BdTableSeries.TODAS_COLUNAS, null, null);
     }
 
 
@@ -391,7 +383,6 @@ public class BdPopcornTest {
             Movie movie = new Movie();
 
             movie.setNome_filme(nome);
-            movie.setTipo_filme(tipo);
             movie.setAutor_filme(autor);
             movie.setClassificacao_filme(classificacao);
             movie.setAno_filme(ano);
