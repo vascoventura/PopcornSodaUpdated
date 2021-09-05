@@ -228,14 +228,14 @@ public class AddAutor extends AppCompatActivity implements LoaderManager.LoaderC
         autor.setDescricao_autor(descricao);
 
         byte[] imagem_capa = ImagemParaByte(imageViewFotoCapa);
-        if(imagem_capa !=null){
+        if(imagem_capa != null){
             autor.setFoto_capa_autor(imagem_capa);
         } else{
             Toast.makeText(this, "Insira uma imagem para a capa", Toast.LENGTH_SHORT).show();
         }
 
         byte[] imagem_fundo = ImagemParaByte(imageViewFotoFundo);
-        if(imagem_capa !=null){
+        if(imagem_fundo != null){
             autor.setFoto_fundo_autor(imagem_fundo);
         } else{
             Toast.makeText(this, "Insira uma imagem para o fundo", Toast.LENGTH_SHORT).show();

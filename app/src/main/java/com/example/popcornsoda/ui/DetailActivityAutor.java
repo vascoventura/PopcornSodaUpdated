@@ -122,9 +122,9 @@ public class DetailActivityAutor extends AppCompatActivity{
                         getContentResolver().update(enderecoAutor, autor.getContentValues(), null, null );
 
                         if(estadoAtual == false) {
-                            Toast.makeText(DetailActivityAutor.this, "Adicionado aos Favoritos", Toast.LENGTH_SHORT).show();
-                        }else{
                             Toast.makeText(DetailActivityAutor.this, "Removido dos Favoritos", Toast.LENGTH_SHORT).show();
+                        }else{
+                            Toast.makeText(DetailActivityAutor.this, "Adicionado aos Favoritos", Toast.LENGTH_SHORT).show();
                         }
 
                     } catch (Exception e) {
