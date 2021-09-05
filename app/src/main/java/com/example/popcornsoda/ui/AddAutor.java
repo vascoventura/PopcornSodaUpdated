@@ -1,16 +1,27 @@
 package com.example.popcornsoda.ui;
 
+import android.Manifest;
+import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.Switch;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
 import androidx.loader.app.LoaderManager;
 import androidx.loader.content.Loader;
 
@@ -20,13 +31,59 @@ import com.example.popcornsoda.R;
 import com.example.popcornsoda.models.Autor;
 import com.google.android.material.snackbar.Snackbar;
 
+import java.io.FileNotFoundException;
+import java.io.InputStream;
+
 public class AddAutor extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
 
     private static final int ID_CURSO_LOADER_AUTORES = 0;
+    final int REQUEST_CODE_GALLERY = 399;
 
     private EditText editTextNomeAutor;
     private EditText editTextAnoAutor;
     private EditText editTextNacionalidadeAutor;
+    private EditText editTextDescricaoAutor;
+    private Switch switchFavoritoAddAutor;
+    private ImageView imageViewFotoCapa;
+    private Button botaoImagemCapa;
+    private boolean estadoSwitchFavoritos;
+
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        if(requestCode == REQUEST_CODE_GALLERY){
+            if(grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+                Intent intent = new Intent(Intent.ACTION_PICK);
+                intent.setType("image/*");
+                startActivityForResult(intent, REQUEST_CODE_GALLERY);
+            } else {
+                Toast.makeText(getApplicationContext(), "Sem permissão para aceder ao conteúdo", Toast.LENGTH_LONG).show();
+            }
+            return;
+        }
+
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        if(requestCode == REQUEST_CODE_GALLERY && resultCode == RESULT_OK && data !=null){
+            Uri uri = data.getData();
+
+
+                try{
+                    InputStream inputStream = getContentResolver().openInputStream(uri);
+                    Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
+                    imageViewFotoCapa.setImageBitmap(bitmap);
+
+                } catch(FileNotFoundException e){
+                    e.printStackTrace();
+                }
+
+        }
+
+        super.onActivityResult(requestCode, resultCode, data);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,8 +96,25 @@ public class AddAutor extends AppCompatActivity implements LoaderManager.LoaderC
         editTextNomeAutor = findViewById(R.id.editTextNome_autor);
         editTextAnoAutor = findViewById(R.id.editTextAno_autor);
         editTextNacionalidadeAutor = findViewById(R.id.editTextNacionalidade_autor);
+        imageViewFotoCapa = findViewById(R.id.foto_capa_add_autor);
+        botaoImagemCapa = findViewById(R.id.botao_capa_add_autor);
+        switchFavoritoAddAutor = (Switch) findViewById(R.id.botao_favorito_add_autor);
+
+        //Estado do Switch dos Favoritos
+        estadoSwitchFavoritos = switchFavoritoAddAutor.isChecked();
+
 
         getSupportLoaderManager().initLoader(ID_CURSO_LOADER_AUTORES, null, this);
+
+        botaoImagemCapa.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ActivityCompat.requestPermissions(AddAutor.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, REQUEST_CODE_GALLERY);
+            }
+        });
+
+
+
     }
 
     @Override
@@ -102,12 +176,29 @@ public class AddAutor extends AppCompatActivity implements LoaderManager.LoaderC
             return;
         }
 
+        String descricao = editTextDescricaoAutor.getText().toString();
+
+        if (descricao.trim().isEmpty()) {
+            editTextDescricaoAutor.setError("O campo não pode estar vazio!");
+            return;
+        }
+
+
+
         Autor autor = new Autor();
 
 
         autor.setNome_autor(nome);
         autor.setAno_nascimento(ano);
         autor.setNacionalidade(nacionalidade);
+        autor.setDescricao_autor(descricao);
+
+        if(estadoSwitchFavoritos){
+            autor.setFavorito_autor(true);
+        } else{
+            autor.setFavorito_autor(false);
+        }
+
 
         try {
             getContentResolver().insert(ContentProviderPopcorn.ENDERECO_AUTORES, autor.getContentValues());

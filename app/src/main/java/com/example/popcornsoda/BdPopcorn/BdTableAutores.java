@@ -11,8 +11,13 @@ public class BdTableAutores implements BaseColumns {
     public static final String CAMPO_NOME = "nome_autor";
     public static final String CAMPO_ANONASCIMENTO = "ano_autor";
     public static final String CAMPO_NACIONALIDADE = "nacionalidade_autor";
+    public static final String CAMPO_DESCRICAO = "descricao_autor";
+    public static final String CAMPO_FOTO_CAPA = "foto_capa_autor";
+    public static final String CAMPO_FOTO_FUNDO = "foto_fundo_autor";
+    public static final String CAMPO_FAVORITO = "favorito_autor";
 
-    public static final String[] TODAS_COLUNAS = new String[] { _ID, CAMPO_NOME, CAMPO_ANONASCIMENTO, CAMPO_NACIONALIDADE };
+
+    public static final String[] TODAS_COLUNAS = new String[] { _ID, CAMPO_NOME, CAMPO_ANONASCIMENTO, CAMPO_NACIONALIDADE, CAMPO_DESCRICAO, CAMPO_FOTO_CAPA, CAMPO_FOTO_FUNDO, CAMPO_FAVORITO };
 
     private SQLiteDatabase db;
 
@@ -26,7 +31,11 @@ public class BdTableAutores implements BaseColumns {
                         _ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
                         CAMPO_NOME + " TEXT NOT NULL," +
                         CAMPO_ANONASCIMENTO + " INT NOT NULL, " +
-                        CAMPO_NACIONALIDADE + " TEXT NOT NULL" +
+                        CAMPO_NACIONALIDADE + " TEXT NOT NULL," +
+                        CAMPO_DESCRICAO + " TEXT NOT NULL, " +
+                        CAMPO_FOTO_CAPA + " BLOB, " +
+                        CAMPO_FOTO_FUNDO + " BLOB, " +
+                        CAMPO_FAVORITO + " BOOLEAN NOT NULL " +
                         ")"
         );
     }

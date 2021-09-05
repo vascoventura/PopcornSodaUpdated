@@ -61,8 +61,8 @@ public class BdTableSeries implements BaseColumns {
                         CAMPO_ANO + " INTEGER NOT NULL," +
                         CAMPO_TEMPORADAS + " INTEGER NOT NULL," +
                         CAMPO_DESCRICAO + " TEXT NOT NULL," +
-                        CAMPO_CAPA + " BLOG," +
-                        CAMPO_FUNDO + " BLOG," +
+                        CAMPO_CAPA + " BLOB," +
+                        CAMPO_FUNDO + " BLOB," +
                         CAMPO_FAVORITO + " BOOLEAN," +
                         CAMPO_VISTO + " BOOLEAN," +
                         CAMPO_LINK + " TEXT NOT NULL," +

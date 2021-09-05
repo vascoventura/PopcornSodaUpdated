@@ -34,8 +34,6 @@ public class Autores extends AppCompatActivity  implements LoaderManager.LoaderC
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_autores);
-        Toolbar toolbar = findViewById(R.id.toolbar);
-
 
         getSupportLoaderManager().initLoader(ID_CURSO_LOADER_AUTORES, null, this);
 
@@ -45,7 +43,6 @@ public class Autores extends AppCompatActivity  implements LoaderManager.LoaderC
         recyclerViewAutores.setLayoutManager(new LinearLayoutManager(this));
 
         //Botao Voltar
-
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
@@ -58,20 +55,24 @@ public class Autores extends AppCompatActivity  implements LoaderManager.LoaderC
     private Menu menu;
 
     public void atualizaOpcoesMenu() {
-        Autor autor = adaptadorAutores.getAutorSelecionado();
-
-        boolean mostraAlterarEliminar = (autor != null);
-
-        menu.findItem(R.id.itemEditar).setVisible(mostraAlterarEliminar);
-        menu.findItem(R.id.itemEliminar).setVisible(mostraAlterarEliminar);
-        menu.findItem(R.id.itemAdicionar).setVisible(false);
+        if(adaptadorAutores.isSelecao()){
+            menu.findItem(R.id.itemEditar).setVisible(true);
+            menu.findItem(R.id.itemEliminar).setVisible(true);
+            menu.findItem(R.id.itemDetalhe).setVisible(true);
+            menu.findItem(R.id.itemAdicionar).setVisible(false);
+        }else{
+            menu.findItem(R.id.itemEditar).setVisible(false);
+            menu.findItem(R.id.itemEliminar).setVisible(false);
+            menu.findItem(R.id.itemDetalhe).setVisible(false);
+            menu.findItem(R.id.itemAdicionar).setVisible(true);
+        }
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_tabelas, menu);
-
         this.menu = menu;
+
         return true;
     }
 
@@ -96,12 +97,16 @@ public class Autores extends AppCompatActivity  implements LoaderManager.LoaderC
                 startActivity(intent2);
                 return true;
 
+            case R.id.itemDetalhe:
+                Intent intent4 = new Intent(this, DetailActivityAutor.class);
+                intent4.putExtra(ID_AUTOR, adaptadorAutores.getAutorSelecionado().getId());
+                startActivity(intent4);
+                return true;
+
             default:
                 return super.onOptionsItemSelected(item);
         }
     }
-
-
 
     @NonNull
     @Override
@@ -121,6 +126,4 @@ public class Autores extends AppCompatActivity  implements LoaderManager.LoaderC
         adaptadorAutores.setCursor(null);
 
     }
-
-
 }

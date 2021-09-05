@@ -67,6 +67,7 @@ public class AdaptadorLVSeries extends RecyclerView.Adapter<AdaptadorLVSeries.Vi
         }
     }
 
+    private static ViewHolderSerie viewHolderSerieSelecionada = null;
 
 
     public Serie getSerieSelecionada() {
@@ -77,7 +78,6 @@ public class AdaptadorLVSeries extends RecyclerView.Adapter<AdaptadorLVSeries.Vi
         }
     }
 
-    private static ViewHolderSerie viewHolderSerieSelecionada = null;
 
     public class ViewHolderSerie extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
         private TextView textViewNome;
