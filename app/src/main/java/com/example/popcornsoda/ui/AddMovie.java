@@ -83,15 +83,15 @@ public class AddMovie extends AppCompatActivity implements LoaderManager.LoaderC
         spinnerAutor.setAdapter(adaptadorAutores);
     }
 
-    private void mostraCategoriasSpinner(Cursor cursorCategorias) {
-        SimpleCursorAdapter adaptadorCategorias = new SimpleCursorAdapter(
-                this,
+    private void mostraCategoriasSpinner(Cursor cursorCategorias){
+        SimpleCursorAdapter adaptadorCategorias = new SimpleCursorAdapter(this,
                 android.R.layout.simple_list_item_1,
                 cursorCategorias,
                 new String[]{BdTableCategorias.CAMPO_NOME},
                 new int[]{android.R.id.text1}
         );
         spinnerCategoria.setAdapter(adaptadorCategorias);
+
     }
 
     @Override
@@ -224,9 +224,9 @@ public class AddMovie extends AppCompatActivity implements LoaderManager.LoaderC
     @Override
     public Loader<Cursor> onCreateLoader(int id, @Nullable Bundle args) {
 
-        androidx.loader.content.CursorLoader cursorLoader = new androidx.loader.content.CursorLoader(this, ContentProviderPopcorn.ENDERECO_AUTORES, BdTableAutores.TODAS_COLUNAS, null, null, BdTableAutores.CAMPO_NOME
+        //androidx.loader.content.CursorLoader cursorLoader = new androidx.loader.content.CursorLoader(this, ContentProviderPopcorn.ENDERECO_AUTORES, BdTableAutores.TODAS_COLUNAS, null, null, BdTableAutores.CAMPO_NOME
 
-        //androidx.loader.content.CursorLoader cursorLoader = new androidx.loader.content.CursorLoader(this, ContentProviderPopcorn.ENDERECO_CATEGORIAS, BdTableCategorias.TODAS_COLUNAS, null, null, BdTableCategorias.CAMPO_NOME
+        androidx.loader.content.CursorLoader cursorLoader = new androidx.loader.content.CursorLoader(this, ContentProviderPopcorn.ENDERECO_CATEGORIAS, BdTableCategorias.TODAS_COLUNAS, null, null, BdTableCategorias.CAMPO_NOME
         );
 
         return cursorLoader;

@@ -35,6 +35,8 @@ public class DetailActivityAutor extends AppCompatActivity{
 
     private Autor autor = null;
 
+    private boolean favAutor;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -104,7 +106,7 @@ public class DetailActivityAutor extends AppCompatActivity{
         favoritoAutor.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                boolean favAutor = autor.isFavorito_autor();
+                favAutor = autor.isFavorito_autor();
                 System.out.println("estado Favorito: " + favAutor);
                 System.out.println("id_autor: " + idAutor );
 
@@ -114,17 +116,14 @@ public class DetailActivityAutor extends AppCompatActivity{
             private int atualizaFavorito(boolean estadoAtual) {
                 autor.setFavorito_autor(!estadoAtual);
                     try {
-                        boolean inverso = !estadoAtual;
                         ContentValues values = new ContentValues();
-                        values.put(BdTableAutores.CAMPO_FAVORITO, inverso);
-
-
+                        values.put(BdTableAutores.CAMPO_FAVORITO, !estadoAtual);
                         getContentResolver().update(enderecoAutor, autor.getContentValues(), null, null );
 
-                        if(estadoAtual == false) {
-                            Toast.makeText(DetailActivityAutor.this, "Removido dos Favoritos", Toast.LENGTH_SHORT).show();
-                        }else{
+                        if(favAutor == false) {
                             Toast.makeText(DetailActivityAutor.this, "Adicionado aos Favoritos", Toast.LENGTH_SHORT).show();
+                        }else{
+                            Toast.makeText(DetailActivityAutor.this, "Removido dos Favoritos", Toast.LENGTH_SHORT).show();
                         }
 
                     } catch (Exception e) {

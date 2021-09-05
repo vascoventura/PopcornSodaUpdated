@@ -130,7 +130,7 @@ public class AdaptadorLVAutores extends RecyclerView.Adapter<AdaptadorLVAutores.
                 context.startActivity(intent);
             }
             click = true;
-                    }
+        }
 
 
         private void desSeleciona() {

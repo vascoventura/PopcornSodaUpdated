@@ -12,11 +12,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.popcornsoda.BdPopcorn.BdTableFilmes;
-import com.example.popcornsoda.BdPopcorn.BdTableSeries;
 import com.example.popcornsoda.BdPopcorn.ContentProviderPopcorn;
 import com.example.popcornsoda.R;
 import com.example.popcornsoda.models.Movie;
-import com.example.popcornsoda.models.Serie;
 
 public class ApagarMovie extends AppCompatActivity {
     private Uri enderecoFilmeApagar;
@@ -29,7 +27,7 @@ public class ApagarMovie extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         TextView textViewNome = (TextView) findViewById(R.id.textViewNomeFilme);
-        TextView textViewTipo = (TextView) findViewById(R.id.textViewTipoFilme);
+        TextView textViewTipo = (TextView) findViewById(R.id.textViewCategoriaFilme);
         TextView textViewAutorFilme = (TextView) findViewById(R.id.textViewAutorFilme);
         TextView textViewClassificacao = (TextView) findViewById(R.id.textViewClassificacaoFilme);
         TextView textViewAno = (TextView) findViewById(R.id.textViewAnoFilme);

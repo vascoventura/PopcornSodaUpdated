@@ -1,6 +1,7 @@
 package com.example.popcornsoda.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +13,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.popcornsoda.R;
 import com.example.popcornsoda.models.Movie;
+import com.example.popcornsoda.ui.Autores;
+import com.example.popcornsoda.ui.DetailActivityAutor;
+import com.example.popcornsoda.ui.DetailActivityMovie;
 import com.example.popcornsoda.ui.Filmes;
 
 
@@ -21,6 +25,8 @@ public class AdaptadorLVFilmes extends RecyclerView.Adapter<AdaptadorLVFilmes.Vi
 
     private Cursor cursor;
     private Context context;
+    private boolean selecao = false;
+    private boolean click = false;
 
     public AdaptadorLVFilmes(Context context){
         this.context = context;
@@ -33,6 +39,9 @@ public class AdaptadorLVFilmes extends RecyclerView.Adapter<AdaptadorLVFilmes.Vi
         }
     }
 
+    public boolean isSelecao(){
+        return selecao;
+    }
 
     @NonNull
     @Override
@@ -54,25 +63,31 @@ public class AdaptadorLVFilmes extends RecyclerView.Adapter<AdaptadorLVFilmes.Vi
     @Override
     public int getItemCount() {
         if (cursor == null) {
+            System.out.println("Nao tem nada!");
             return 0;
+        } else{
+            System.out.println("Tem tudo!");
+            return cursor.getCount();
         }
-        return cursor.getCount();
-    }
-
-
-
-    public Movie getFilmeSelecionada() {
-        if(viewHolderFilmeSelecionado == null) return null;
-
-        return viewHolderFilmeSelecionado.movie;
     }
 
     private static ViewHolderFilme viewHolderFilmeSelecionado = null;
 
-    public class ViewHolderFilme extends RecyclerView.ViewHolder implements View.OnClickListener {
+
+    public Movie getFilmeSelecionada() {
+        if(viewHolderFilmeSelecionado == null){
+            return null;
+        }else{
+
+            return viewHolderFilmeSelecionado.movie;
+        }
+    }
+
+
+    public class ViewHolderFilme extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
 
         private TextView textViewNome;
-        private TextView textViewTipo;
+        private TextView textViewCategoria;
         private TextView textViewAno;
         private TextView textViewClassificacao;
         private TextView textViewAutor;
@@ -83,12 +98,13 @@ public class AdaptadorLVFilmes extends RecyclerView.Adapter<AdaptadorLVFilmes.Vi
             super(itemView);
 
             textViewNome = (TextView) itemView.findViewById(R.id.textViewNomeFilme);
-            textViewTipo = (TextView) itemView.findViewById(R.id.textViewTipoFilme);
+            textViewCategoria = (TextView) itemView.findViewById(R.id.textViewCategoriaFilme);
             textViewAno = (TextView) itemView.findViewById(R.id.textViewAnoFilme);
             textViewAutor = (TextView) itemView.findViewById(R.id.textViewAutorFilme);
             textViewClassificacao = (TextView) itemView.findViewById(R.id.textViewClassificacaoFilme);
 
             itemView.setOnClickListener(this);
+            itemView.setOnLongClickListener(this);
 
         }
 
@@ -96,7 +112,7 @@ public class AdaptadorLVFilmes extends RecyclerView.Adapter<AdaptadorLVFilmes.Vi
             this.movie = movie;
 
             textViewNome.setText(movie.getNome_filme());
-            textViewTipo.setText(movie.getNomeCategoria());
+            textViewCategoria.setText(movie.getNomeCategoria());
             textViewAno.setText(String.valueOf(movie.getAno_filme()));
             textViewAutor.setText(movie.getNomeAutor());
             textViewAno.setText(String.valueOf(movie.getAno_filme()));
@@ -106,24 +122,47 @@ public class AdaptadorLVFilmes extends RecyclerView.Adapter<AdaptadorLVFilmes.Vi
 
         @Override
         public void onClick(View v) {
-            if (viewHolderFilmeSelecionado != null) {
-                viewHolderFilmeSelecionado.desSeleciona();
+            if(click){
+                long idFilme = movie.getId_filme();
+                System.out.println("ID DO FILME: " + idFilme);
+                Context context = v.getContext();
+
+                Intent intent = new Intent();
+                intent.setClass(context, DetailActivityMovie.class);
+                intent.putExtra(ID_FILME, idFilme);
+                context.startActivity(intent);
             }
-
-            viewHolderFilmeSelecionado = this;
-
-            ((Filmes) context).atualizaOpcoesMenu();
-
-            seleciona();
+            click = true;
         }
 
         private void desSeleciona() {
+
             itemView.setBackgroundResource(R.color.colorPrimary);
+            selecao = false;
         }
 
         private void seleciona() {
+
             itemView.setBackgroundResource(R.color.colorAccent);
+            selecao = true;
         }
 
+        @Override
+        public boolean onLongClick(View view) {
+            click = false;
+            if(selecao){
+                viewHolderFilmeSelecionado.desSeleciona();
+                ((Filmes) context).atualizaOpcoesMenu();
+
+
+            }else{
+                viewHolderFilmeSelecionado = this;
+                viewHolderFilmeSelecionado.seleciona();
+                ((Filmes) context).atualizaOpcoesMenu();
+
+            }
+
+            return false;
+        }
     }
 }

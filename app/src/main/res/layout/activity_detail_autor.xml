@@ -14,8 +14,8 @@
 
         <ImageView
             android:id="@+id/detail_autor_fundo"
-            android:layout_width="wrap_content"
-            android:layout_height="309dp"
+            android:layout_width="0dp"
+            android:layout_height="350dp"
             android:scaleType="centerCrop"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

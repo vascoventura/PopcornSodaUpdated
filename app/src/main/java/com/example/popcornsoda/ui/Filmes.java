@@ -123,9 +123,7 @@ public class Filmes extends AppCompatActivity implements LoaderManager.LoaderCal
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_tabelas, menu);
-
         this.menu = menu;
-
         return true;
     }
 
@@ -167,9 +165,7 @@ public class Filmes extends AppCompatActivity implements LoaderManager.LoaderCal
     @Override
     public Loader<Cursor> onCreateLoader (int id, @Nullable Bundle args){
         CursorLoader cursorLoader = new CursorLoader(this, ContentProviderPopcorn.ENDERECO_FILMES, BdTableFilmes.TODAS_COLUNAS, null, null, BdTableFilmes.CAMPO_NOME);
-
         return cursorLoader;
-
     }
 
     @Override
