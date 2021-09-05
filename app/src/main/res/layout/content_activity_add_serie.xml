@@ -167,7 +167,7 @@
             android:layout_height="wrap_content"
             android:textColor="#FFFFFF"
             android:layout_marginTop="8dp"
-            android:inputType="numberDecimal" />
+            android:inputType="text" />
     </com.google.android.material.textfield.TextInputLayout>
 </LinearLayout>
 

@@ -21,6 +21,7 @@ import com.example.popcornsoda.BdPopcorn.BdTableFilmes;
 import com.example.popcornsoda.BdPopcorn.ContentProviderPopcorn;
 import com.example.popcornsoda.R;
 import com.example.popcornsoda.adapters.AdaptadorLVFilmes;
+import com.example.popcornsoda.adapters.AdaptadorLVSeries;
 import com.example.popcornsoda.adapters.Slider;
 import com.example.popcornsoda.adapters.SliderPageAdapter;
 import com.example.popcornsoda.models.Movie;
@@ -58,19 +59,19 @@ public class Filmes extends AppCompatActivity implements LoaderManager.LoaderCal
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        //Lista Vertical
-        RecyclerView itensHorizontal = (RecyclerView) findViewById(R.id.lista_filmes_vertical);
-        adaptadorFilmes = new AdaptadorLVFilmes(this);
-        itensHorizontal.setAdapter(adaptadorFilmes);
-        itensHorizontal.setLayoutManager(new LinearLayoutManager(this));
 
-
-        //Conteudos da pagina (Adicoes)
+        //Conteudos da pagina
 
 
         sliderpager = findViewById(R.id.slider_pager);
         TabLayout indicator = findViewById(R.id.indicator);
         RecyclerView moviesRV = findViewById(R.id.Rv_movieList);
+
+        //Lista Vertical
+        RecyclerView recyclerViewFilmes = (RecyclerView) findViewById(R.id.lista_filmes_vertical);
+        adaptadorFilmes = new AdaptadorLVFilmes(this);
+        recyclerViewFilmes.setAdapter(adaptadorFilmes);
+        recyclerViewFilmes.setLayoutManager( new LinearLayoutManager(this) );
 
         //SLIDER
         itensSlider = new ArrayList<>();
@@ -89,23 +90,16 @@ public class Filmes extends AppCompatActivity implements LoaderManager.LoaderCal
         indicator.setupWithViewPager(sliderpager, true);
 
        /* //Lista Horizontal
-
         List<Movie> itensMovies = new ArrayList<>();
         itensMovies.add(new Movie("Glass", R.drawable.glass, R.drawable.glass_cover));
         itensMovies.add(new Movie("Venom", R.drawable.venom, R.drawable.venom_cover));
         itensMovies.add(new Movie("The Upside", R.drawable.the_upside, R.drawable.the_upside_cover));
         itensMovies.add(new Movie("Green Book", R.drawable.green_book, R.drawable.green_book_cover));
         itensMovies.add(new Movie("The Prodigy", R.drawable.the_prodigy, R.drawable.the_prodigy_cover));
-
         MovieAdapter movieAdapter = new MovieAdapter(this, itensMovies, (MovieItensClickListener) this);
         moviesRV.setAdapter(movieAdapter);
         moviesRV.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-
-
-        */
-
-
-
+        //Lista Vertical*/
     }
 
     @Override
@@ -117,24 +111,23 @@ public class Filmes extends AppCompatActivity implements LoaderManager.LoaderCal
     private Menu menu;
 
     public void atualizaOpcoesMenu() {
-        if(adaptadorFilmes.isSelecao()){
-            menu.findItem(R.id.itemEditar).setVisible(true);
-            menu.findItem(R.id.itemEliminar).setVisible(true);
-            menu.findItem(R.id.itemDetalhe).setVisible(true);
-            menu.findItem(R.id.itemAdicionar).setVisible(false);
-        }else{
-            menu.findItem(R.id.itemEditar).setVisible(false);
-            menu.findItem(R.id.itemEliminar).setVisible(false);
-            menu.findItem(R.id.itemDetalhe).setVisible(false);
-            menu.findItem(R.id.itemAdicionar).setVisible(true);
-        }
+        Movie filme = adaptadorFilmes.getFilmeSelecionada();
+
+        boolean mostraAlterarEliminar = (filme != null);
+
+        menu.findItem(R.id.itemEditar).setVisible(mostraAlterarEliminar);
+        menu.findItem(R.id.itemEliminar).setVisible(mostraAlterarEliminar);
+        menu.findItem(R.id.itemDetalhe).setVisible(mostraAlterarEliminar);
+        menu.findItem(R.id.itemAdicionar).setVisible(false);
     }
 
     //Menu
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_tabelas, menu);
+
         this.menu = menu;
+
         return true;
     }
 
@@ -195,7 +188,6 @@ public class Filmes extends AppCompatActivity implements LoaderManager.LoaderCal
     @Override
     public void onMovieClick(Movie filme, TextView nomeFilme, TextView tipoFilme, TextView autorFilme, TextView classificacaoFilme, TextView anoFilme) {
         // aqui vamos mandaremos a descriçao do conteudo com detalhe noutra atividade
-
         Intent intent = new Intent(this, DetailActivityMovie.class);
         //send movie information to detailActivity
         intent.putExtra("title", filme.getNome_filme());
@@ -203,15 +195,10 @@ public class Filmes extends AppCompatActivity implements LoaderManager.LoaderCal
         intent.putExtra("imgURL", filme.getFoto_capa_filme());
         intent.putExtra("imgCover", filme.getFoto_fundo_filme());
         intent.putExtra("decricao_filme", filme.getDescricao_filme());
-
         //tambem criamos a animaçao entre duas atividades
         ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(Filmes.this, movieImageView, "sharedElement");
-
         startActivity(intent, options.toBundle());
-
-
         Toast.makeText(this, filme.getNome_filme(),Toast.LENGTH_SHORT).show();
-
     }*/
 
     class SliderTime extends TimerTask {
@@ -229,5 +216,4 @@ public class Filmes extends AppCompatActivity implements LoaderManager.LoaderCal
             });
         }
     }
-
 }

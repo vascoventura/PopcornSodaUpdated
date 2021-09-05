@@ -18,7 +18,7 @@ import com.example.popcornsoda.ui.Series;
 
 public class AdaptadorLVSeries extends RecyclerView.Adapter<AdaptadorLVSeries.ViewHolderSerie> {
 
-    public static final String ID_SERIE = "ID_SERIE" ;
+    public static final String ID_SERIE = "ID_SERIE";
 
     private Cursor cursor;
     private Context context;
@@ -59,9 +59,12 @@ public class AdaptadorLVSeries extends RecyclerView.Adapter<AdaptadorLVSeries.Vi
     @Override
     public int getItemCount() {
         if (cursor == null) {
+            System.out.println("Nao tem nada!");
             return 0;
+        } else{
+            System.out.println("Tem tudo!");
+            return cursor.getCount();
         }
-        return cursor.getCount();
     }
 
 

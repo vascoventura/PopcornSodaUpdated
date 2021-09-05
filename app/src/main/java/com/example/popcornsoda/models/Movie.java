@@ -51,6 +51,11 @@ public class Movie {
         this.nomeAutor = nomeAutor;
     }
 
+    public Movie(String nome, int imagem_capa, int imagem_fundo) {
+        this.nome_filme = nome;
+
+    }
+
     //Setters e Getters
 
     public long getId_filme() {

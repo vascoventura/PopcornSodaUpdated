@@ -21,11 +21,10 @@ import com.example.popcornsoda.BdPopcorn.BdTableSeries;
 import com.example.popcornsoda.BdPopcorn.ContentProviderPopcorn;
 import com.example.popcornsoda.R;
 import com.example.popcornsoda.adapters.AdaptadorLVSeries;
-import com.example.popcornsoda.models.Serie;
 
 public class Series extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
 
-    public static final String ID_SERIE = "ID_SERIE" ;
+    public static final String ID_SERIE = "ID_SERIE";
     public static final int ID_CURSO_LOADER_SERIES = 0;
 
     private AdaptadorLVSeries adaptadorSeries;
@@ -38,6 +37,7 @@ public class Series extends AppCompatActivity implements LoaderManager.LoaderCal
 
 
         getSupportLoaderManager().initLoader(ID_CURSO_LOADER_SERIES, null, this);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         RecyclerView recyclerViewSeries = (RecyclerView) findViewById(R.id.recyclerViewSeries);
         adaptadorSeries = new AdaptadorLVSeries(this);
@@ -48,7 +48,6 @@ public class Series extends AppCompatActivity implements LoaderManager.LoaderCal
     @Override
     protected void onResume() {
         getSupportLoaderManager().restartLoader(ID_CURSO_LOADER_SERIES, null, this);
-
         super.onResume();
     }
 
@@ -110,14 +109,15 @@ public class Series extends AppCompatActivity implements LoaderManager.LoaderCal
 
     @NonNull
     @Override
-    public Loader<Cursor> onCreateLoader(int i, @Nullable Bundle bundle) {
+    public Loader<Cursor> onCreateLoader(int id, @Nullable Bundle bundle) {
         CursorLoader cursorLoader = new CursorLoader(this, ContentProviderPopcorn.ENDERECO_SERIES, BdTableSeries.TODAS_COLUNAS, null, null, BdTableSeries.CAMPO_NOME);
         return cursorLoader;
     }
 
     @Override
     public void onLoadFinished(@NonNull Loader<Cursor> loader, Cursor data) {
-        adaptadorSeries.setCursor(data);    }
+        adaptadorSeries.setCursor(data);
+    }
 
     @Override
     public void onLoaderReset(@NonNull Loader<Cursor> loader) {

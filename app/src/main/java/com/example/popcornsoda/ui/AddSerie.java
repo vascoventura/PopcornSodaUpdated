@@ -228,13 +228,12 @@ public class AddSerie extends AppCompatActivity implements LoaderManager.LoaderC
     @Override
     public void onLoadFinished(@NonNull Loader<Cursor> loader, Cursor data) {
         mostraAutoresSpinner(data);
-        mostraCategoriasSpinner(data);
+        //mostraCategoriasSpinner(data);
     }
 
 
     @Override
     public void onLoaderReset(@NonNull Loader<Cursor> loader) {
-
         mostraAutoresSpinner(null);
         mostraCategoriasSpinner(null);
     }

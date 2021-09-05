@@ -75,18 +75,18 @@ public class MainActivity extends AppCompatActivity {
     }
 
     //Calling Activities
-
+    Intent intent;
     private void openFilmes() {
-        Intent intent = new Intent(this, Filmes.class);
+        intent = new Intent(this, Filmes.class);
         startActivity(intent);
     }
 
     private void openSeries() {
-        Intent intent2 = new Intent(this, Series.class);
-        startActivity(intent2);
+        intent = new Intent(this, Series.class);
+        startActivity(intent);
     }
     private void openAutores() {
-        Intent intent4 = new Intent(this, Autores.class);
-        startActivity(intent4);
+        intent = new Intent(this, Autores.class);
+        startActivity(intent);
     }
 }
