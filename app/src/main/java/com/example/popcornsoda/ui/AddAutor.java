@@ -48,8 +48,20 @@ public class AddAutor extends AppCompatActivity implements LoaderManager.LoaderC
     private Switch switchFavoritoAddAutor;
     private ImageView imageViewFotoCapa;
     private Button botaoImagemCapa;
+    private ImageView imageViewFotoFundo;
+    private Button botaoImagemFundo;
+
     private boolean estadoSwitchFavoritos;
 
+    private int acao_botao = 0;
+
+    public void setAcao_botao(int acao_botao) {
+        this.acao_botao = acao_botao;
+    }
+
+    public int getAcao_botao() {
+        return acao_botao;
+    }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -71,21 +83,26 @@ public class AddAutor extends AppCompatActivity implements LoaderManager.LoaderC
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         if(requestCode == REQUEST_CODE_GALLERY && resultCode == RESULT_OK && data !=null){
             Uri uri = data.getData();
-
-
                 try{
                     InputStream inputStream = getContentResolver().openInputStream(uri);
                     Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
-                    imageViewFotoCapa.setImageBitmap(bitmap);
+                    if(getAcao_botao() == 1){
+                        imageViewFotoCapa.setImageBitmap(bitmap);
+                        setAcao_botao(0);
+                    } else if(getAcao_botao() == 2){
+                        imageViewFotoFundo.setImageBitmap(bitmap);
+                        setAcao_botao(0);
+                    }
 
                 } catch(FileNotFoundException e){
                     e.printStackTrace();
                 }
-
         }
 
         super.onActivityResult(requestCode, resultCode, data);
     }
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,17 +119,31 @@ public class AddAutor extends AppCompatActivity implements LoaderManager.LoaderC
         botaoImagemCapa = findViewById(R.id.botao_capa_add_autor);
         editTextDescricaoAutor = findViewById(R.id.editTextDescricao_autor);
         switchFavoritoAddAutor = (Switch) findViewById(R.id.botao_favorito_add_autor);
+        imageViewFotoFundo = findViewById(R.id.foto_fundo_add_autor);
+        botaoImagemFundo = findViewById(R.id.botao_fundo_add_autor);
 
         //Estado do Switch dos Favoritos
         estadoSwitchFavoritos = switchFavoritoAddAutor.isChecked();
 
 
+
+
         getSupportLoaderManager().initLoader(ID_CURSO_LOADER_AUTORES, null, this);
 
         botaoImagemCapa.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View v) {
                 ActivityCompat.requestPermissions(AddAutor.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, REQUEST_CODE_GALLERY);
+                setAcao_botao(1);
+            }
+        });
+
+        botaoImagemFundo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ActivityCompat.requestPermissions(AddAutor.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, REQUEST_CODE_GALLERY);
+                setAcao_botao(2);
             }
         });
 
@@ -197,7 +228,18 @@ public class AddAutor extends AppCompatActivity implements LoaderManager.LoaderC
         autor.setDescricao_autor(descricao);
 
         byte[] imagem_capa = ImagemParaByte(imageViewFotoCapa);
-        autor.setFoto_capa_autor(imagem_capa);
+        if(imagem_capa !=null){
+            autor.setFoto_capa_autor(imagem_capa);
+        } else{
+            Toast.makeText(this, "Insira uma imagem para a capa", Toast.LENGTH_SHORT).show();
+        }
+
+        byte[] imagem_fundo = ImagemParaByte(imageViewFotoFundo);
+        if(imagem_capa !=null){
+            autor.setFoto_fundo_autor(imagem_fundo);
+        } else{
+            Toast.makeText(this, "Insira uma imagem para o fundo", Toast.LENGTH_SHORT).show();
+        }
 
         if(estadoSwitchFavoritos){
             autor.setFavorito_autor(true);

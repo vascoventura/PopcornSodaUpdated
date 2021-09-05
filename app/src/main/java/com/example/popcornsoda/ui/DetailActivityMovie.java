@@ -36,14 +36,14 @@ public class DetailActivityMovie extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 
-        TextView textViewNome = findViewById(R.id.detail_movie_nome);
+        TextView textViewNome = findViewById(R.id.detail_autor_nome);
         TextView textViewTipo =  findViewById(R.id.detail_movie_tipo);
         TextView textViewAutorFilme = findViewById(R.id.detail_movie_autor);
         TextView textViewClassificacao = findViewById(R.id.detail_movie_classificacao);
         TextView textViewAno = findViewById(R.id.detail_movie_ano);
         TextView textViewDescricao = findViewById(R.id.detail_movie_descricao);
-        ImageView imageViewCapa = findViewById(R.id.imageViewCapa);
-        ImageView imageViewFundo = findViewById(R.id.imageViewFundo);
+        ImageView imageViewCapa = findViewById(R.id.imageViewCapaAutor);
+        ImageView imageViewFundo = findViewById(R.id.imageViewGradiente);
         FloatingActionButton favorito = findViewById(R.id.botao_favorito);
         FloatingActionButton visto = findViewById(R.id.botao_visto);
         FloatingActionButton trailer = findViewById(R.id.detail_movie_trailer);

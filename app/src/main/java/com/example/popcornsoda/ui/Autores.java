@@ -34,6 +34,8 @@ public class Autores extends AppCompatActivity  implements LoaderManager.LoaderC
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_autores);
+        Toolbar toolbar = findViewById(R.id.toolbar);
+
 
         getSupportLoaderManager().initLoader(ID_CURSO_LOADER_AUTORES, null, this);
 
@@ -44,6 +46,7 @@ public class Autores extends AppCompatActivity  implements LoaderManager.LoaderC
 
         //Botao Voltar
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
     }
 
     @Override
@@ -72,13 +75,11 @@ public class Autores extends AppCompatActivity  implements LoaderManager.LoaderC
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_tabelas, menu);
         this.menu = menu;
-
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-
         switch(item.getItemId()){
             case R.id.itemAdicionar:
                 Intent intent = new Intent (this, AddAutor.class);

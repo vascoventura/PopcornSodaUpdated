@@ -1,116 +1,169 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/colorPrimary"
-    android:orientation="vertical"
-    tools:context=".ui.AddAutor"
-    tools:showIn="@layout/activity_add_autor"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior">
+    android:layout_height="match_parent">
 
-
-    <com.google.android.material.textfield.TextInputLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:hint="@string/n_ome"
-        android:textColorHint="#9900BCD4">
+        android:background="@color/colorPrimary"
+        android:orientation="vertical"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        tools:context=".ui.AddAutor"
+        tools:showIn="@layout/activity_add_autor">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/editTextNome_autor"
+
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textPersonName"
-            android:textColor="#FFFFFF"
-            tools:ignore="TouchTargetSizeCheck" />
-    </com.google.android.material.textfield.TextInputLayout>
+            android:layout_marginTop="20dp"
+            android:hint="@string/n_ome"
+            android:textColorHint="#9900BCD4">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/editTextNome_autor"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:inputType="textPersonName"
+                android:textColor="#FFFFFF"
+                tools:ignore="TouchTargetSizeCheck" />
+        </com.google.android.material.textfield.TextInputLayout>
 
 
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/a_no"
+            android:textColorHint="#9900BCD4">
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/a_no"
-        android:textColorHint="#9900BCD4">
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/editTextAno_autor"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:inputType="number"
+                android:textColor="#FFFFFF"
+                tools:ignore="TouchTargetSizeCheck" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/editTextAno_autor"
+
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:inputType="number"
-            android:textColor="#FFFFFF"
-            tools:ignore="TouchTargetSizeCheck" />
-    </com.google.android.material.textfield.TextInputLayout>
+            android:hint="@string/n_acionalidade"
+            android:textColorHint="#9900BCD4">
 
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/editTextNacionalidade_autor"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text"
+                android:textColor="#FFFFFF"
+                tools:ignore="TouchTargetSizeCheck" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:hint="@string/n_acionalidade"
-        android:textColorHint="#9900BCD4">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/editTextNacionalidade_autor"
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="text"
-            android:textColor="#FFFFFF"
-            tools:ignore="TouchTargetSizeCheck" />
-    </com.google.android.material.textfield.TextInputLayout>
+            android:layout_marginTop="8dp"
+            android:hint="@string/d_escricao"
+            android:textColorHint="#9900BCD4">
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:hint="@string/d_escricao"
-        android:textColorHint="#9900BCD4">
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/editTextDescricao_autor"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textLongMessage"
+                android:textColor="#FFFFFF"
+                tools:ignore="TouchTargetSizeCheck" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/editTextDescricao_autor"
+        <Switch
+            android:id="@+id/botao_favorito_add_autor"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textLongMessage"
-            android:textColor="#FFFFFF"
-            tools:ignore="TouchTargetSizeCheck" />
-    </com.google.android.material.textfield.TextInputLayout>
+            android:layout_marginStart="5dp"
+            android:layout_marginLeft="5dp"
+            android:minHeight="48dp"
+            android:text="Favorito"
+            android:textColor="#9900BCD4"
+            android:textSize="16sp" />
 
-    <Switch
-        android:id="@+id/botao_favorito_add_autor"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="5dp"
-        android:layout_marginLeft="5dp"
-        android:minHeight="48dp"
-        android:text="Favorito"
-        android:textColor="#9900BCD4"
-        android:textSize="16sp" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginBottom="0dp"
+            android:hint="Imagem de Capa"
+            android:textColorHint="#9900BCD4">
 
-    <ImageView
-        android:id="@+id/foto_capa_add_autor"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="50dp"
-        android:paddingLeft="0dp"
-        android:paddingRight="0dp"
-        tools:srcCompat="@tools:sample/avatars" />
+        </TextView>
 
-    <Button
-        android:id="@+id/botao_capa_add_autor"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginTop="-20dp"
-        android:text="Buscar..." />
+        <ImageView
+            android:id="@+id/foto_capa_add_autor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="5dp"
+            android:paddingLeft="0dp"
+            android:paddingRight="0dp"
+            tools:srcCompat="@tools:sample/avatars" />
 
 
+        <Button
+            android:id="@+id/botao_capa_add_autor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="5dp"
+            android:text="Buscar..." />
 
-</LinearLayout>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginBottom="0dp"
+            android:hint="Imagem de Fundo"
+            android:textColorHint="#9900BCD4">
+
+        </TextView>
+
+        <ImageView
+            android:id="@+id/foto_fundo_add_autor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="5dp"
+            android:paddingLeft="0dp"
+            android:paddingRight="0dp"
+            tools:srcCompat="@tools:sample/avatars" />
+
+        <Button
+            android:id="@+id/botao_fundo_add_autor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="5dp"
+            android:text="Buscar..." />
+
+
+    </LinearLayout>
+
+</ScrollView>

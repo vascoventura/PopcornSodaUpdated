@@ -24,7 +24,7 @@
 
 
         <ImageView
-            android:id="@+id/imageViewFundo"
+            android:id="@+id/imageViewGradiente"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:background="#00C08A8A"
@@ -46,11 +46,11 @@
             android:clickable="true"
             android:focusable="true"
             android:src="@drawable/ic_movie_black_24dp"
-            app:layout_constraintBottom_toTopOf="@+id/detail_movie_nome"
+            app:layout_constraintBottom_toTopOf="@+id/detail_autor_nome"
             app:layout_constraintStart_toEndOf="@+id/botao_visto" />
 
         <ImageView
-            android:id="@+id/imageViewCapa"
+            android:id="@+id/imageViewCapaAutor"
             android:layout_width="137dp"
             android:layout_height="188dp"
             android:layout_marginStart="16dp"
@@ -64,7 +64,7 @@
             tools:targetApi="lollipop" />
 
         <TextView
-            android:id="@+id/detail_movie_nome"
+            android:id="@+id/detail_autor_nome"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -76,7 +76,7 @@
             android:textColor="@android:color/white"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/imageViewCapa"
+            app:layout_constraintStart_toEndOf="@+id/imageViewCapaAutor"
             app:layout_constraintTop_toBottomOf="@+id/detail_movie_cover" />
 
         <TextView
@@ -91,8 +91,8 @@
             android:text="TextView"
             android:textColor="@android:color/white"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/imageViewCapa"
-            app:layout_constraintTop_toBottomOf="@+id/detail_movie_nome" />
+            app:layout_constraintStart_toEndOf="@+id/imageViewCapaAutor"
+            app:layout_constraintTop_toBottomOf="@+id/detail_autor_nome" />
 
         <ImageView
             android:id="@+id/imageView_movie_classificacao"
@@ -101,9 +101,9 @@
             android:layout_marginTop="8dp"
             android:layout_marginEnd="-7dp"
             android:layout_marginRight="-7dp"
-            app:layout_constraintBottom_toBottomOf="@+id/imageViewCapa"
-            app:layout_constraintEnd_toEndOf="@+id/imageViewCapa"
-            app:layout_constraintTop_toBottomOf="@+id/imageViewCapa"
+            app:layout_constraintBottom_toBottomOf="@+id/imageViewCapaAutor"
+            app:layout_constraintEnd_toEndOf="@+id/imageViewCapaAutor"
+            app:layout_constraintTop_toBottomOf="@+id/imageViewCapaAutor"
             app:layout_constraintVertical_bias="0.615"
             app:srcCompat="@android:drawable/btn_star_big_on" />
 
@@ -175,8 +175,8 @@
             android:focusable="true"
             android:src="@drawable/ic_favorite_black_24dp"
             app:backgroundTint="#F1B814"
-            app:layout_constraintBottom_toTopOf="@+id/detail_movie_nome"
-            app:layout_constraintStart_toEndOf="@+id/imageViewCapa"
+            app:layout_constraintBottom_toTopOf="@+id/detail_autor_nome"
+            app:layout_constraintStart_toEndOf="@+id/imageViewCapaAutor"
             tools:ignore="VectorDrawableCompat" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -187,7 +187,7 @@
             android:layout_marginLeft="8dp"
             android:layout_marginBottom="16dp"
             android:clickable="true"
-            app:layout_constraintBottom_toTopOf="@+id/detail_movie_nome"
+            app:layout_constraintBottom_toTopOf="@+id/detail_autor_nome"
             app:layout_constraintStart_toEndOf="@+id/botao_favorito"
             android:src="@drawable/ic_remove_red_eye_black_24dp"
             android:focusable="true"

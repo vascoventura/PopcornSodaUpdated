@@ -1,6 +1,7 @@
 package com.example.popcornsoda.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -17,8 +18,13 @@ import com.example.popcornsoda.BdPopcorn.BdTableAutores;
 import com.example.popcornsoda.R;
 import com.example.popcornsoda.models.Autor;
 import com.example.popcornsoda.ui.Autores;
+import com.example.popcornsoda.ui.DetailActivityAutor;
+import com.example.popcornsoda.ui.Series;
 
 public class AdaptadorLVAutores extends RecyclerView.Adapter<AdaptadorLVAutores.ViewHolderAutor> {
+
+    public static final String ID_AUTOR = "ID_AUTOR";
+
     private Cursor cursor;
     private Context context;
     private boolean selecao = false;
@@ -67,12 +73,14 @@ public class AdaptadorLVAutores extends RecyclerView.Adapter<AdaptadorLVAutores.
     private static ViewHolderAutor viewHolderAutorSelecionado = null;
 
     public Autor getAutorSelecionado() {
-        if(viewHolderAutorSelecionado == null) return null;
-
-        return viewHolderAutorSelecionado.autor;
+        if(viewHolderAutorSelecionado == null){
+            return null;
+        }else{
+            return viewHolderAutorSelecionado.autor;
+        }
     }
 
-    public class ViewHolderAutor extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public class ViewHolderAutor extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
         private TextView textViewNome;
         private TextView textViewNacionalidade;
         private TextView textViewAno;
@@ -90,6 +98,7 @@ public class AdaptadorLVAutores extends RecyclerView.Adapter<AdaptadorLVAutores.
             imageViewImagemCapa = (ImageView) itemView.findViewById(R.id.item_autor_foto_capa);
 
             itemView.setOnClickListener(this);
+            itemView.setOnLongClickListener(this);
 
         }
 
@@ -109,25 +118,46 @@ public class AdaptadorLVAutores extends RecyclerView.Adapter<AdaptadorLVAutores.
 
         @Override
         public void onClick(View v) {
-            if (viewHolderAutorSelecionado != null) {
-                viewHolderAutorSelecionado.desSeleciona();
+
+            if(click){
+                long idAutor = autor.getId();
+                System.out.println("ID DO AUTOR: " + idAutor);
+                Context context = v.getContext();
+
+                Intent intent = new Intent();
+                intent.setClass(context, DetailActivityAutor.class);
+                intent.putExtra(ID_AUTOR, idAutor);
+                context.startActivity(intent);
             }
-
-            viewHolderAutorSelecionado = this;
-
-            ((Autores) context).atualizaOpcoesMenu();
-
-            seleciona();
-        }
+            click = true;
+                    }
 
 
         private void desSeleciona() {
             itemView.setBackgroundResource(R.color.colorPrimary);
+            selecao = false;
         }
 
         private void seleciona() {
             itemView.setBackgroundResource(R.color.colorAccent);
+            selecao = true;
         }
 
+        @Override
+        public boolean onLongClick(View v) {
+            click = false;
+            if(selecao){
+                viewHolderAutorSelecionado.desSeleciona();
+                ((Autores) context).atualizaOpcoesMenu();
+
+
+            }else{
+                viewHolderAutorSelecionado = this;
+                viewHolderAutorSelecionado.seleciona();
+                ((Autores) context).atualizaOpcoesMenu();
+
+            }
+            return false;
+        }
     }
 }
