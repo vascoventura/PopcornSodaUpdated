@@ -60,9 +60,7 @@ public class Filmes extends AppCompatActivity implements LoaderManager.LoaderCal
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 
-        //Conteudos da pagina
-
-
+        //Slider
         sliderpager = findViewById(R.id.slider_pager);
         TabLayout indicator = findViewById(R.id.indicator);
         RecyclerView moviesRV = findViewById(R.id.Rv_movieList);

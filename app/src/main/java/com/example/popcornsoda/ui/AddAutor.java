@@ -6,6 +6,7 @@ import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
@@ -31,6 +32,7 @@ import com.example.popcornsoda.R;
 import com.example.popcornsoda.models.Autor;
 import com.google.android.material.snackbar.Snackbar;
 
+import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 
@@ -98,6 +100,7 @@ public class AddAutor extends AppCompatActivity implements LoaderManager.LoaderC
         editTextNacionalidadeAutor = findViewById(R.id.editTextNacionalidade_autor);
         imageViewFotoCapa = findViewById(R.id.foto_capa_add_autor);
         botaoImagemCapa = findViewById(R.id.botao_capa_add_autor);
+        editTextDescricaoAutor = findViewById(R.id.editTextDescricao_autor);
         switchFavoritoAddAutor = (Switch) findViewById(R.id.botao_favorito_add_autor);
 
         //Estado do Switch dos Favoritos
@@ -171,7 +174,7 @@ public class AddAutor extends AppCompatActivity implements LoaderManager.LoaderC
 
         String nacionalidade = editTextNacionalidadeAutor.getText().toString();
 
-        if(nome.trim().isEmpty()){
+        if(nacionalidade.trim().isEmpty()){
             editTextNacionalidadeAutor.setError("O campo não pode estar vazio");
             return;
         }
@@ -193,11 +196,16 @@ public class AddAutor extends AppCompatActivity implements LoaderManager.LoaderC
         autor.setNacionalidade(nacionalidade);
         autor.setDescricao_autor(descricao);
 
+        byte[] imagem_capa = ImagemParaByte(imageViewFotoCapa);
+        autor.setFoto_capa_autor(imagem_capa);
+
         if(estadoSwitchFavoritos){
             autor.setFavorito_autor(true);
         } else{
             autor.setFavorito_autor(false);
         }
+
+        System.out.println("Estado do Switch: " + estadoSwitchFavoritos);
 
 
         try {
@@ -231,5 +239,14 @@ public class AddAutor extends AppCompatActivity implements LoaderManager.LoaderC
     @Override
     public void onLoaderReset(@NonNull Loader<Cursor> loader) {
 
+    }
+
+    private byte[] ImagemParaByte(ImageView image){
+        Bitmap bitmap = ((BitmapDrawable) image.getDrawable()).getBitmap();
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+        byte[] byteArray = stream.toByteArray();
+
+        return byteArray;
     }
 }

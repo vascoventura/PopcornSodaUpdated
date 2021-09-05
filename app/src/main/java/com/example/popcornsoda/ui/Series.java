@@ -16,11 +16,20 @@ import androidx.loader.content.CursorLoader;
 import androidx.loader.content.Loader;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager.widget.ViewPager;
 
 import com.example.popcornsoda.BdPopcorn.BdTableSeries;
 import com.example.popcornsoda.BdPopcorn.ContentProviderPopcorn;
 import com.example.popcornsoda.R;
 import com.example.popcornsoda.adapters.AdaptadorLVSeries;
+import com.example.popcornsoda.adapters.Slider;
+import com.example.popcornsoda.adapters.SliderPageAdapter;
+import com.google.android.material.tabs.TabLayout;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class Series extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
 
@@ -28,6 +37,9 @@ public class Series extends AppCompatActivity implements LoaderManager.LoaderCal
     public static final int ID_CURSO_LOADER_SERIES = 0;
 
     private AdaptadorLVSeries adaptadorSeries;
+
+    private List<Slider> itensSlider;
+    private ViewPager sliderpager;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -43,6 +55,25 @@ public class Series extends AppCompatActivity implements LoaderManager.LoaderCal
         adaptadorSeries = new AdaptadorLVSeries(this);
         recyclerViewSeries.setAdapter(adaptadorSeries);
         recyclerViewSeries.setLayoutManager( new LinearLayoutManager(this) );
+
+
+        //Slider
+
+        sliderpager = findViewById(R.id.slider_pager_series);
+        TabLayout indicator = findViewById(R.id.indicator_series);
+        itensSlider = new ArrayList<>();
+        itensSlider.add(new Slider(R.drawable.venom, "Venom:", "A não perder"));
+        itensSlider.add(new Slider(R.drawable.suicide_squad, "Suicide Squad:","Filmagens da sequela começam já em setembro!"));
+        itensSlider.add(new Slider(R.drawable.green_book, "Green Book:", "Uma história que nos inspira"));
+
+        SliderPageAdapter adapter = new SliderPageAdapter(this, itensSlider);
+        sliderpager.setAdapter(adapter);
+
+        //Temporizador do Slider
+        Timer timer = new Timer();
+        timer.scheduleAtFixedRate(new SliderTime(), 4000, 6000);
+
+        indicator.setupWithViewPager(sliderpager, true);
 
     }
     @Override
@@ -123,5 +154,21 @@ public class Series extends AppCompatActivity implements LoaderManager.LoaderCal
     public void onLoaderReset(@NonNull Loader<Cursor> loader) {
         adaptadorSeries.setCursor(null);
 
+    }
+
+    class SliderTime extends TimerTask {
+        @Override
+        public void run() {
+            Series.this.runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    if (sliderpager.getCurrentItem() < itensSlider.size() - 1) {
+                        sliderpager.setCurrentItem(sliderpager.getCurrentItem() + 1);
+                    } else {
+                        sliderpager.setCurrentItem(0);
+                    }
+                }
+            });
+        }
     }
 }
