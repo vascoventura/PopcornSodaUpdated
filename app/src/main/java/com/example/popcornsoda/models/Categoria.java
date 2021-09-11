@@ -20,6 +20,10 @@ public class Categoria {
         this.nome_categoria = nome_categoria;
     }
 
+    public Categoria(String nome_categoria){
+        this.nome_categoria = nome_categoria;
+    }
+
     //Getters e Setters
 
     public long getId_categoria() {

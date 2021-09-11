@@ -10,8 +10,15 @@ import android.net.Uri;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.example.popcornsoda.models.Categoria;
+
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class ContentProviderPopcorn extends ContentProvider {
+
+    SQLiteDatabase bd;
 
     public static final String AUTHORITY = "com.example.popcornsoda.BdPopcorn";
     public static final String AUTORES = "autores";
@@ -203,6 +210,8 @@ public class ContentProviderPopcorn extends ContentProvider {
                 throw new UnsupportedOperationException("URI inválida (UPDATE): " + uri.toString());
         }
     }
+
+
 }
 
 

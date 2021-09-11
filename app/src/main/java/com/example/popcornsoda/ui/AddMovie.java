@@ -9,19 +9,29 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.SimpleCursorAdapter;
 import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.Toast;
+
+import com.example.popcornsoda.BdPopcorn.BdPopcornOpenHelper;
 import com.example.popcornsoda.BdPopcorn.BdTableAutores;
 import com.example.popcornsoda.BdPopcorn.BdTableCategorias;
 import com.example.popcornsoda.BdPopcorn.ContentProviderPopcorn;
 import com.example.popcornsoda.R;
+import com.example.popcornsoda.adapters.Message;
+import com.example.popcornsoda.adapters.myDbAdapter;
+import com.example.popcornsoda.models.Categoria;
 import com.example.popcornsoda.models.Movie;
 import com.google.android.material.snackbar.Snackbar;
 
-public class AddMovie extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor>  {
+import java.util.List;
+
+public class AddMovie extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor>, AdapterView.OnItemSelectedListener {
 
     private static final int ID_CURSO_LOADER_AUTORES = 0;
     private static final int ID_CURSO_LOADER_CATEGORIAS = 0;
@@ -35,6 +45,14 @@ public class AddMovie extends AppCompatActivity implements LoaderManager.LoaderC
     private EditText editTextLinkFilme;
     private Switch switchFavoritoFilme;
     private Switch switchVistoFilme;
+
+    private myDbAdapter helper;
+    
+    String[] categorias;
+
+    String[] categorias2 = {"Terror", "Comédia", "Ação", "Romance"};
+            //{BdTableCategorias.CAMPO_NOME};
+    String[] autores = {BdTableAutores.CAMPO_NOME};
 
 
     @Override
@@ -57,10 +75,27 @@ public class AddMovie extends AppCompatActivity implements LoaderManager.LoaderC
         switchVistoFilme = findViewById(R.id.botao_visto_add_filme);
 
 
+
         getSupportLoaderManager().initLoader(ID_CURSO_LOADER_AUTORES, null, this);
         getSupportLoaderManager().initLoader(ID_CURSO_LOADER_CATEGORIAS, null, this);
 
+        spinnerCategoria.setOnItemSelectedListener(this);
 
+
+
+        helper = new myDbAdapter(this);
+        categorias = helper.getCategorias();
+
+        ArrayAdapter aa = new ArrayAdapter(AddMovie.this,android.R.layout.simple_spinner_item,categorias);
+        aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        //Setting the ArrayAdapter data on the Spinner
+        spinnerCategoria.setAdapter(aa);
+
+
+
+        for(int x=0;x<autores.length;x++){
+            System.out.println("AUTOR " + x + ": " +autores[x]);
+        }
     }
 
 
@@ -219,15 +254,19 @@ public class AddMovie extends AppCompatActivity implements LoaderManager.LoaderC
         }
     }
 
+    public void viewCategorias(View view) {
+        String data = helper.getData();
+        Message.message(this,data);
+    }
+
 
     @NonNull
     @Override
     public Loader<Cursor> onCreateLoader(int id, @Nullable Bundle args) {
 
-        //androidx.loader.content.CursorLoader cursorLoader = new androidx.loader.content.CursorLoader(this, ContentProviderPopcorn.ENDERECO_AUTORES, BdTableAutores.TODAS_COLUNAS, null, null, BdTableAutores.CAMPO_NOME
+        androidx.loader.content.CursorLoader cursorLoader = new androidx.loader.content.CursorLoader(this, ContentProviderPopcorn.ENDERECO_AUTORES, BdTableAutores.TODAS_COLUNAS, null, null, BdTableAutores.CAMPO_NOME);
 
-        androidx.loader.content.CursorLoader cursorLoader = new androidx.loader.content.CursorLoader(this, ContentProviderPopcorn.ENDERECO_CATEGORIAS, BdTableCategorias.TODAS_COLUNAS, null, null, BdTableCategorias.CAMPO_NOME
-        );
+       // androidx.loader.content.CursorLoader cursorLoader2 = new androidx.loader.content.CursorLoader(this, ContentProviderPopcorn.ENDERECO_CATEGORIAS, BdTableCategorias.TODAS_COLUNAS, null, null, BdTableCategorias.CAMPO_NOME);
 
         return cursorLoader;
 
@@ -248,5 +287,17 @@ public class AddMovie extends AppCompatActivity implements LoaderManager.LoaderC
         mostraAutoresSpinner(null);
         mostraCategoriasSpinner(null);
     }
+
+    @Override
+    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+        //Toast.makeText(getApplicationContext(), categorias.indexOf(i), Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> adapterView) {
+
+    }
+
+
 
 }
