@@ -45,7 +45,6 @@ public class Series extends AppCompatActivity implements LoaderManager.LoaderCal
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_series);
-        Toolbar toolbar = findViewById(R.id.toolbar);
 
 
         getSupportLoaderManager().initLoader(ID_CURSO_LOADER_SERIES, null, this);

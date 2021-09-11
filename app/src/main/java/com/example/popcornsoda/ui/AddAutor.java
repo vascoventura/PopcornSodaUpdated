@@ -108,7 +108,7 @@ public class AddAutor extends AppCompatActivity implements LoaderManager.LoaderC
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_autor);
-        Toolbar toolbar = findViewById(R.id.toolbar);
+
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 

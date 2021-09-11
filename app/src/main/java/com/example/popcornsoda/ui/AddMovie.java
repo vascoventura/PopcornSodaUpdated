@@ -3,20 +3,32 @@ package com.example.popcornsoda.ui;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import androidx.loader.app.LoaderManager;
 import androidx.loader.content.Loader;
+
+import android.Manifest;
+import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.Toast;
+import android.widget.Toolbar;
 
 import com.example.popcornsoda.BdPopcorn.BdPopcornOpenHelper;
 import com.example.popcornsoda.BdPopcorn.BdTableAutores;
@@ -29,73 +41,161 @@ import com.example.popcornsoda.models.Categoria;
 import com.example.popcornsoda.models.Movie;
 import com.google.android.material.snackbar.Snackbar;
 
+import java.io.ByteArrayOutputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.List;
 
 public class AddMovie extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor>, AdapterView.OnItemSelectedListener {
 
     private static final int ID_CURSO_LOADER_AUTORES = 0;
     private static final int ID_CURSO_LOADER_CATEGORIAS = 0;
+    final int REQUEST_CODE_GALLERY = 399;
 
     private EditText editTextNomeFilme;
     private EditText editTextClassificacaoFilme;
     private EditText editTextAnoFilme;
     private EditText editTextDescricaoFilme;
-    private Spinner spinnerAutor;
-    private Spinner spinnerCategoria;
     private EditText editTextLinkFilme;
+    private ImageView imagemCapaFilme;
+    private ImageView imagemFundoFilme;
+    private Button botaoCapaFilme;
+    private Button botaoFundoFilme;
+
+
     private Switch switchFavoritoFilme;
     private Switch switchVistoFilme;
 
+    private Spinner spinnerAutor;
+    private Spinner spinnerCategoria;
+
     private myDbAdapter helper;
+
     
-    String[] categorias;
+    List<Categoria> categorias = new ArrayList<>();
 
-    String[] categorias2 = {"Terror", "Comédia", "Ação", "Romance"};
-            //{BdTableCategorias.CAMPO_NOME};
-    String[] autores = {BdTableAutores.CAMPO_NOME};
 
+    //String[] categorias2 = {"Terror", "Comédia", "Ação", "Romance"};
+    //{BdTableCategorias.CAMPO_NOME};
+    //String[] autores = {BdTableAutores.CAMPO_NOME};
+
+    private boolean estadoSwitchFavoritos;
+    private boolean estadoSwitchVistos;
+
+    private int acao_botao = 0;
+
+    public void setAcao_botao(int acao_botao) {
+        this.acao_botao = acao_botao;
+    }
+
+    public int getAcao_botao() {
+        return acao_botao;
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+       if(requestCode == REQUEST_CODE_GALLERY){
+            if(grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+                Intent intent = new Intent(Intent.ACTION_PICK);
+                intent.setType("image/*");
+                startActivityForResult(intent, REQUEST_CODE_GALLERY);
+            } else {
+                Toast.makeText(getApplicationContext(), "Sem permissão para aceder ao conteúdo", Toast.LENGTH_LONG).show();
+            }
+            return;
+        }
+
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        if(requestCode == REQUEST_CODE_GALLERY && resultCode == RESULT_OK && data !=null){
+            Uri uri = data.getData();
+            try{
+                InputStream inputStream = getContentResolver().openInputStream(uri);
+                Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
+                if(getAcao_botao() == 1){
+                    imagemCapaFilme.setImageBitmap(bitmap);
+                    setAcao_botao(0);
+                } else if(getAcao_botao() == 2){
+                    imagemFundoFilme.setImageBitmap(bitmap);
+                    setAcao_botao(0);
+                }
+
+            } catch(FileNotFoundException e){
+                e.printStackTrace();
+            }
+        }
+        super.onActivityResult(requestCode, resultCode, data);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_movie);
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+
+        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         editTextNomeFilme = findViewById(R.id.editText_nome_filme_inserir);
         editTextClassificacaoFilme = findViewById(R.id.editText_classificacao_filme_inserir);
         editTextAnoFilme = findViewById(R.id.editText_ano_filme_inserir);
         editTextDescricaoFilme = findViewById(R.id.editText_descricao_filme_inserir);
         editTextLinkFilme = findViewById(R.id.editTextLink_inserir);
+        imagemCapaFilme = findViewById(R.id.foto_capa_add_filme);
+        imagemFundoFilme = findViewById(R.id.foto_fundo_add_filme);
+        botaoFundoFilme = findViewById(R.id.botao_fundo_add_filme);
+        botaoCapaFilme = findViewById(R.id.botao_capa_add_filme);
 
-        spinnerAutor = findViewById(R.id.spinnerCategorias_series_inserir);
+
+        spinnerAutor = findViewById(R.id.spinnerCategorias_filmes_inserir);
         spinnerCategoria = findViewById(R.id.spinnerCategorias);
 
         switchFavoritoFilme = findViewById(R.id.botao_favorito_add_filme);
         switchVistoFilme = findViewById(R.id.botao_visto_add_filme);
 
+        estadoSwitchFavoritos = switchFavoritoFilme.isChecked();
+        estadoSwitchVistos = switchVistoFilme.isChecked();
 
 
         getSupportLoaderManager().initLoader(ID_CURSO_LOADER_AUTORES, null, this);
         getSupportLoaderManager().initLoader(ID_CURSO_LOADER_CATEGORIAS, null, this);
+
+        botaoCapaFilme.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                ActivityCompat.requestPermissions(AddMovie.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, REQUEST_CODE_GALLERY);
+                setAcao_botao(1);
+            }
+        });
+
+        botaoFundoFilme.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ActivityCompat.requestPermissions(AddMovie.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, REQUEST_CODE_GALLERY);
+                setAcao_botao(2);
+            }
+        });
 
         spinnerCategoria.setOnItemSelectedListener(this);
 
 
 
         helper = new myDbAdapter(this);
-        categorias = helper.getCategorias();
+        categorias = helper.getAll();
+
+        System.out.println(categorias);
 
         ArrayAdapter aa = new ArrayAdapter(AddMovie.this,android.R.layout.simple_spinner_item,categorias);
         aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         //Setting the ArrayAdapter data on the Spinner
         spinnerCategoria.setAdapter(aa);
 
-
-
-        for(int x=0;x<autores.length;x++){
-            System.out.println("AUTOR " + x + ": " +autores[x]);
-        }
     }
 
 
@@ -118,7 +218,7 @@ public class AddMovie extends AppCompatActivity implements LoaderManager.LoaderC
         spinnerAutor.setAdapter(adaptadorAutores);
     }
 
-    private void mostraCategoriasSpinner(Cursor cursorCategorias){
+    /*private void mostraCategoriasSpinner(Cursor cursorCategorias){
         SimpleCursorAdapter adaptadorCategorias = new SimpleCursorAdapter(this,
                 android.R.layout.simple_list_item_1,
                 cursorCategorias,
@@ -127,7 +227,9 @@ public class AddMovie extends AppCompatActivity implements LoaderManager.LoaderC
         );
         spinnerCategoria.setAdapter(adaptadorCategorias);
 
-    }
+
+
+    }*/
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -214,14 +316,12 @@ public class AddMovie extends AppCompatActivity implements LoaderManager.LoaderC
         }
 
         long idAutor = spinnerAutor.getSelectedItemId();
+
         long idCategoria = spinnerCategoria.getSelectedItemId();
 
 
-        boolean favorito;
-        boolean visto;
-
-        System.out.println(switchFavoritoFilme.getText());
-        System.out.println(switchVistoFilme.getText());
+        System.out.println("switch favorito: " + estadoSwitchFavoritos);
+        System.out.println("switch visto: " + estadoSwitchVistos);
 
 
         // guardar os dados
@@ -233,10 +333,33 @@ public class AddMovie extends AppCompatActivity implements LoaderManager.LoaderC
         filme.setClassificacao_filme(classificacao);
         filme.setAno_filme(ano);
         filme.setDescricao_filme(descricao);
-        filme.setFoto_capa_filme(null);
-        filme.setFoto_fundo_filme(null);
-        filme.setFavorito_filme(false);
-        filme.setVisto_filme(false);
+
+        byte[] imagem_capa = ImagemParaByte(imagemCapaFilme);
+        if(imagem_capa != null){
+            filme.setFoto_capa_filme(imagem_capa);
+        } else{
+            Toast.makeText(this, "Insira uma imagem para a capa", Toast.LENGTH_SHORT).show();
+        }
+
+        byte[] imagem_fundo = ImagemParaByte(imagemFundoFilme);
+        if(imagem_fundo != null){
+            filme.setFoto_fundo_filme(imagem_fundo);
+        } else{
+            Toast.makeText(this, "Insira uma imagem para o fundo", Toast.LENGTH_SHORT).show();
+        }
+
+        if(estadoSwitchFavoritos){
+            filme.setFavorito_filme(true);
+        }else{
+            filme.setFavorito_filme(false);
+        }
+
+        if(estadoSwitchVistos){
+            filme.setVisto_filme(true);
+        }else{
+            filme.setVisto_filme(false);
+        }
+
         filme.setLink_trailer_filme(link);
 
         try {
@@ -266,8 +389,6 @@ public class AddMovie extends AppCompatActivity implements LoaderManager.LoaderC
 
         androidx.loader.content.CursorLoader cursorLoader = new androidx.loader.content.CursorLoader(this, ContentProviderPopcorn.ENDERECO_AUTORES, BdTableAutores.TODAS_COLUNAS, null, null, BdTableAutores.CAMPO_NOME);
 
-       // androidx.loader.content.CursorLoader cursorLoader2 = new androidx.loader.content.CursorLoader(this, ContentProviderPopcorn.ENDERECO_CATEGORIAS, BdTableCategorias.TODAS_COLUNAS, null, null, BdTableCategorias.CAMPO_NOME);
-
         return cursorLoader;
 
     }
@@ -278,24 +399,32 @@ public class AddMovie extends AppCompatActivity implements LoaderManager.LoaderC
     @Override
     public void onLoadFinished(@NonNull Loader<Cursor> loader, Cursor data) {
         mostraAutoresSpinner(data);
-        //mostraCategoriasSpinner(data);
     }
 
 
     @Override
     public void onLoaderReset(@NonNull Loader<Cursor> loader) {
         mostraAutoresSpinner(null);
-        mostraCategoriasSpinner(null);
+
     }
 
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-        //Toast.makeText(getApplicationContext(), categorias.indexOf(i), Toast.LENGTH_LONG).show();
+        Toast.makeText(getApplicationContext(), categorias.indexOf(i), Toast.LENGTH_LONG).show();
     }
 
     @Override
     public void onNothingSelected(AdapterView<?> adapterView) {
 
+    }
+
+    private byte[] ImagemParaByte(ImageView image){
+        Bitmap bitmap = ((BitmapDrawable) image.getDrawable()).getBitmap();
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+        byte[] byteArray = stream.toByteArray();
+
+        return byteArray;
     }
 
 

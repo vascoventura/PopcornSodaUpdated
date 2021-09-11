@@ -20,9 +20,7 @@ public class Autor {
 
     //Construtores
 
-    public Autor(){
-
-    }
+    public Autor(){}
 
 
     public Autor(long id, String nome_autor, int ano_nascimento, String nacionalidade) {

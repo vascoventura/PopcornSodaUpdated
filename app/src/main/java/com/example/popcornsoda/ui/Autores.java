@@ -34,7 +34,7 @@ public class Autores extends AppCompatActivity  implements LoaderManager.LoaderC
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_autores);
-        Toolbar toolbar = findViewById(R.id.toolbar);
+
 
 
         getSupportLoaderManager().initLoader(ID_CURSO_LOADER_AUTORES, null, this);

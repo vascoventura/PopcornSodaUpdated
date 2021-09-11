@@ -50,7 +50,7 @@ public class Filmes extends AppCompatActivity implements LoaderManager.LoaderCal
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_filmes);
-        Toolbar toolbar = findViewById(R.id.toolbar);
+
 
         getSupportLoaderManager().initLoader(ID_CURSO_LOADER_FILMES, null, this);
 
@@ -165,6 +165,7 @@ public class Filmes extends AppCompatActivity implements LoaderManager.LoaderCal
     @Override
     public Loader<Cursor> onCreateLoader (int id, @Nullable Bundle args){
         CursorLoader cursorLoader = new CursorLoader(this, ContentProviderPopcorn.ENDERECO_FILMES, BdTableFilmes.TODAS_COLUNAS, null, null, BdTableFilmes.CAMPO_NOME);
+        System.out.print("CURSOR LOADER: " + cursorLoader);
         return cursorLoader;
     }
 

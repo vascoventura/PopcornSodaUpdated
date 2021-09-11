@@ -44,16 +44,18 @@
         android:layout_marginStart="8dp" />
 
     <Spinner
-        android:id="@+id/spinnerCategorias_series_inserir"
+        android:id="@+id/spinnerCategorias_filmes_inserir"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
-        android:textColor="#9900BCD4"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
-        android:spinnerMode="dialog" />
+        android:minHeight="48dp"
+        android:spinnerMode="dialog"
+        android:textColor="@color/colorAccent"
+        tools:ignore="SpeakableTextPresentCheck" />
 
 
     <TextView
@@ -71,13 +73,14 @@
         android:id="@+id/spinnerCategorias"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="#9900BCD4"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
-        android:spinnerMode="dialog" />
+        android:minHeight="48dp"
+        android:spinnerMode="dialog"
+        android:textColor="@color/colorAccent" />
 
 
     <com.google.android.material.textfield.TextInputLayout
@@ -133,6 +136,9 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="5dp"
         android:layout_marginLeft="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginRight="5dp"
         android:text="Favorito"
         android:textColor="#9900BCD4" />
 
@@ -143,6 +149,9 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="5dp"
         android:layout_marginLeft="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginRight="5dp"
         android:text="Visto"
         android:textColor="#9900BCD4" />
 
@@ -167,17 +176,19 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:layout_marginLeft="10dp"
-        android:textColor="#9900BCD4"
-        android:text="Capa do Filme" />
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginRight="10dp"
+        android:text="Capa do Filme"
+        android:textColor="#9900BCD4" />
 
     <ImageView
         android:id="@+id/foto_capa_add_filme"
-        android:layout_width="150dp"
-        android:layout_height="175dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
         android:layout_marginLeft="30dp"
         android:layout_marginTop="20dp"
-        android:layout_marginBottom="50dp"
         android:paddingLeft="0dp"
         android:paddingRight="0dp"
         tools:srcCompat="@tools:sample/avatars" />
@@ -188,7 +199,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
         android:layout_marginLeft="30dp"
-        android:layout_marginTop="-20dp"
+        android:layout_marginTop="5dp"
         android:text="Buscar..." />
 
     <TextView
@@ -197,17 +208,20 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:layout_marginLeft="10dp"
-        android:textColor="#9900BCD4"
-        android:text="Fundo do Filme" />
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="10dp"
+        android:text="Fundo do Filme"
+        android:textColor="#9900BCD4" />
 
     <ImageView
         android:id="@+id/foto_fundo_add_filme"
-        android:layout_width="150dp"
-        android:layout_height="175dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
         android:layout_marginLeft="30dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="50dp"
+        android:layout_marginTop="10dp"
         android:paddingLeft="0dp"
         android:paddingRight="0dp"
         tools:srcCompat="@tools:sample/avatars" />
@@ -218,7 +232,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
         android:layout_marginLeft="30dp"
-        android:layout_marginTop="-20dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
         android:text="Buscar..." />
 
 </LinearLayout>

@@ -57,7 +57,6 @@ public class AdaptadorLVFilmes extends RecyclerView.Adapter<AdaptadorLVFilmes.Vi
         cursor.moveToPosition(position);
         Movie movie = Movie.fromCursor(cursor);
         holderFilme.setFilme(movie);
-
     }
 
     @Override
@@ -66,7 +65,7 @@ public class AdaptadorLVFilmes extends RecyclerView.Adapter<AdaptadorLVFilmes.Vi
             System.out.println("Nao tem nada!");
             return 0;
         } else{
-            System.out.println("Tem tudo!");
+            System.out.println("Tem " + cursor.getCount() + "registos de filmes");
             return cursor.getCount();
         }
     }
@@ -78,7 +77,6 @@ public class AdaptadorLVFilmes extends RecyclerView.Adapter<AdaptadorLVFilmes.Vi
         if(viewHolderFilmeSelecionado == null){
             return null;
         }else{
-
             return viewHolderFilmeSelecionado.movie;
         }
     }

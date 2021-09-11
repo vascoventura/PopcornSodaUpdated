@@ -1,6 +1,7 @@
 package com.example.popcornsoda.ui;
 
 
+import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -15,6 +16,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.popcornsoda.BdPopcorn.BdTableAutores;
 import com.example.popcornsoda.BdPopcorn.BdTableFilmes;
 import com.example.popcornsoda.BdPopcorn.ContentProviderPopcorn;
 import com.example.popcornsoda.R;
@@ -25,7 +27,8 @@ public class DetailActivityMovie extends AppCompatActivity {
 
 
     private Uri enderecoFilme;
-    private boolean estado_favorito;
+    private Movie movie = null;
+    private boolean favFilme;
 
 
     @Override
@@ -37,7 +40,7 @@ public class DetailActivityMovie extends AppCompatActivity {
 
 
         TextView textViewNome = findViewById(R.id.detail_autor_nome);
-        TextView textViewTipo =  findViewById(R.id.detail_movie_tipo);
+        TextView textViewTipo = findViewById(R.id.detail_movie_tipo);
         TextView textViewAutorFilme = findViewById(R.id.detail_movie_autor);
         TextView textViewClassificacao = findViewById(R.id.detail_movie_classificacao);
         TextView textViewAno = findViewById(R.id.detail_movie_ano);
@@ -58,29 +61,13 @@ public class DetailActivityMovie extends AppCompatActivity {
         favorito.setAnimation(AnimationUtils.loadAnimation(this, R.anim.scale_animation));
         visto.setAnimation(AnimationUtils.loadAnimation(this, R.anim.scale_animation));
         trailer.setAnimation(AnimationUtils.loadAnimation(this, R.anim.scale_animation));
-
-
-
-        //Botoes + queries
-
-        favorito.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                adicionaFavorito();
-            }
-        });
-
-        visto.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(getApplicationContext(),"Marcado como Visto", Toast.LENGTH_LONG).show();
-            }
-        });
+        imageViewCapa.setAnimation(AnimationUtils.loadAnimation(this, R.anim.scale_animation));
+        imageViewFundo.setAnimation(AnimationUtils.loadAnimation(this, R.anim.scale_animation));
 
 
 
         Intent intent = getIntent();
-        long idFilme = intent.getLongExtra(Filmes.ID_FILME, -1);
+        final long idFilme = intent.getLongExtra(Filmes.ID_FILME, -1);
         if (idFilme == -1) {
             Toast.makeText(this, "Erro: não foi possível abrir a página do conteúdo", Toast.LENGTH_LONG).show();
             finish();
@@ -97,7 +84,7 @@ public class DetailActivityMovie extends AppCompatActivity {
             return;
         }
 
-        Movie movie = Movie.fromCursor(cursor);
+        movie = Movie.fromCursor(cursor);
 
         textViewNome.setText(movie.getNome_filme());
         textViewTipo.setText(movie.getNomeCategoria());
@@ -109,44 +96,51 @@ public class DetailActivityMovie extends AppCompatActivity {
 
         //Conversoes de imagens
 
-        Bitmap bmp = BitmapFactory.decodeByteArray(movie.getFoto_capa_filme(), 0, movie.getFoto_capa_filme().length);
-        imageViewCapa.setImageBitmap(Bitmap.createScaledBitmap(bmp, imageViewCapa.getWidth(), imageViewCapa.getHeight(), false));
+        byte[] filmeImageCapa = movie.getFoto_capa_filme();
+        Bitmap bitmap_filmeImage = BitmapFactory.decodeByteArray(filmeImageCapa, 0, filmeImageCapa.length);
+        //imageViewCapaAutor.setImageBitmap(Bitmap.createScaledBitmap(bitmap_autorImage, imageViewCapaAutor.getWidth(), imageViewCapaAutor.getHeight(), false));
+        imageViewCapa.setImageBitmap(bitmap_filmeImage);
 
-        bmp = BitmapFactory.decodeByteArray(movie.getFoto_fundo_filme(), 0, movie.getFoto_fundo_filme().length);
-        imageViewFundo.setImageBitmap(Bitmap.createScaledBitmap(bmp, imageViewCapa.getWidth(), imageViewCapa.getHeight(), false));
-
+        byte[] filmeImageFundo = movie.getFoto_fundo_filme();
+        Bitmap bitmap_filmeImageFundo = BitmapFactory.decodeByteArray(filmeImageFundo, 0, filmeImageFundo.length);
+        //imageViewFundoAutor.setImageBitmap(Bitmap.createScaledBitmap(bitmap_autorImageFundo, imageViewFundoAutor.getWidth(), imageViewFundoAutor.getHeight(), false));
+        imageViewFundo.setImageBitmap(bitmap_filmeImageFundo);
 
 
         getSupportActionBar().setTitle(movie.getNome_filme());
 
+        favorito.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                favFilme = movie.isFavorito_filme();
+                long id = movie.getId_filme();
+                System.out.println("estado Favorito: " + favFilme);
+                System.out.println("id_autor: " + id);
+
+                atualizaFavorito(favFilme);
+            }
+
+            private int atualizaFavorito(boolean estadoAtual) {
+                movie.setFavorito_filme(!estadoAtual);
+                try {
+                    ContentValues values = new ContentValues();
+                    values.put(BdTableFilmes.CAMPO_FAVORITO, !estadoAtual);
+                    getContentResolver().update(enderecoFilme, movie.getContentValues(), null, null);
+
+                    if (favFilme == false) {
+                        Toast.makeText(DetailActivityMovie.this, "Adicionado aos Favoritos", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(DetailActivityMovie.this, "Removido dos Favoritos", Toast.LENGTH_SHORT).show();
+                    }
+
+                } catch (Exception e) {
+                    Toast.makeText(DetailActivityMovie.this, "Não Foi Possível Realizar a Operação", Toast.LENGTH_SHORT).show();
+                    e.printStackTrace();
+                }
+                return 0;
+            }
+        });
+
     }
-
-
-    private boolean adicionaFavorito() {
-
-        if(!estado_favorito){
-           /* try {
-                getContentResolver().update(enderecoFilme, filme.getContentValues(), null, null);
-
-                Toast.makeText(this, "Filme guardado com sucesso", Toast.LENGTH_SHORT).show();
-                finish();
-            } catch (Exception e) {
-                Snackbar.make(
-                        editTextNomeFilme,
-                        "Erro ao guardar filme",
-                        Snackbar.LENGTH_LONG)
-                        .show();
-                e.printStackTrace();
-            }*/
-            Toast.makeText(this, "Adicionado aos favoritos", Toast.LENGTH_SHORT).show();
-            estado_favorito = true;
-            return true;
-        }else{
-            Toast.makeText(this, "Removido dos favoritos", Toast.LENGTH_SHORT).show();
-            estado_favorito = false;
-            return false;
-        }
-    }
-
-
 }
+

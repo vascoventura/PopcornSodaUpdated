@@ -56,7 +56,7 @@ public class myDbAdapter {
 
         List<Categoria> categoriaList = new ArrayList<>();
 
-        String query = "Select nome_categoria from categorias";
+        String query = "Select * from categorias";
 
 
         Cursor cursor = db.rawQuery(query, null);
@@ -64,9 +64,13 @@ public class myDbAdapter {
         if(cursor.moveToFirst()){
             //loop throught the cursor
             do{
-                String nome_categoria = cursor.getString(1);
+                long id_categoria = cursor.getLong(cursor.getColumnIndex(BdTableCategorias._ID));
+                String nome_categoria = cursor.getString(cursor.getColumnIndex(BdTableCategorias.CAMPO_NOME));
 
-                Categoria categoria = new Categoria(nome_categoria);
+                Categoria categoria = new Categoria();
+                categoria.setId_categoria(id_categoria);
+                categoria.setNome_categoria(nome_categoria);
+
                 categoriaList.add(categoria);
             }while(cursor.moveToNext());
         }else{

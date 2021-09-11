@@ -65,7 +65,7 @@ public class AdaptadorLVAutores extends RecyclerView.Adapter<AdaptadorLVAutores.
             System.out.println("Nao tem nada!");
             return 0;
         } else{
-            System.out.println("Tem tudo!");
+            System.out.println("Tem " + String.valueOf(cursor.getCount()) + "registos de autores");
             return cursor.getCount();
         }
     }

@@ -6,6 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".ui.AddMovie">
 
-    <include layout="@layout/content_activity_add_movie"/>
+    <include layout="@layout/content_activity_add_movie" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
