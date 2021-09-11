@@ -19,33 +19,42 @@
             android:exported="true" />
         <activity
             android:name=".ui.AddCategory"
+            android:label="Adicionar Categoria"
             android:exported="true" />
         <activity
             android:name=".ui.DetailActivtySerie"
             android:parentActivityName=".ui.Series" />
         <activity
             android:name=".ui.ApagarSerie"
+            android:label="Apagar Série?"
             android:parentActivityName=".ui.Series" />
         <activity
             android:name=".ui.ApagarAutor"
+            android:label="Apagar Autor?"
             android:parentActivityName=".ui.Autores" />
         <activity
             android:name=".ui.ApagarMovie"
+            android:label="Apagar Filme?"
             android:parentActivityName=".ui.Filmes" />
         <activity
             android:name=".ui.AlterarSerie"
+            android:label="Editar Série..."
             android:parentActivityName=".ui.Series" />
         <activity
             android:name=".ui.AlterarAutor"
+            android:label="Editar Autor..."
             android:parentActivityName=".ui.Autores" />
         <activity
             android:name=".ui.AlterarMovie"
+            android:label="Editar Filme...?"
             android:parentActivityName=".ui.Filmes" />
         <activity
             android:name=".ui.AddSerie"
+            android:label="Adicionar Série"
             android:parentActivityName=".ui.Series" />
         <activity
             android:name=".ui.AddMovie"
+            android:label="Adicionar Filme..."
             android:parentActivityName=".ui.Filmes" />
         <activity
             android:name=".ui.Autores"
@@ -53,9 +62,11 @@
             android:parentActivityName=".ui.MainActivity" />
         <activity
             android:name=".ui.Series"
+            android:label="Filmes"
             android:parentActivityName=".ui.MainActivity" />
         <activity
             android:name=".ui.AddAutor"
+            android:label="Adicionar Autor..."
             android:parentActivityName=".ui.Autores">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -66,8 +77,10 @@
             android:parentActivityName=".ui.Filmes" />
         <activity
             android:name=".ui.Filmes"
+            android:label="Filmes"
             android:parentActivityName=".ui.MainActivity" />
-        <activity android:name=".ui.MainActivity">
+        <activity android:name=".ui.MainActivity"
+            android:exported="false">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
