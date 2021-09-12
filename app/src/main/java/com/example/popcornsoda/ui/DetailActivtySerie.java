@@ -1,5 +1,6 @@
 package com.example.popcornsoda.ui;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.ContentValues;
@@ -9,6 +10,8 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
@@ -27,6 +30,8 @@ public class DetailActivtySerie extends AppCompatActivity {
     private Serie serie = null;
     private boolean favSerie;
     private boolean vistoSerie;
+
+    private Menu menu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -186,5 +191,32 @@ public class DetailActivtySerie extends AppCompatActivity {
         });
 
         getSupportActionBar().setTitle(serie.getNome_serie());
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_detalhes, menu);
+        this.menu = menu;
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.itemEditarDetalhes:
+                Intent intent1 = new Intent(this, AlterarAutor.class);
+                //intent1.putExtra(ID_AUTOR, autor.getId());
+                //startActivity(intent1);
+                return true;
+
+            case R.id.itemEliminarDetalhes:
+                Intent intent2 = new Intent(this, ApagarAutor.class);
+                //intent2.putExtra(ID_AUTOR, adaptadorAutores.getAutorSelecionado().getId());
+                //startActivity(intent2);
+                return true;
+
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }

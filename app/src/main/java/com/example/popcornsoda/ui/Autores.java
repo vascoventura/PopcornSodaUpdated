@@ -35,8 +35,6 @@ public class Autores extends AppCompatActivity  implements LoaderManager.LoaderC
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_autores);
 
-
-
         getSupportLoaderManager().initLoader(ID_CURSO_LOADER_AUTORES, null, this);
 
         recyclerViewAutores = findViewById(R.id.recyclerViewAutores);
@@ -63,11 +61,13 @@ public class Autores extends AppCompatActivity  implements LoaderManager.LoaderC
             menu.findItem(R.id.itemEliminar).setVisible(true);
             menu.findItem(R.id.itemDetalhe).setVisible(true);
             menu.findItem(R.id.itemAdicionar).setVisible(false);
+            menu.findItem(R.id.itemFavorito).setVisible(false);
         }else{
             menu.findItem(R.id.itemEditar).setVisible(false);
             menu.findItem(R.id.itemEliminar).setVisible(false);
             menu.findItem(R.id.itemDetalhe).setVisible(false);
             menu.findItem(R.id.itemAdicionar).setVisible(true);
+            menu.findItem(R.id.itemFavorito).setVisible(true);
         }
     }
 

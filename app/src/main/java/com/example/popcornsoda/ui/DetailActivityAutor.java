@@ -1,5 +1,6 @@
 package com.example.popcornsoda.ui;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.ContentValues;
@@ -9,6 +10,8 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageButton;
@@ -30,17 +33,17 @@ import java.sql.SQLOutput;
 
 public class DetailActivityAutor extends AppCompatActivity{
 
+
     private Uri enderecoAutor;
     ContentProviderPopcorn db;
 
     private Autor autor = null;
+    private Menu menu;
 
     private boolean favAutor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_autor);
 
@@ -135,4 +138,30 @@ public class DetailActivityAutor extends AppCompatActivity{
         });
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_detalhes, menu);
+        this.menu = menu;
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.itemEditarDetalhes:
+                Intent intent1 = new Intent(this, AlterarAutor.class);
+                //intent1.putExtra(ID_AUTOR, autor.getId());
+                //startActivity(intent1);
+                return true;
+
+            case R.id.itemEliminarDetalhes:
+                Intent intent2 = new Intent(this, ApagarAutor.class);
+                //intent2.putExtra(ID_AUTOR, adaptadorAutores.getAutorSelecionado().getId());
+                //startActivity(intent2);
+                return true;
+
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
 }

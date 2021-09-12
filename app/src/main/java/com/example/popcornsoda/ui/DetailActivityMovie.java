@@ -8,12 +8,15 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.popcornsoda.BdPopcorn.BdTableAutores;
@@ -30,6 +33,7 @@ public class DetailActivityMovie extends AppCompatActivity {
     private Movie movie = null;
     private boolean favFilme;
     private boolean vistoFilme;
+    private Menu menu;
 
 
     @Override
@@ -172,8 +176,33 @@ public class DetailActivityMovie extends AppCompatActivity {
         });
 
         getSupportActionBar().setTitle(movie.getNome_filme());
+    }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_detalhes, menu);
+        this.menu = menu;
+        return true;
+    }
 
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.itemEditarDetalhes:
+                Intent intent1 = new Intent(this, AlterarAutor.class);
+                //intent1.putExtra(ID_AUTOR, autor.getId());
+                //startActivity(intent1);
+                return true;
+
+            case R.id.itemEliminarDetalhes:
+                Intent intent2 = new Intent(this, ApagarAutor.class);
+                //intent2.putExtra(ID_AUTOR, adaptadorAutores.getAutorSelecionado().getId());
+                //startActivity(intent2);
+                return true;
+
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }
 
