@@ -202,7 +202,7 @@ public class AddMovie extends AppCompatActivity implements LoaderManager.LoaderC
     @Override
     protected void onResume() {
         getSupportLoaderManager().restartLoader(ID_CURSO_LOADER_AUTORES, null, this);
-        getSupportLoaderManager().restartLoader(ID_CURSO_LOADER_CATEGORIAS, null, this);
+        //getSupportLoaderManager().restartLoader(ID_CURSO_LOADER_CATEGORIAS, null, this);
 
         super.onResume();
     }
@@ -328,8 +328,8 @@ public class AddMovie extends AppCompatActivity implements LoaderManager.LoaderC
         Movie filme = new Movie();
 
         filme.setNome_filme(nome);
-        filme.setCategoria_filme(idCategoria);
-        filme.setAutor_filme(idAutor);
+        filme.setCategoria_filme(1);
+        filme.setAutor_filme(1);
         filme.setClassificacao_filme(classificacao);
         filme.setAno_filme(ano);
         filme.setDescricao_filme(descricao);
@@ -398,7 +398,7 @@ public class AddMovie extends AppCompatActivity implements LoaderManager.LoaderC
 
     @Override
     public void onLoadFinished(@NonNull Loader<Cursor> loader, Cursor data) {
-        mostraAutoresSpinner(data);
+        //mostraAutoresSpinner(data);
     }
 
 
@@ -410,7 +410,7 @@ public class AddMovie extends AppCompatActivity implements LoaderManager.LoaderC
 
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-        Toast.makeText(getApplicationContext(), categorias.indexOf(i), Toast.LENGTH_LONG).show();
+        //Toast.makeText(getApplicationContext(), categorias.indexOf(i), Toast.LENGTH_LONG).show();
     }
 
     @Override

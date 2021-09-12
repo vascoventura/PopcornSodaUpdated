@@ -29,6 +29,7 @@ public class DetailActivityMovie extends AppCompatActivity {
     private Uri enderecoFilme;
     private Movie movie = null;
     private boolean favFilme;
+    private boolean vistoFilme;
 
 
     @Override
@@ -45,8 +46,8 @@ public class DetailActivityMovie extends AppCompatActivity {
         TextView textViewClassificacao = findViewById(R.id.detail_movie_classificacao);
         TextView textViewAno = findViewById(R.id.detail_movie_ano);
         TextView textViewDescricao = findViewById(R.id.detail_movie_descricao);
-        ImageView imageViewCapa = findViewById(R.id.imageViewCapaAutor);
-        ImageView imageViewFundo = findViewById(R.id.imageViewGradiente);
+        ImageView imageViewCapa = findViewById(R.id.imageViewCapaFilme);
+        ImageView imageViewFundo = findViewById(R.id.imageViewFundoFilme);
         FloatingActionButton favorito = findViewById(R.id.botao_favorito);
         FloatingActionButton visto = findViewById(R.id.botao_visto);
         FloatingActionButton trailer = findViewById(R.id.detail_movie_trailer);
@@ -131,6 +132,38 @@ public class DetailActivityMovie extends AppCompatActivity {
                         Toast.makeText(DetailActivityMovie.this, "Adicionado aos Favoritos", Toast.LENGTH_SHORT).show();
                     } else {
                         Toast.makeText(DetailActivityMovie.this, "Removido dos Favoritos", Toast.LENGTH_SHORT).show();
+                    }
+
+                } catch (Exception e) {
+                    Toast.makeText(DetailActivityMovie.this, "Não Foi Possível Realizar a Operação", Toast.LENGTH_SHORT).show();
+                    e.printStackTrace();
+                }
+                return 0;
+            }
+        });
+
+        visto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                vistoFilme = movie.isVisto_filme();
+                long id = movie.getId_filme();
+                System.out.println("estado Visto: " + vistoFilme);
+                System.out.println("id_autor: " + id);
+
+                atualizaVisto(vistoFilme);
+            }
+
+            private int atualizaVisto(boolean estadoAtual) {
+                movie.setVisto_filme(!estadoAtual);
+                try {
+                    ContentValues values = new ContentValues();
+                    values.put(BdTableFilmes.CAMPO_VISTO, !estadoAtual);
+                    getContentResolver().update(enderecoFilme, movie.getContentValues(), null, null);
+
+                    if (vistoFilme == false) {
+                        Toast.makeText(DetailActivityMovie.this, "Adicionado aos Vistos", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(DetailActivityMovie.this, "Removido dos Vistos", Toast.LENGTH_SHORT).show();
                     }
 
                 } catch (Exception e) {
