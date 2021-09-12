@@ -17,12 +17,6 @@
         android:visible="true"
         app:showAsAction="ifRoom" />
     <item
-        android:id="@+id/itemVisto"
-        android:icon="@drawable/olho_amarelo"
-        android:title="Adicionar aos Vistos"
-        android:visible="true"
-        app:showAsAction="ifRoom" />
-    <item
         android:id="@+id/itemEliminar"
         android:icon="@drawable/ic_delete_black_24dp"
         android:title="@string/e_liminar"

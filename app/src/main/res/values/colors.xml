@@ -3,6 +3,7 @@
     <color name="colorPrimary">#151c25</color>
     <color name="colorPrimaryDark">#151c25</color>
     <color name="colorAccent">#F1B814</color>
+    <color name="colorAmarelo">#FFFF00</color>
     <color name="button_text">#ffffff</color>
     <color name="detail_movie_desc">#91D2F0</color>
 </resources>

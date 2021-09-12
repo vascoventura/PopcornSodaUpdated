@@ -1,47 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimary">
+    android:background="@color/button_text">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/colorPrimary"
         android:orientation="vertical"
-        tools:context=".ui.AlterarMovie"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        tools:context=".ui.AlterarMovie"
         tools:showIn="@layout/activity_alterar_movie">
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:textColorHint="#9900BCD4"
-            android:hint="@string/n_ome">
+            android:hint="@string/n_ome"
+            android:textColorHint="#9900BCD4">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/editText_nome_filme_alterar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="#FFFFFF"
-                android:id="@+id/editText_nome_filme_alterar"
-                android:inputType="textPersonName"/>
+                android:inputType="textPersonName"
+                android:textColor="#FFFFFF" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
             android:id="@+id/textView2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
             android:layout_marginLeft="8dp"
             android:layout_marginTop="8dp"
             android:text="Realizador"
             android:textAppearance="@style/TextAppearance.AppCompat.Small"
-            android:textColor="#9900BCD4"
-            android:layout_marginStart="8dp" />
+            android:textColor="#9900BCD4" />
 
         <Spinner
             android:id="@+id/spinnerAutores_filmes_alterar"
@@ -52,7 +51,9 @@
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp"
+            android:background="@color/button_text"
             android:minHeight="48dp"
+            android:popupBackground="@color/detail_movie_desc"
             android:spinnerMode="dialog"
             android:textColor="@color/colorAccent"
             tools:ignore="SpeakableTextPresentCheck" />
@@ -62,12 +63,12 @@
             android:id="@+id/textView3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
             android:layout_marginLeft="8dp"
             android:layout_marginTop="8dp"
             android:text="@string/categoria"
             android:textAppearance="@style/TextAppearance.AppCompat.Small"
-            android:textColor="#9900BCD4"
-            android:layout_marginStart="8dp" />
+            android:textColor="#9900BCD4" />
 
         <Spinner
             android:id="@+id/spinnerCategorias_filmes_alterar"
@@ -78,7 +79,9 @@
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp"
+            android:background="@color/button_text"
             android:minHeight="48dp"
+            android:popupBackground="@color/detail_movie_desc"
             android:spinnerMode="dialog"
             android:textColor="@color/colorAccent"
             tools:ignore="SpeakableTextPresentCheck,SpeakableTextPresentCheck" />
@@ -87,47 +90,47 @@
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColorHint="#9900BCD4"
-            android:hint="@string/c_lassificacao">
+            android:hint="@string/c_lassificacao"
+            android:textColorHint="#9900BCD4">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/editText_classificacao_filme_alterar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="#FFFFFF"
                 android:layout_marginTop="8dp"
-                android:inputType="numberDecimal" />
+                android:inputType="numberDecimal"
+                android:textColor="#FFFFFF" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColorHint="#9900BCD4"
-            android:hint="@string/a_no">
+            android:hint="@string/a_no"
+            android:textColorHint="#9900BCD4">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/editText_ano_filme_alterar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="#FFFFFF"
                 android:layout_marginTop="8dp"
-                android:inputType="number" />
+                android:inputType="number"
+                android:textColor="#FFFFFF" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:textColorHint="#9900BCD4"
-            android:hint="@string/d_escricao">
+            android:hint="@string/d_escricao"
+            android:textColorHint="#9900BCD4">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/editText_descricao_filme_alterar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="#FFFFFF"
-                android:id="@+id/editText_descricao_filme_alterar"
-                android:inputType="textLongMessage"/>
+                android:inputType="textLongMessage"
+                android:textColor="#FFFFFF" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -161,16 +164,16 @@
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColorHint="#9900BCD4"
-            android:hint="Trailer do Filme">
+            android:hint="Trailer do Filme"
+            android:textColorHint="#9900BCD4">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/editTextLink_filme_alterar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="#FFFFFF"
                 android:layout_marginTop="8dp"
-                android:inputType="text" />
+                android:inputType="text"
+                android:textColor="#FFFFFF" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <TextView

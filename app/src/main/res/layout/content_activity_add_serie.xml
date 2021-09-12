@@ -54,7 +54,9 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
+        android:background="@color/button_text"
         android:minHeight="48dp"
+        android:popupBackground="@color/detail_movie_desc"
         android:spinnerMode="dialog"
         android:textColor="#FFFFFF"
         tools:ignore="SpeakableTextPresentCheck,SpeakableTextPresentCheck,SpeakableTextPresentCheck" />
@@ -79,7 +81,9 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
+        android:background="@color/button_text"
         android:minHeight="48dp"
+        android:popupBackground="@color/detail_movie_desc"
         android:spinnerMode="dialog"
         android:textColor="#FFFFFF"
         tools:ignore="SpeakableTextPresentCheck,SpeakableTextPresentCheck" />

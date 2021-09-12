@@ -73,7 +73,7 @@ public class Autores extends AppCompatActivity  implements LoaderManager.LoaderC
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_tabelas, menu);
+        getMenuInflater().inflate(R.menu.menu_autores, menu);
         this.menu = menu;
         return true;
     }

@@ -108,15 +108,23 @@ public class Filmes extends AppCompatActivity implements LoaderManager.LoaderCal
 
     private Menu menu;
 
-    public void atualizaOpcoesMenu() {
-        Movie filme = adaptadorFilmes.getFilmeSelecionada();
 
-        boolean mostraAlterarEliminar = (filme != null);
-
-        menu.findItem(R.id.itemEditar).setVisible(mostraAlterarEliminar);
-        menu.findItem(R.id.itemEliminar).setVisible(mostraAlterarEliminar);
-        menu.findItem(R.id.itemDetalhe).setVisible(mostraAlterarEliminar);
-        menu.findItem(R.id.itemAdicionar).setVisible(false);
+        public void atualizaOpcoesMenu() {
+            if(adaptadorFilmes.isSelecao()){
+                menu.findItem(R.id.itemEditar).setVisible(true);
+                menu.findItem(R.id.itemEliminar).setVisible(true);
+                menu.findItem(R.id.itemDetalhe).setVisible(true);
+                menu.findItem(R.id.itemAdicionar).setVisible(false);
+                menu.findItem(R.id.itemFavorito).setVisible(false);
+                menu.findItem(R.id.itemVisto).setVisible(false);
+            }else{
+                menu.findItem(R.id.itemEditar).setVisible(false);
+                menu.findItem(R.id.itemEliminar).setVisible(false);
+                menu.findItem(R.id.itemDetalhe).setVisible(false);
+                menu.findItem(R.id.itemAdicionar).setVisible(true);
+                menu.findItem(R.id.itemFavorito).setVisible(true);
+                menu.findItem(R.id.itemVisto).setVisible(true);
+            }
     }
 
     //Menu
