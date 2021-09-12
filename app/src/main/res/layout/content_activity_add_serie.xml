@@ -27,7 +27,7 @@
         android:hint="@string/n_ome">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/editText_nome_serie_inserir"
+            android:id="@+id/editText_nome_serie_alterar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textPersonName"
@@ -46,7 +46,7 @@
         android:textColor="#0097A7" />
 
     <Spinner
-        android:id="@+id/spinnerCategorias_series_inserir"
+        android:id="@+id/spinnerAutores_series_alterar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -71,7 +71,7 @@
         android:textColor="#9900BCD4" />
 
     <Spinner
-        android:id="@+id/spinnerCategorias_ser_inserir"
+        android:id="@+id/spinnerCategorias_series_alterar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -91,7 +91,7 @@
         android:textColorHint="#9900BCD4">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/editText_classificacao_serie_inserir"
+            android:id="@+id/editText_classificacao_serie_alterar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
@@ -106,7 +106,7 @@
         android:textColorHint="#9900BCD4">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/editText_ano_serie_inserir"
+            android:id="@+id/editText_ano_serie_alterar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
@@ -121,7 +121,7 @@
         android:textColorHint="#9900BCD4">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/editText_temporadas_serie_inserir"
+            android:id="@+id/editText_temporadas_serie_alterar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
@@ -137,7 +137,7 @@
         android:textColorHint="#9900BCD4">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/editText_descricao_serie_inserir"
+            android:id="@+id/editText_descricao_serie_alterar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="text"
@@ -145,7 +145,7 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <Switch
-        android:id="@+id/botao_favorito_add_serie"
+        android:id="@+id/botao_favorito_alterar_serie"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="5dp"
@@ -159,7 +159,7 @@
 
 
     <Switch
-        android:id="@+id/botao_visto_add_serie"
+        android:id="@+id/botao_visto_alterar_serie"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="5dp"
@@ -180,7 +180,7 @@
         android:hint="Trailer da Série">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/editTextLink_ser_inserir"
+            android:id="@+id/editTextLink_ser_alterar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="#FFFFFF"
@@ -202,7 +202,7 @@
         tools:ignore="TextContrastCheck,TextContrastCheck" />
 
     <ImageView
-        android:id="@+id/foto_capa_add_serie"
+        android:id="@+id/foto_capa_alterar_serie"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
@@ -213,7 +213,7 @@
         tools:srcCompat="@tools:sample/avatars" />
 
     <Button
-        android:id="@+id/botao_capa_add_serie"
+        android:id="@+id/botao_capa_alterar_serie"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
@@ -235,7 +235,7 @@
         android:textColor="#9900BCD4" />
 
     <ImageView
-        android:id="@+id/foto_fundo_add_serie"
+        android:id="@+id/foto_fundo_alterar_serie"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
@@ -246,7 +246,7 @@
         tools:srcCompat="@tools:sample/avatars" />
 
     <Button
-        android:id="@+id/botao_fundo_add_serie"
+        android:id="@+id/botao_fundo_alterar_serie"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"

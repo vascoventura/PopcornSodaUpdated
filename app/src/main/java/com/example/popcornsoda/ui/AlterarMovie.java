@@ -3,33 +3,68 @@ package com.example.popcornsoda.ui;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import androidx.loader.app.LoaderManager;
 import androidx.loader.content.Loader;
+
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.Spinner;
+import android.widget.Switch;
 import android.widget.Toast;
 import com.example.popcornsoda.BdPopcorn.BdTableAutores;
+import com.example.popcornsoda.BdPopcorn.BdTableCategorias;
 import com.example.popcornsoda.BdPopcorn.BdTableFilmes;
 import com.example.popcornsoda.BdPopcorn.ContentProviderPopcorn;
 import com.example.popcornsoda.R;
+import com.example.popcornsoda.adapters.myDbAdapter;
 import com.example.popcornsoda.models.Movie;
 import com.google.android.material.snackbar.Snackbar;
 
+import java.io.ByteArrayOutputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
+import java.util.Calendar;
+
 public class AlterarMovie extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
     private static final int ID_CURSO_LOADER_AUTORES = 0;
+    private static final int REQUEST_CODE_GALLERY = 399;
 
     private EditText editTextNomeFilme;
-    private Spinner spinnerAutores, spinnerCategorias;
     private EditText editTextClassificacaoFilme;
     private EditText editTextAnoFilme;
-    private EditText editTextDescricaoFilme, editTextLink;
+    private EditText editTextDescricaoFilme;
+    private EditText editTextLink;
+
+    private Spinner spinnerAutores, spinnerCategorias;
+
+
+    private Switch switchFavoritoFilme;
+    private Switch switchVistoFilme;
+
+    private ImageView imageViewCapaFilme;
+    private ImageView imageViewFundoFilme;
+
+    private Button botaoCapaAlterarFilme;
+    private Button botaoFundoAlterarFilme;
+
+    private boolean estadoSwitchFavoritos;
+    private boolean estadoSwitchVistos;
+
 
 
     private Movie filme = null;
@@ -37,26 +72,109 @@ public class AlterarMovie extends AppCompatActivity implements LoaderManager.Loa
     private boolean autoresCarregados = false;
     private boolean autorAtualizado = false;
 
+    private myDbAdapter helper;
+    private boolean categoriasCarregadas = false;
+    private boolean categoriaAtualizada = false;
+
     private Uri enderecoFilmeEditar;
 
+    private double classificacao;
+    private int ano;
 
+    private int acao_botao = 0;
+
+    public int getAcao_botao() {
+        return acao_botao;
+    }
+
+    public void setAcao_botao(int acao_botao) {
+        this.acao_botao = acao_botao;
+    }
+
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        if(requestCode == REQUEST_CODE_GALLERY){
+            if(grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+                Intent intent = new Intent(Intent.ACTION_PICK);
+                intent.setType("image/*");
+                startActivityForResult(intent, REQUEST_CODE_GALLERY);
+            } else {
+                Toast.makeText(getApplicationContext(), "Sem permissão para aceder ao conteúdo", Toast.LENGTH_LONG).show();
+            }
+            return;
+        }
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        if(requestCode == REQUEST_CODE_GALLERY && resultCode == RESULT_OK && data !=null){
+            Uri uri = data.getData();
+            try{
+                InputStream inputStream = getContentResolver().openInputStream(uri);
+                Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
+                if(getAcao_botao() == 1){
+                    imageViewCapaFilme.setImageBitmap(bitmap);
+                    setAcao_botao(0);
+                } else if(getAcao_botao() == 2){
+                    imageViewFundoFilme.setImageBitmap(bitmap);
+                    setAcao_botao(0);
+                }
+
+            } catch(FileNotFoundException e){
+                e.printStackTrace();
+            }
+        }
+        super.onActivityResult(requestCode, resultCode, data);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_alterar_movie);
-
-
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+
         editTextNomeFilme = findViewById(R.id.editText_nome_filme_alterar);
-        spinnerAutores = findViewById(R.id.spinnerCategorias_series_inserir);
         editTextClassificacaoFilme = findViewById(R.id.editText_classificacao_filme_alterar);
         editTextAnoFilme =  findViewById(R.id.editText_ano_filme_alterar);
         editTextDescricaoFilme = findViewById(R.id.editText_descricao_filme_alterar);
+        editTextLink = findViewById(R.id.editTextLink_filme_alterar);
+
+        spinnerAutores = findViewById(R.id.spinnerAutores_filmes_alterar);
+        spinnerCategorias = findViewById(R.id.spinnerCategorias_filmes_alterar);
+
+        imageViewCapaFilme = findViewById(R.id.foto_capa_alterar_filme);
+        imageViewFundoFilme = findViewById(R.id.foto_fundo_alterar_filme);
+
+        switchFavoritoFilme = findViewById(R.id.botao_favorito_alterar_filme);
+        switchVistoFilme = findViewById(R.id.botao_visto_alterar_filme);
+
+
+        botaoCapaAlterarFilme = findViewById(R.id.botao_capa_alterar_filme);
+        botaoFundoAlterarFilme = findViewById(R.id.botao_fundo_alterar_filme);
+
+
 
         getSupportLoaderManager().initLoader(ID_CURSO_LOADER_AUTORES, null, this);
 
+        botaoCapaAlterarFilme.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                ActivityCompat.requestPermissions(AlterarMovie.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, REQUEST_CODE_GALLERY);
+                setAcao_botao(1);
+            }
+        });
+
+        botaoFundoAlterarFilme.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ActivityCompat.requestPermissions(AlterarMovie.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, REQUEST_CODE_GALLERY);
+                setAcao_botao(2);
+            }
+        });
 
         Intent intent = getIntent();
 
@@ -78,15 +196,50 @@ public class AlterarMovie extends AppCompatActivity implements LoaderManager.Loa
             return;
         }
 
-        filme = Movie.fromCursor(cursor);
+        filme = filme.fromCursor(cursor);
 
         editTextNomeFilme.setText(filme.getNome_filme());
         editTextClassificacaoFilme.setText(String.valueOf(filme.getClassificacao_filme()));
         editTextAnoFilme.setText(String.valueOf(filme.getAno_filme()));
         editTextDescricaoFilme.setText(filme.getDescricao_filme());
+        editTextLink.setText(filme.getLink_trailer_filme());
 
+
+        switchFavoritoFilme.setChecked(filme.isFavorito_filme());
+        switchVistoFilme.setChecked(filme.isVisto_filme());
+
+        estadoSwitchFavoritos = switchFavoritoFilme.isChecked();
+        estadoSwitchVistos = switchVistoFilme.isChecked();
+
+        byte[] filmeImageCapaByte = filme.getFoto_capa_filme();
+        Bitmap bitmap_filmeImage = BitmapFactory.decodeByteArray(filmeImageCapaByte, 0, filmeImageCapaByte.length);
+        imageViewCapaFilme.setImageBitmap(bitmap_filmeImage);
+
+        byte[] filmeImageFundoByte = filme.getFoto_fundo_filme();
+        Bitmap bitmap_filmeImageFundo = BitmapFactory.decodeByteArray(filmeImageFundoByte, 0, filmeImageFundoByte.length);
+        imageViewFundoFilme.setImageBitmap(bitmap_filmeImageFundo);
+
+        helper = new myDbAdapter(this);
+
+        Cursor cursor_categorias = helper.getCategorias();
+        mostraCategoriasSpinner(cursor_categorias);
         atualizaAutorSelecionado();
+        atualizaCategoriaSelecionada();
 
+    }
+
+    private void atualizaCategoriaSelecionada() {
+        if(!categoriasCarregadas) return;
+        if(categoriaAtualizada) return;
+
+        for (int i = 0; i < spinnerCategorias.getCount(); i++){
+            if(spinnerCategorias.getItemIdAtPosition(i) == filme.getCategoria_filme()){
+                spinnerCategorias.setSelection(i);
+                break;
+            }
+        }
+
+        categoriaAtualizada = true;
     }
 
     private void atualizaAutorSelecionado() {
@@ -110,15 +263,26 @@ public class AlterarMovie extends AppCompatActivity implements LoaderManager.Loa
         super.onResume();
     }
 
-    private void mostraAutoresSpinner(Cursor cursorCategorias) {
+    private void mostraAutoresSpinner(Cursor cursorAutores) {
         SimpleCursorAdapter adaptadorAutores = new SimpleCursorAdapter(
                 this,
                 android.R.layout.simple_list_item_1,
-                cursorCategorias,
+                cursorAutores,
                 new String[]{BdTableAutores.CAMPO_NOME},
                 new int[]{android.R.id.text1}
         );
         spinnerAutores.setAdapter(adaptadorAutores);
+    }
+
+    private void mostraCategoriasSpinner(Cursor cursorCategorias) {
+        SimpleCursorAdapter adaptadorCategorias = new SimpleCursorAdapter(
+                this,
+                android.R.layout.simple_list_item_1,
+                cursorCategorias,
+                new String[]{BdTableCategorias.CAMPO_NOME},
+                new int[]{android.R.id.text1}
+        );
+        spinnerCategorias.setAdapter(adaptadorCategorias);
     }
 
     @Override
@@ -160,29 +324,40 @@ public class AlterarMovie extends AppCompatActivity implements LoaderManager.Loa
         String strClassificacao = editTextClassificacaoFilme.getText().toString();
 
         if (strClassificacao.trim().isEmpty()) {
-            editTextClassificacaoFilme.setError("O campo não pode estar vazio!");
+            editTextClassificacaoFilme.setError("O campo Não Pode Estar Vazio!");
             return;
         }
 
-        double classificacao;
+        double classificacao1 = Double.parseDouble(strClassificacao);
         try {
-            classificacao = Double.parseDouble(strClassificacao);
+            if(classificacao1<0.0 ||  classificacao1>10.0){
+                editTextClassificacaoFilme.setError("Classificação Não Aceitável");
+                return;
+            }else{
+                classificacao = classificacao1;
+            }
         } catch (NumberFormatException e) {
             editTextClassificacaoFilme.setError("Campo Inválido");
             return;
         }
 
-        int ano;
-
         String strAno = editTextAnoFilme.getText().toString();
 
         if (strAno.trim().isEmpty()) {
-            editTextAnoFilme.setError("O campo não pode estar vazio!");
+            editTextAnoFilme.setError("O campo Não Pode Estar Vazio!");
             return;
         }
 
         try {
-            ano = Integer.parseInt(strAno);
+            int ano_atual = Calendar.getInstance().get(Calendar.YEAR);
+            int ano1 = Integer.parseInt(strAno);
+            if(ano1<1850 || ano1>ano_atual){
+                editTextAnoFilme.setError("Ano Introduzido Não Aceitável");
+                return;
+            }else{
+                ano = ano1;
+            }
+
         } catch (NumberFormatException e) {
             editTextAnoFilme.setError("Campo Inválido");
             return;
@@ -204,6 +379,35 @@ public class AlterarMovie extends AppCompatActivity implements LoaderManager.Loa
             return;
         }
 
+        filme.setFoto_capa_filme(null);
+        byte[] imagem_capa = ImagemParaByte(imageViewCapaFilme);
+        if(imagem_capa !=null){
+            filme.setFoto_capa_filme(imagem_capa);
+        } else{
+            Toast.makeText(this, "Insira uma imagem para a capa", Toast.LENGTH_SHORT).show();
+        }
+
+
+        filme.setFoto_fundo_filme(null);
+        byte[] imagem_fundo = ImagemParaByte(imageViewFundoFilme);
+        if(imagem_fundo !=null){
+            filme.setFoto_fundo_filme(imagem_fundo);
+        } else{
+            Toast.makeText(this, "Insira uma imagem para o fundo", Toast.LENGTH_SHORT).show();
+        }
+
+        if(estadoSwitchFavoritos){
+            filme.setFavorito_filme(true);
+        } else{
+            filme.setFavorito_filme(false);
+        }
+
+        if(estadoSwitchVistos){
+            filme.setVisto_filme(true);
+        } else{
+            filme.setVisto_filme(false);
+        }
+
         long idAutor = spinnerAutores.getSelectedItemId();
         long idCategoria = spinnerCategorias.getSelectedItemId();
 
@@ -214,10 +418,8 @@ public class AlterarMovie extends AppCompatActivity implements LoaderManager.Loa
         filme.setClassificacao_filme(classificacao);
         filme.setAno_filme(ano);
         filme.setDescricao_filme(descricao);
-        filme.setFoto_capa_filme(null);
-        filme.setFoto_fundo_filme(null);
-        filme.setFavorito_filme(false);
-        filme.setVisto_filme(false);
+        filme.setFoto_capa_filme(imagem_capa);
+        filme.setFoto_fundo_filme(imagem_fundo);
         filme.setLink_trailer_filme(link);
 
 
@@ -253,7 +455,9 @@ public class AlterarMovie extends AppCompatActivity implements LoaderManager.Loa
     public void onLoadFinished(@NonNull Loader<Cursor> loader, Cursor data) {
         mostraAutoresSpinner(data);
         autoresCarregados = true;
+        categoriasCarregadas = true;
         atualizaAutorSelecionado();
+        atualizaCategoriaSelecionada();
 
     }
 
@@ -261,7 +465,21 @@ public class AlterarMovie extends AppCompatActivity implements LoaderManager.Loa
     public void onLoaderReset(@NonNull Loader<Cursor> loader) {
         autoresCarregados = false;
         autorAtualizado = false;
-        mostraAutoresSpinner(null);
 
+        categoriasCarregadas = false;
+        categoriaAtualizada = false;
+
+        mostraAutoresSpinner(null);
+        mostraCategoriasSpinner(null);
+
+    }
+
+    private byte[] ImagemParaByte(ImageView image){
+        Bitmap bitmap = ((BitmapDrawable) image.getDrawable()).getBitmap();
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+        byte[] byteArray = stream.toByteArray();
+
+        return byteArray;
     }
 }

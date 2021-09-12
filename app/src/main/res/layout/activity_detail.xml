@@ -135,7 +135,6 @@
             android:id="@+id/detail_movie_ano"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
             android:text="TextView"
             android:textColor="#7A6464"
             app:layout_constraintStart_toStartOf="@+id/detail_autor_nome"

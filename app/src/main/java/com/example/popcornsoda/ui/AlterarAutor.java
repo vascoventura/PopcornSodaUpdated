@@ -34,6 +34,7 @@ import com.google.android.material.snackbar.Snackbar;
 import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.util.Calendar;
 
 public class AlterarAutor extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
     private static final int ID_CURSO_LOADER_AUTORES = 0;
@@ -49,6 +50,8 @@ public class AlterarAutor extends AppCompatActivity implements LoaderManager.Loa
     private boolean estadoSwitchFavoritos;
     private Button buttonCapaAutor;
     private Button buttonFundoAutor;
+
+    private int ano;
 
     private int acao_botao = 0;
 
@@ -211,19 +214,25 @@ public class AlterarAutor extends AppCompatActivity implements LoaderManager.Loa
             return;
         }
 
-        int ano;
-
         String strAno = editTextAnoAutor.getText().toString();
 
-        if (strAno.trim().isEmpty()){
-            editTextAnoAutor.setError("O campo não pode estar vazio");
+        if (strAno.trim().isEmpty()) {
+            editTextAnoAutor.setError("O campo Não Pode Estar Vazio!");
             return;
         }
 
         try {
-            ano = Integer.parseInt(strAno);
+            int ano_atual = Calendar.getInstance().get(Calendar.YEAR);
+            int ano1 = Integer.parseInt(strAno);
+            if(ano1<1850 || ano1>ano_atual){
+                editTextAnoAutor.setError("Ano Introduzido Não Aceitável");
+                return;
+            }else{
+                ano = ano1;
+            }
+
         } catch (NumberFormatException e) {
-            editTextAnoAutor.setError("Ano Inválido");
+            editTextAnoAutor.setError("Campo Inválido");
             return;
         }
 

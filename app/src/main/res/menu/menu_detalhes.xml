@@ -14,10 +14,4 @@
         android:title="@string/e_ditar"
         android:visible="true"
         app:showAsAction="ifRoom" />
-    <item
-        android:id="@+id/itemFavorito"
-        android:icon="@drawable/ic_favorite_border_black_24dp"
-        android:title="Adicionar aos Favoritos"
-        android:visible="true"
-        app:showAsAction="ifRoom" />
 </menu>

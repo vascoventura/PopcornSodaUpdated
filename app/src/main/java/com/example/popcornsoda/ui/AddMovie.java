@@ -21,7 +21,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -29,25 +28,19 @@ import android.widget.SimpleCursorAdapter;
 import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.Toast;
-import android.widget.Toolbar;
 
-import com.example.popcornsoda.BdPopcorn.BdPopcornOpenHelper;
 import com.example.popcornsoda.BdPopcorn.BdTableAutores;
 import com.example.popcornsoda.BdPopcorn.BdTableCategorias;
 import com.example.popcornsoda.BdPopcorn.ContentProviderPopcorn;
 import com.example.popcornsoda.R;
-import com.example.popcornsoda.adapters.Message;
 import com.example.popcornsoda.adapters.myDbAdapter;
-import com.example.popcornsoda.models.Categoria;
 import com.example.popcornsoda.models.Movie;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
 
 public class AddMovie extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor>, AdapterView.OnItemSelectedListener {
 
@@ -140,22 +133,22 @@ public class AddMovie extends AppCompatActivity implements LoaderManager.LoaderC
         //Botao Voltar
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        editTextNomeFilme = findViewById(R.id.editText_nome_filme_inserir);
-        editTextClassificacaoFilme = findViewById(R.id.editText_classificacao_filme_inserir);
-        editTextAnoFilme = findViewById(R.id.editText_ano_filme_inserir);
-        editTextDescricaoFilme = findViewById(R.id.editText_descricao_filme_inserir);
-        editTextLinkFilme = findViewById(R.id.editTextLink_inserir);
-        imagemCapaFilme = findViewById(R.id.foto_capa_add_filme);
-        imagemFundoFilme = findViewById(R.id.foto_fundo_add_filme);
-        botaoFundoFilme = findViewById(R.id.botao_fundo_add_filme);
-        botaoCapaFilme = findViewById(R.id.botao_capa_add_filme);
+        editTextNomeFilme = findViewById(R.id.editText_nome_filme_alterar);
+        editTextClassificacaoFilme = findViewById(R.id.editText_classificacao_filme_alterar);
+        editTextAnoFilme = findViewById(R.id.editText_ano_filme_alterar);
+        editTextDescricaoFilme = findViewById(R.id.editText_descricao_filme_alterar);
+        editTextLinkFilme = findViewById(R.id.editTextLink_filme_alterar);
+        imagemCapaFilme = findViewById(R.id.foto_capa_alterar_filme);
+        imagemFundoFilme = findViewById(R.id.foto_fundo_alterar_filme);
+        botaoFundoFilme = findViewById(R.id.botao_fundo_alterar_filme);
+        botaoCapaFilme = findViewById(R.id.botao_capa_alterar_filme);
 
 
-        spinnerAutor = findViewById(R.id.spinnerCategorias_filmes_inserir);
-        spinnerCategoria = findViewById(R.id.spinnerCategorias);
+        spinnerAutor = findViewById(R.id.spinnerAutores_filmes_alterar);
+        spinnerCategoria = findViewById(R.id.spinnerCategorias_filmes_alterar);
 
-        switchFavoritoFilme = findViewById(R.id.botao_favorito_add_filme);
-        switchVistoFilme = findViewById(R.id.botao_visto_add_filme);
+        switchFavoritoFilme = findViewById(R.id.botao_favorito_alterar_filme);
+        switchVistoFilme = findViewById(R.id.botao_visto_alterar_filme);
 
         estadoSwitchFavoritos = switchFavoritoFilme.isChecked();
         estadoSwitchVistos = switchVistoFilme.isChecked();

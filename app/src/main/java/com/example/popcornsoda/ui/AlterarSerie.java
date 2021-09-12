@@ -3,45 +3,132 @@ package com.example.popcornsoda.ui;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import androidx.loader.app.LoaderManager;
 import androidx.loader.content.Loader;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.Spinner;
+import android.widget.Switch;
 import android.widget.Toast;
 
 import com.example.popcornsoda.BdPopcorn.BdTableAutores;
+import com.example.popcornsoda.BdPopcorn.BdTableCategorias;
 import com.example.popcornsoda.BdPopcorn.BdTableSeries;
 import com.example.popcornsoda.BdPopcorn.ContentProviderPopcorn;
 import com.example.popcornsoda.R;
+import com.example.popcornsoda.adapters.myDbAdapter;
 import com.example.popcornsoda.models.Serie;
 import com.google.android.material.snackbar.Snackbar;
 
+import java.io.ByteArrayOutputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
+import java.util.Calendar;
+
 public class AlterarSerie extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
     private static final int ID_CURSO_LOADER_AUTORES = 0;
+    private static final int REQUEST_CODE_GALLERY = 399;
 
-    private EditText editTextNomeSerie, editTextLink;
-    private EditText editTextTipoSerie;
-    private Spinner spinnerAutores, spinnerCategorias;
+    private EditText editTextNomeSerie;
+    private EditText editTextLink;
     private EditText editTextClassificacaoSerie;
     private EditText editTextAnoSerie;
     private EditText editTextTemporadas;
     private EditText editTextDescricaoSerie;
+
+    private Spinner spinnerAutores;
+    private Spinner spinnerCategorias;
+
+    private Switch switchFavoritoSerie;
+    private Switch switchVistoSerie;
+
+
+    private ImageView imageViewCapaSerie;
+    private ImageView imageViewFundoSerie;
+    private Button botaoCapaAlterarSerie;
+    private Button botaoFundoAlterarSerie;
+
+    private boolean estadoSwitchFavoritos;
+    private boolean estadoSwitchVistos;
+
 
     private Serie serie = null;
 
     private boolean autoresCarregados = false;
     private boolean autorAtualizado = false;
 
+    private myDbAdapter helper;
+    private boolean categoriasCarregadas = false;
+    private boolean categoriaAtualizada = false;
+
     private Uri enderecoSerieEditar;
 
+    private double classificacao;
+    private int ano;
+
+    private int acao_botao = 0;
+
+    public int getAcao_botao() {
+        return acao_botao;
+    }
+
+    public void setAcao_botao(int acao_botao) {
+        this.acao_botao = acao_botao;
+    }
+
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        if(requestCode == REQUEST_CODE_GALLERY){
+            if(grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+                Intent intent = new Intent(Intent.ACTION_PICK);
+                intent.setType("image/*");
+                startActivityForResult(intent, REQUEST_CODE_GALLERY);
+            } else {
+                Toast.makeText(getApplicationContext(), "Sem permissão para aceder ao conteúdo", Toast.LENGTH_LONG).show();
+            }
+            return;
+        }
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        if(requestCode == REQUEST_CODE_GALLERY && resultCode == RESULT_OK && data !=null){
+            Uri uri = data.getData();
+            try{
+                InputStream inputStream = getContentResolver().openInputStream(uri);
+                Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
+                if(getAcao_botao() == 1){
+                    imageViewCapaSerie.setImageBitmap(bitmap);
+                    setAcao_botao(0);
+                } else if(getAcao_botao() == 2){
+                    imageViewFundoSerie.setImageBitmap(bitmap);
+                    setAcao_botao(0);
+                }
+
+            } catch(FileNotFoundException e){
+                e.printStackTrace();
+            }
+        }
+        super.onActivityResult(requestCode, resultCode, data);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,14 +136,42 @@ public class AlterarSerie extends AppCompatActivity implements LoaderManager.Loa
         setContentView(R.layout.activity_alterar_serie);
 
         editTextNomeSerie = (EditText) findViewById(R.id.editText_nome_serie_alterar);
-        editTextTipoSerie = (EditText) findViewById(R.id.editText_tipo_serie_alterar);
-        spinnerAutores = (Spinner) findViewById(R.id.spinnerCategorias_series_inserir);
         editTextClassificacaoSerie = (EditText) findViewById(R.id.editText_classificacao_serie_alterar);
         editTextAnoSerie = (EditText) findViewById(R.id.editText_ano_serie_alterar);
         editTextTemporadas = (EditText) findViewById(R.id.editText_temporadas_serie_alterar);
         editTextDescricaoSerie = (EditText) findViewById(R.id.editText_descricao_serie_alterar);
+        editTextLink = (EditText) findViewById(R.id.editTextLink_ser_alterar) ;
+
+        spinnerAutores = (Spinner) findViewById(R.id.spinnerAutores_series_alterar);
+        spinnerCategorias = (Spinner) findViewById(R.id.spinnerCategorias_series_alterar);
+
+        imageViewCapaSerie = (ImageView) findViewById(R.id.foto_capa_alterar_serie);
+        imageViewFundoSerie = (ImageView) findViewById(R.id.foto_fundo_alterar_serie);
+
+        switchFavoritoSerie = (Switch) findViewById(R.id.botao_favorito_alterar_serie);
+        switchVistoSerie = (Switch) findViewById(R.id.botao_visto_alterar_serie);
+
+        botaoCapaAlterarSerie = (Button) findViewById(R.id.botao_capa_alterar_serie);
+        botaoFundoAlterarSerie = (Button) findViewById(R.id.botao_fundo_alterar_serie);
 
         getSupportLoaderManager().initLoader(ID_CURSO_LOADER_AUTORES, null, this);
+
+        botaoCapaAlterarSerie.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                ActivityCompat.requestPermissions(AlterarSerie.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, REQUEST_CODE_GALLERY);
+                setAcao_botao(1);
+            }
+        });
+
+        botaoFundoAlterarSerie.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ActivityCompat.requestPermissions(AlterarSerie.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, REQUEST_CODE_GALLERY);
+                setAcao_botao(2);
+            }
+        });
 
         Intent intent = getIntent();
 
@@ -85,10 +200,54 @@ public class AlterarSerie extends AppCompatActivity implements LoaderManager.Loa
         editTextAnoSerie.setText(String.valueOf(serie.getAno_serie()));
         editTextTemporadas.setText(String.valueOf(serie.getTemporadas()));
         editTextDescricaoSerie.setText(serie.getDescricao_serie());
+        editTextLink.setText(serie.getLink_trailer_serie());
+
+        switchFavoritoSerie.setChecked(serie.isFavorito_serie());
+        switchVistoSerie.setChecked(serie.isVisto_serie());
+
+        byte[] serieImageCapaByte = serie.getFoto_capa_serie();
+        Bitmap bitmap_serieImage = BitmapFactory.decodeByteArray(serieImageCapaByte, 0, serieImageCapaByte.length);
+        imageViewCapaSerie.setImageBitmap(bitmap_serieImage);
+
+        byte[] serieImageFundoByte = serie.getFoto_fundo_serie();
+        Bitmap bitmap_serieImageFundo = BitmapFactory.decodeByteArray(serieImageFundoByte, 0, serieImageFundoByte.length);
+        imageViewFundoSerie.setImageBitmap(bitmap_serieImageFundo);
+
+
+        helper = new myDbAdapter(this);
+
+        Cursor cursor_categorias = helper.getCategorias();
+        mostraCategoriasSpinner(cursor_categorias);
+        atualizaCategoriaSelecionada();
 
         atualizaAutorSelecionado();
 
     }
+
+    private void mostraCategoriasSpinner(Cursor cursorCategorias) {
+        SimpleCursorAdapter adaptadorCategorias = new SimpleCursorAdapter(
+                this,
+                android.R.layout.simple_list_item_1,
+                cursorCategorias,
+                new String[]{BdTableCategorias.CAMPO_NOME},
+                new int[]{android.R.id.text1}
+        );
+        spinnerCategorias.setAdapter(adaptadorCategorias);
+    }
+    private void atualizaCategoriaSelecionada() {
+        if(!categoriasCarregadas) return;
+        if(categoriaAtualizada) return;
+
+        for (int i = 0; i < spinnerCategorias.getCount(); i++){
+            if(spinnerCategorias.getItemIdAtPosition(i) == serie.getCategoria_serie()){
+                spinnerCategorias.setSelection(i);
+                break;
+            }
+        }
+
+        categoriaAtualizada = true;
+    }
+
 
     private void atualizaAutorSelecionado() {
         if(!autoresCarregados) return;
@@ -157,41 +316,43 @@ public class AlterarSerie extends AppCompatActivity implements LoaderManager.Loa
             return;
         }
 
-        String tipo = editTextTipoSerie.getText().toString();
-
-        if (tipo.trim().isEmpty()) {
-            editTextTipoSerie.setError("O campo não pode estar vazio!");
-            return;
-        }
-
-
-        double classificacao;
-
         String strClassificacao = editTextClassificacaoSerie.getText().toString();
 
         if (strClassificacao.trim().isEmpty()) {
-            editTextClassificacaoSerie.setError("O campo não pode estar vazio!");
+            editTextClassificacaoSerie.setError("O campo Não Pode Estar Vazio!");
             return;
         }
 
+        double classificacao1 = Double.parseDouble(strClassificacao);
         try {
-            classificacao = Double.parseDouble(strClassificacao);
+            if(classificacao1<0.0 ||  classificacao1>10.0){
+                editTextClassificacaoSerie.setError("Classificação Não Aceitável");
+                return;
+            }else{
+                classificacao = classificacao1;
+            }
         } catch (NumberFormatException e) {
             editTextClassificacaoSerie.setError("Campo Inválido");
             return;
         }
 
-        int ano;
-
         String strAno = editTextAnoSerie.getText().toString();
 
         if (strAno.trim().isEmpty()) {
-            editTextAnoSerie.setError("O campo não pode estar vazio!");
+            editTextAnoSerie.setError("O campo Não Pode Estar Vazio!");
             return;
         }
 
         try {
-            ano = Integer.parseInt(strAno);
+            int ano_atual = Calendar.getInstance().get(Calendar.YEAR);
+            int ano1 = Integer.parseInt(strAno);
+            if(ano1<1850 || ano1>ano_atual){
+                editTextAnoSerie.setError("Ano Introduzido Não Aceitável");
+                return;
+            }else{
+                ano = ano1;
+            }
+
         } catch (NumberFormatException e) {
             editTextAnoSerie.setError("Campo Inválido");
             return;
@@ -216,13 +377,10 @@ public class AlterarSerie extends AppCompatActivity implements LoaderManager.Loa
 
         String descricao = editTextDescricaoSerie.getText().toString();
 
-        if (tipo.trim().isEmpty()) {
+        if (descricao.trim().isEmpty()) {
             editTextDescricaoSerie.setError("O campo não pode estar vazio!");
             return;
         }
-
-        long idAutor = spinnerAutores.getSelectedItemId();
-        long idCategoria = spinnerCategorias.getSelectedItemId();
 
         String link = editTextLink.getText().toString();
 
@@ -231,18 +389,48 @@ public class AlterarSerie extends AppCompatActivity implements LoaderManager.Loa
             return;
         }
 
+        serie.setFoto_capa_serie(null);
+        byte[] imagem_capa = ImagemParaByte(imageViewCapaSerie);
+        if(imagem_capa !=null){
+            serie.setFoto_capa_serie(imagem_capa);
+        } else{
+            Toast.makeText(this, "Insira uma imagem para a capa", Toast.LENGTH_SHORT).show();
+        }
+
+
+        serie.setFoto_fundo_serie(null);
+        byte[] imagem_fundo = ImagemParaByte(imageViewFundoSerie);
+        if(imagem_fundo !=null){
+            serie.setFoto_fundo_serie(imagem_fundo);
+        } else{
+            Toast.makeText(this, "Insira uma imagem para o fundo", Toast.LENGTH_SHORT).show();
+        }
+
+        if(estadoSwitchFavoritos){
+            serie.setFavorito_serie(true);
+        } else{
+            serie.setFavorito_serie(false);
+        }
+
+        if(estadoSwitchVistos){
+            serie.setVisto_serie(true);
+        } else{
+            serie.setVisto_serie(false);
+        }
+
+        long idAutor = spinnerAutores.getSelectedItemId();
+        long idCategoria = spinnerCategorias.getSelectedItemId();
+
+
         // guardar os dados
 
         serie.setNome_serie(nome);
         serie.setAutor_serie(idAutor);
+        serie.setCategoria_serie(idCategoria);
         serie.setClassificacao_serie(classificacao);
         serie.setAno_serie(ano);
         serie.setTemporadas(temporada);
         serie.setDescricao_serie(descricao);
-        serie.setFoto_capa_serie(null);
-        serie.setFoto_fundo_serie(null);
-        serie.setFavorito_serie(false);
-        serie.setVisto_serie(false);
         serie.setLink_trailer_serie(link);
 
 
@@ -285,5 +473,14 @@ public class AlterarSerie extends AppCompatActivity implements LoaderManager.Loa
         autorAtualizado = false;
         mostraAutoresSpinner(null);
 
+    }
+
+    private byte[] ImagemParaByte(ImageView image){
+        Bitmap bitmap = ((BitmapDrawable) image.getDrawable()).getBitmap();
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+        byte[] byteArray = stream.toByteArray();
+
+        return byteArray;
     }
 }

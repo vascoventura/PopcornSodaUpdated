@@ -56,6 +56,19 @@
         <entry key="..\:/Users/vasco/Documents/PopcornSodaUpdated/app/src/main/res/menu/menu_conteudo.xml" value="0.1" />
         <entry key="..\:/Users/vasco/Documents/PopcornSodaUpdated/app/src/main/res/menu/menu_detalhes.xml" value="0.1" />
         <entry key="..\:/Users/vasco/Documents/PopcornSodaUpdated/app/src/main/res/menu/menu_tabelas.xml" value="0.22" />
+        <entry key="..\:/Users/vasco/StudioProjects/PopcornSodaUpdated/app/src/main/res/layout/activity_add_serie.xml" value="0.1765625" />
+        <entry key="..\:/Users/vasco/StudioProjects/PopcornSodaUpdated/app/src/main/res/layout/activity_alterar_serie.xml" value="0.11548913043478261" />
+        <entry key="..\:/Users/vasco/StudioProjects/PopcornSodaUpdated/app/src/main/res/layout/activity_detail.xml" value="0.33" />
+        <entry key="..\:/Users/vasco/StudioProjects/PopcornSodaUpdated/app/src/main/res/layout/activity_detail_activty_serie.xml" value="0.33" />
+        <entry key="..\:/Users/vasco/StudioProjects/PopcornSodaUpdated/app/src/main/res/layout/activity_series.xml" value="0.14673913043478262" />
+        <entry key="..\:/Users/vasco/StudioProjects/PopcornSodaUpdated/app/src/main/res/layout/content_activity_add_movie.xml" value="0.1" />
+        <entry key="..\:/Users/vasco/StudioProjects/PopcornSodaUpdated/app/src/main/res/layout/content_activity_add_serie.xml" value="0.1" />
+        <entry key="..\:/Users/vasco/StudioProjects/PopcornSodaUpdated/app/src/main/res/layout/content_activity_alterar_autor.xml" value="0.22" />
+        <entry key="..\:/Users/vasco/StudioProjects/PopcornSodaUpdated/app/src/main/res/layout/content_activity_alterar_movie.xml" value="0.1092896174863388" />
+        <entry key="..\:/Users/vasco/StudioProjects/PopcornSodaUpdated/app/src/main/res/layout/content_activity_alterar_serie.xml" value="0.22" />
+        <entry key="..\:/Users/vasco/StudioProjects/PopcornSodaUpdated/app/src/main/res/layout/item_serie.xml" value="0.25" />
+        <entry key="..\:/Users/vasco/StudioProjects/PopcornSodaUpdated/app/src/main/res/menu/menu_detalhes.xml" value="0.1765625" />
+        <entry key="..\:/Users/vasco/StudioProjects/PopcornSodaUpdated/app/src/main/res/menu/menu_tabelas.xml" value="0.1765625" />
       </map>
     </option>
   </component>

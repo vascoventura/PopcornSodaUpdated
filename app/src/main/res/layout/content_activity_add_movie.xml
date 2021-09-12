@@ -28,7 +28,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="#FFFFFF"
-            android:id="@+id/editText_nome_filme_inserir"
+            android:id="@+id/editText_nome_filme_alterar"
             android:inputType="textPersonName"/>
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -44,7 +44,7 @@
         android:layout_marginStart="8dp" />
 
     <Spinner
-        android:id="@+id/spinnerCategorias_filmes_inserir"
+        android:id="@+id/spinnerAutores_filmes_alterar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -70,7 +70,7 @@
         android:layout_marginStart="8dp" />
 
     <Spinner
-        android:id="@+id/spinnerCategorias"
+        android:id="@+id/spinnerCategorias_filmes_alterar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -90,12 +90,12 @@
         android:hint="@string/c_lassificacao">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/editText_classificacao_filme_inserir"
+            android:id="@+id/editText_classificacao_filme_alterar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="#FFFFFF"
             android:layout_marginTop="8dp"
-            android:inputType="number" />
+            android:inputType="numberDecimal" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -106,7 +106,7 @@
         android:hint="@string/a_no">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/editText_ano_filme_inserir"
+            android:id="@+id/editText_ano_filme_alterar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="#FFFFFF"
@@ -125,13 +125,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="#FFFFFF"
-            android:id="@+id/editText_descricao_filme_inserir"
+            android:id="@+id/editText_descricao_filme_alterar"
             android:inputType="textLongMessage"/>
 
     </com.google.android.material.textfield.TextInputLayout>
 
     <Switch
-        android:id="@+id/botao_favorito_add_filme"
+        android:id="@+id/botao_favorito_alterar_filme"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="5dp"
@@ -144,7 +144,7 @@
 
 
     <Switch
-        android:id="@+id/botao_visto_add_filme"
+        android:id="@+id/botao_visto_alterar_filme"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="5dp"
@@ -162,7 +162,7 @@
         android:hint="Trailer do Filme">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/editTextLink_inserir"
+            android:id="@+id/editTextLink_filme_alterar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="#FFFFFF"
@@ -183,7 +183,7 @@
         android:textColor="#9900BCD4" />
 
     <ImageView
-        android:id="@+id/foto_capa_add_filme"
+        android:id="@+id/foto_capa_alterar_filme"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
@@ -194,7 +194,7 @@
         tools:srcCompat="@tools:sample/avatars" />
 
     <Button
-        android:id="@+id/botao_capa_add_filme"
+        android:id="@+id/botao_capa_alterar_filme"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
@@ -216,7 +216,7 @@
         android:textColor="#9900BCD4" />
 
     <ImageView
-        android:id="@+id/foto_fundo_add_filme"
+        android:id="@+id/foto_fundo_alterar_filme"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
@@ -227,7 +227,7 @@
         tools:srcCompat="@tools:sample/avatars" />
 
     <Button
-        android:id="@+id/botao_fundo_add_filme"
+        android:id="@+id/botao_fundo_alterar_filme"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"

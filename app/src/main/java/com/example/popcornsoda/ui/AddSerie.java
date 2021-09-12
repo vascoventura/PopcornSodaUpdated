@@ -27,18 +27,15 @@ import androidx.loader.app.LoaderManager;
 import androidx.loader.content.Loader;
 import com.example.popcornsoda.BdPopcorn.BdTableAutores;
 import com.example.popcornsoda.BdPopcorn.BdTableCategorias;
-import com.example.popcornsoda.BdPopcorn.BdTableFilmes;
 import com.example.popcornsoda.BdPopcorn.ContentProviderPopcorn;
 import com.example.popcornsoda.R;
 import com.example.popcornsoda.adapters.myDbAdapter;
-import com.example.popcornsoda.models.Categoria;
 import com.example.popcornsoda.models.Serie;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
-import java.util.ArrayList;
 import java.util.Calendar;
 
 public class AddSerie extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
@@ -119,24 +116,24 @@ public class AddSerie extends AppCompatActivity implements LoaderManager.LoaderC
         //Botao Voltar
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        editTextNomeSerie = findViewById(R.id.editText_nome_serie_inserir);
-        editTextClassificacaoSerie = (EditText)findViewById(R.id.editText_classificacao_serie_inserir);
-        editTextAnoSerie = (EditText)findViewById(R.id.editText_ano_serie_inserir);
-        editTextTemporadas = (EditText) findViewById(R.id.editText_temporadas_serie_inserir);
-        editTextDescricaoSerie = (EditText)findViewById(R.id.editText_descricao_serie_inserir);
-        editTextLinkSerie = (EditText)findViewById(R.id.editTextLink_ser_inserir);
-        imagemCapaSerie = (ImageView) findViewById(R.id.foto_capa_add_serie);
-        imagemFundoSerie = (ImageView) findViewById(R.id.foto_fundo_add_serie);
+        editTextNomeSerie = findViewById(R.id.editText_nome_serie_alterar);
+        editTextClassificacaoSerie = (EditText)findViewById(R.id.editText_classificacao_serie_alterar);
+        editTextAnoSerie = (EditText)findViewById(R.id.editText_ano_serie_alterar);
+        editTextTemporadas = (EditText) findViewById(R.id.editText_temporadas_serie_alterar);
+        editTextDescricaoSerie = (EditText)findViewById(R.id.editText_descricao_serie_alterar);
+        editTextLinkSerie = (EditText)findViewById(R.id.editTextLink_ser_alterar);
+        imagemCapaSerie = (ImageView) findViewById(R.id.foto_capa_alterar_serie);
+        imagemFundoSerie = (ImageView) findViewById(R.id.foto_fundo_alterar_serie);
 
-        botaoCapaSerie = findViewById(R.id.botao_capa_add_serie);
-        botaoFundoSerie = findViewById(R.id.botao_fundo_add_serie);
+        botaoCapaSerie = findViewById(R.id.botao_capa_alterar_serie);
+        botaoFundoSerie = findViewById(R.id.botao_fundo_alterar_serie);
 
 
-        spinnerAutor = (Spinner) findViewById(R.id.spinnerCategorias_series_inserir);
-        spinnerCategoria = (Spinner) findViewById(R.id.spinnerCategorias_ser_inserir);
+        spinnerAutor = (Spinner) findViewById(R.id.spinnerAutores_series_alterar);
+        spinnerCategoria = (Spinner) findViewById(R.id.spinnerCategorias_series_alterar);
 
-        switchFavoritoSerie = findViewById(R.id.botao_favorito_add_serie);
-        switchVistoSerie = findViewById(R.id.botao_visto_add_serie);
+        switchFavoritoSerie = findViewById(R.id.botao_favorito_alterar_serie);
+        switchVistoSerie = findViewById(R.id.botao_visto_alterar_serie);
 
         estadoSwitchFavoritos = switchFavoritoSerie.isChecked();
         estadoSwitchVistos = switchVistoSerie.isChecked();
