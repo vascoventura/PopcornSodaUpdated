@@ -107,9 +107,6 @@ public class DetailActivityMovie extends AppCompatActivity {
         //imageViewFundoAutor.setImageBitmap(Bitmap.createScaledBitmap(bitmap_autorImageFundo, imageViewFundoAutor.getWidth(), imageViewFundoAutor.getHeight(), false));
         imageViewFundo.setImageBitmap(bitmap_filmeImageFundo);
 
-
-        getSupportActionBar().setTitle(movie.getNome_filme());
-
         favorito.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -173,6 +170,9 @@ public class DetailActivityMovie extends AppCompatActivity {
                 return 0;
             }
         });
+
+        getSupportActionBar().setTitle(movie.getNome_filme());
+
 
     }
 }

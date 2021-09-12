@@ -1,5 +1,6 @@
 package com.example.popcornsoda.models;
 
+import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.database.Cursor;
 
@@ -53,11 +54,11 @@ public class Categoria {
     }
 
     public static Categoria fromCursor(Cursor cursor) {
-        long id = cursor.getLong(
+        @SuppressLint("Range") long id = cursor.getLong(
                 cursor.getColumnIndex(BdTableCategorias._ID)
         );
 
-        String nome = cursor.getString(
+        @SuppressLint("Range") String nome = cursor.getString(
                 cursor.getColumnIndex(BdTableCategorias.CAMPO_NOME)
         );
 

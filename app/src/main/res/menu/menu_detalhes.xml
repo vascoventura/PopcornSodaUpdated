@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/itemEliminar"
+        android:icon="@drawable/ic_delete_black_24dp"
+        android:title="@string/e_liminar"
+        android:visible="true"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/itemEditar"
+        android:icon="@drawable/ic_create_black_24dp"
+        android:title="@string/e_ditar"
+        android:visible="true"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/itemFavorito"
+        android:icon="@drawable/ic_favorite_border_black_24dp"
+        android:title="Adicionar aos Favoritos"
+        android:visible="true"
+        app:showAsAction="ifRoom" />
+</menu>

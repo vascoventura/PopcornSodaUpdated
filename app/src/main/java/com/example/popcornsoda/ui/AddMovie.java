@@ -13,6 +13,7 @@ import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
@@ -45,6 +46,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 public class AddMovie extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor>, AdapterView.OnItemSelectedListener {
@@ -52,6 +54,7 @@ public class AddMovie extends AppCompatActivity implements LoaderManager.LoaderC
     private static final int ID_CURSO_LOADER_AUTORES = 0;
     private static final int ID_CURSO_LOADER_CATEGORIAS = 0;
     final int REQUEST_CODE_GALLERY = 399;
+
 
     private EditText editTextNomeFilme;
     private EditText editTextClassificacaoFilme;
@@ -72,18 +75,15 @@ public class AddMovie extends AppCompatActivity implements LoaderManager.LoaderC
 
     private myDbAdapter helper;
 
-    
-    List<Categoria> categorias = new ArrayList<>();
-
-
-    //String[] categorias2 = {"Terror", "Comédia", "Ação", "Romance"};
-    //{BdTableCategorias.CAMPO_NOME};
-    //String[] autores = {BdTableAutores.CAMPO_NOME};
-
     private boolean estadoSwitchFavoritos;
     private boolean estadoSwitchVistos;
 
     private int acao_botao = 0;
+
+    private double classificacao;
+    private int ano;
+
+
 
     public void setAcao_botao(int acao_botao) {
         this.acao_botao = acao_botao;
@@ -137,9 +137,8 @@ public class AddMovie extends AppCompatActivity implements LoaderManager.LoaderC
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_movie);
 
-
-
-        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        //Botao Voltar
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         editTextNomeFilme = findViewById(R.id.editText_nome_filme_inserir);
         editTextClassificacaoFilme = findViewById(R.id.editText_classificacao_filme_inserir);
@@ -182,19 +181,11 @@ public class AddMovie extends AppCompatActivity implements LoaderManager.LoaderC
             }
         });
 
-        spinnerCategoria.setOnItemSelectedListener(this);
-
-
-
         helper = new myDbAdapter(this);
-        categorias = helper.getAll();
 
-        System.out.println(categorias);
+        Cursor cursor_categorias = helper.getCategorias();
+        mostraCategoriasSpinner(cursor_categorias);
 
-        ArrayAdapter aa = new ArrayAdapter(AddMovie.this,android.R.layout.simple_spinner_item,categorias);
-        aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        //Setting the ArrayAdapter data on the Spinner
-        spinnerCategoria.setAdapter(aa);
 
     }
 
@@ -202,7 +193,7 @@ public class AddMovie extends AppCompatActivity implements LoaderManager.LoaderC
     @Override
     protected void onResume() {
         getSupportLoaderManager().restartLoader(ID_CURSO_LOADER_AUTORES, null, this);
-        //getSupportLoaderManager().restartLoader(ID_CURSO_LOADER_CATEGORIAS, null, this);
+        getSupportLoaderManager().restartLoader(ID_CURSO_LOADER_CATEGORIAS, null, this);
 
         super.onResume();
     }
@@ -218,18 +209,15 @@ public class AddMovie extends AppCompatActivity implements LoaderManager.LoaderC
         spinnerAutor.setAdapter(adaptadorAutores);
     }
 
-    /*private void mostraCategoriasSpinner(Cursor cursorCategorias){
-        SimpleCursorAdapter adaptadorCategorias = new SimpleCursorAdapter(this,
+    private void mostraCategoriasSpinner(Cursor cursorCategorias){
+        SimpleCursorAdapter adaptadorCategorias = new SimpleCursorAdapter(getApplicationContext(),
                 android.R.layout.simple_list_item_1,
                 cursorCategorias,
                 new String[]{BdTableCategorias.CAMPO_NOME},
                 new int[]{android.R.id.text1}
         );
         spinnerCategoria.setAdapter(adaptadorCategorias);
-
-
-
-    }*/
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -271,35 +259,44 @@ public class AddMovie extends AppCompatActivity implements LoaderManager.LoaderC
         String strClassificacao = editTextClassificacaoFilme.getText().toString();
 
         if (strClassificacao.trim().isEmpty()) {
-            editTextClassificacaoFilme.setError("O campo não pode estar vazio!");
+            editTextClassificacaoFilme.setError("O campo Não Pode Estar Vazio!");
             return;
         }
 
-        double classificacao;
+        double classificacao1 = Double.parseDouble(strClassificacao);
         try {
-            classificacao = Double.parseDouble(strClassificacao);
+            if(classificacao1<0.0 ||  classificacao1>10.0){
+                editTextClassificacaoFilme.setError("Classificação Não Aceitável");
+                return;
+            }else{
+                classificacao = classificacao1;
+            }
         } catch (NumberFormatException e) {
             editTextClassificacaoFilme.setError("Campo Inválido");
             return;
         }
 
-        int ano;
-
         String strAno = editTextAnoFilme.getText().toString();
 
         if (strAno.trim().isEmpty()) {
-            editTextAnoFilme.setError("O campo não pode estar vazio!");
+            editTextAnoFilme.setError("O campo Não Pode Estar Vazio!");
             return;
         }
 
         try {
-            ano = Integer.parseInt(strAno);
+            int ano_atual = Calendar.getInstance().get(Calendar.YEAR);
+            int ano1 = Integer.parseInt(strAno);
+            if(ano1<1850 || ano1>ano_atual){
+                editTextAnoFilme.setError("Ano Introduzido Não Aceitável");
+                return;
+            }else{
+                ano = ano1;
+            }
+
         } catch (NumberFormatException e) {
             editTextAnoFilme.setError("Campo Inválido");
             return;
         }
-
-
 
         String descricao = editTextDescricaoFilme.getText().toString();
 
@@ -328,8 +325,8 @@ public class AddMovie extends AppCompatActivity implements LoaderManager.LoaderC
         Movie filme = new Movie();
 
         filme.setNome_filme(nome);
-        filme.setCategoria_filme(1);
-        filme.setAutor_filme(1);
+        filme.setCategoria_filme(idCategoria);
+        filme.setAutor_filme(idAutor);
         filme.setClassificacao_filme(classificacao);
         filme.setAno_filme(ano);
         filme.setDescricao_filme(descricao);
@@ -338,6 +335,7 @@ public class AddMovie extends AppCompatActivity implements LoaderManager.LoaderC
         if(imagem_capa != null){
             filme.setFoto_capa_filme(imagem_capa);
         } else{
+            imagemCapaFilme.setBackgroundColor(Color.RED);
             Toast.makeText(this, "Insira uma imagem para a capa", Toast.LENGTH_SHORT).show();
         }
 
@@ -363,8 +361,12 @@ public class AddMovie extends AppCompatActivity implements LoaderManager.LoaderC
         filme.setLink_trailer_filme(link);
 
         try {
+
             getContentResolver().insert(ContentProviderPopcorn.ENDERECO_FILMES, filme.getContentValues());
             Toast.makeText(this, "Filme Guardado Com Sucesso", Toast.LENGTH_SHORT).show();
+
+            //Toast.makeText(this, "Id Categoria" + spinnerCategoria.getSelectedItemId(), Toast.LENGTH_SHORT).show();
+
             finish();
         } catch (Exception e) {
             Snackbar.make(
@@ -376,12 +378,6 @@ public class AddMovie extends AppCompatActivity implements LoaderManager.LoaderC
             e.printStackTrace();
         }
     }
-
-    public void viewCategorias(View view) {
-        String data = helper.getData();
-        Message.message(this,data);
-    }
-
 
     @NonNull
     @Override
@@ -398,7 +394,7 @@ public class AddMovie extends AppCompatActivity implements LoaderManager.LoaderC
 
     @Override
     public void onLoadFinished(@NonNull Loader<Cursor> loader, Cursor data) {
-        //mostraAutoresSpinner(data);
+        mostraAutoresSpinner(data);
     }
 
 
@@ -426,7 +422,4 @@ public class AddMovie extends AppCompatActivity implements LoaderManager.LoaderC
 
         return byteArray;
     }
-
-
-
 }

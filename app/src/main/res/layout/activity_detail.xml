@@ -14,7 +14,7 @@
 
         <ImageView
             android:id="@+id/imageViewFundoFilme"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="309dp"
             android:scaleType="centerCrop"
             app:layout_constraintEnd_toEndOf="parent"

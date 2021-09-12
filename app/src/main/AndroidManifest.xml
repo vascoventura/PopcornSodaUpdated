@@ -18,6 +18,7 @@
         android:fullBackupContent="@xml/backup_descriptor">
         <activity
             android:name=".ui.DetailActivityAutor"
+            android:parentActivityName=".ui.Autores"
             android:exported="true" />
         <activity
             android:name=".ui.AddCategory"

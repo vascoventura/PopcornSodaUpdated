@@ -30,12 +30,16 @@ import com.example.popcornsoda.BdPopcorn.BdTableCategorias;
 import com.example.popcornsoda.BdPopcorn.BdTableFilmes;
 import com.example.popcornsoda.BdPopcorn.ContentProviderPopcorn;
 import com.example.popcornsoda.R;
+import com.example.popcornsoda.adapters.myDbAdapter;
+import com.example.popcornsoda.models.Categoria;
 import com.example.popcornsoda.models.Serie;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.Calendar;
 
 public class AddSerie extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
 
@@ -43,11 +47,17 @@ public class AddSerie extends AppCompatActivity implements LoaderManager.LoaderC
     private static final int ID_CURSO_LOADER_CATEGORIAS = 0;
     final int REQUEST_CODE_GALLERY = 399;
 
-    EditText editTextNomeSerie, editTextLinkSerie, editTextClassificacaoSerie, editTextAnoSerie, editTextDescricaoSerie, editTextTemporadas;
-    Spinner spinnerAutor, spinnerCategoria;
-    ImageView imagemCapaSerie, imagemFundoSerie;
-    Switch switchFavoritoSerie, switchVistoSerie;
-    Button botaoCapaSerie, botaoFundoSerie;
+    private EditText editTextNomeSerie, editTextLinkSerie, editTextClassificacaoSerie, editTextAnoSerie, editTextDescricaoSerie, editTextTemporadas;
+    private Spinner spinnerAutor, spinnerCategoria;
+    private ImageView imagemCapaSerie, imagemFundoSerie;
+    private Switch switchFavoritoSerie, switchVistoSerie;
+    private Button botaoCapaSerie, botaoFundoSerie;
+
+
+    private myDbAdapter helper;
+
+    private double classificacao;
+    private int ano;
 
 
     private boolean estadoSwitchFavoritos, estadoSwitchVistos;
@@ -61,6 +71,7 @@ public class AddSerie extends AppCompatActivity implements LoaderManager.LoaderC
     public int getAcao_botao() {
         return acao_botao;
     }
+
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -76,7 +87,6 @@ public class AddSerie extends AppCompatActivity implements LoaderManager.LoaderC
         }
 
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-
     }
 
     @Override
@@ -106,7 +116,6 @@ public class AddSerie extends AppCompatActivity implements LoaderManager.LoaderC
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_serie);
 
-
         //Botao Voltar
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
@@ -116,12 +125,15 @@ public class AddSerie extends AppCompatActivity implements LoaderManager.LoaderC
         editTextTemporadas = (EditText) findViewById(R.id.editText_temporadas_serie_inserir);
         editTextDescricaoSerie = (EditText)findViewById(R.id.editText_descricao_serie_inserir);
         editTextLinkSerie = (EditText)findViewById(R.id.editTextLink_ser_inserir);
+        imagemCapaSerie = (ImageView) findViewById(R.id.foto_capa_add_serie);
+        imagemFundoSerie = (ImageView) findViewById(R.id.foto_fundo_add_serie);
+
         botaoCapaSerie = findViewById(R.id.botao_capa_add_serie);
         botaoFundoSerie = findViewById(R.id.botao_fundo_add_serie);
 
 
         spinnerAutor = (Spinner) findViewById(R.id.spinnerCategorias_series_inserir);
-        spinnerCategoria = (Spinner) findViewById(R.id.spinnerCategorias_series_inserir);
+        spinnerCategoria = (Spinner) findViewById(R.id.spinnerCategorias_ser_inserir);
 
         switchFavoritoSerie = findViewById(R.id.botao_favorito_add_serie);
         switchVistoSerie = findViewById(R.id.botao_visto_add_serie);
@@ -148,8 +160,15 @@ public class AddSerie extends AppCompatActivity implements LoaderManager.LoaderC
             }
         });
 
+        helper = new myDbAdapter(this);
+
+        Cursor cursor_categorias = helper.getCategorias();
+        mostraCategoriasSpinner(cursor_categorias);
+
 
     }
+
+
 
     @Override
     protected void onResume() {
@@ -170,9 +189,8 @@ public class AddSerie extends AppCompatActivity implements LoaderManager.LoaderC
         spinnerAutor.setAdapter(adaptadorAutores);
     }
 
-    private void mostraCategoriasSpinner(Cursor cursorCategorias) {
-        SimpleCursorAdapter adaptadorCategorias = new SimpleCursorAdapter(
-                this,
+    private void mostraCategoriasSpinner(Cursor cursorCategorias){
+        SimpleCursorAdapter adaptadorCategorias = new SimpleCursorAdapter(getApplicationContext(),
                 android.R.layout.simple_list_item_1,
                 cursorCategorias,
                 new String[]{BdTableCategorias.CAMPO_NOME},
@@ -216,33 +234,43 @@ public class AddSerie extends AppCompatActivity implements LoaderManager.LoaderC
             return;
         }
 
-        double classificacao;
-
         String strClassificacao = editTextClassificacaoSerie.getText().toString();
 
         if (strClassificacao.trim().isEmpty()) {
-            editTextClassificacaoSerie.setError("O campo não pode estar vazio!");
+            editTextClassificacaoSerie.setError("O campo Não Pode Estar Vazio!");
             return;
         }
 
+        double classificacao1 = Double.parseDouble(strClassificacao);
         try {
-            classificacao = Double.parseDouble(strClassificacao);
+            if(classificacao1<0.0 ||  classificacao1>10.0){
+                editTextClassificacaoSerie.setError("Classificação Não Aceitável");
+                return;
+            }else{
+                classificacao = classificacao1;
+            }
         } catch (NumberFormatException e) {
             editTextClassificacaoSerie.setError("Campo Inválido");
             return;
         }
 
-        int ano;
-
         String strAno = editTextAnoSerie.getText().toString();
 
         if (strAno.trim().isEmpty()) {
-            editTextAnoSerie.setError("O campo não pode estar vazio!");
+            editTextAnoSerie.setError("O campo Não Pode Estar Vazio!");
             return;
         }
 
         try {
-            ano = Integer.parseInt(strAno);
+            int ano_atual = Calendar.getInstance().get(Calendar.YEAR);
+            int ano1 = Integer.parseInt(strAno);
+            if(ano1<1850 || ano1>ano_atual){
+                editTextAnoSerie.setError("Ano Introduzido Não Aceitável");
+                return;
+            }else{
+                ano = ano1;
+            }
+
         } catch (NumberFormatException e) {
             editTextAnoSerie.setError("Campo Inválido");
             return;
@@ -323,9 +351,11 @@ public class AddSerie extends AppCompatActivity implements LoaderManager.LoaderC
 
         try {
             getContentResolver().insert(ContentProviderPopcorn.ENDERECO_SERIES, serie.getContentValues());
-
             Toast.makeText(this, "Serie guardada com sucesso", Toast.LENGTH_SHORT).show();
             finish();
+
+            //Toast.makeText(this, "Id Categoria" + spinnerCategoria.getSelectedItemId(), Toast.LENGTH_SHORT).show();
+
         } catch (Exception e) {
             Snackbar.make(
                     editTextNomeSerie,
@@ -349,14 +379,12 @@ public class AddSerie extends AppCompatActivity implements LoaderManager.LoaderC
     @Override
     public void onLoadFinished(@NonNull Loader<Cursor> loader, Cursor data) {
         mostraAutoresSpinner(data);
-        //mostraCategoriasSpinner(data);
     }
 
 
     @Override
     public void onLoaderReset(@NonNull Loader<Cursor> loader) {
         mostraAutoresSpinner(null);
-        mostraCategoriasSpinner(null);
     }
 
     private byte[] ImagemParaByte(ImageView image){

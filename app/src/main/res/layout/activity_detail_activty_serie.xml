@@ -13,9 +13,9 @@
         android:layout_height="wrap_content">
 
         <ImageView
-            android:id="@+id/detail_movie_cover"
+            android:id="@+id/imageViewFundoSerie"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="309dp"
             android:scaleType="centerCrop"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -27,70 +27,73 @@
             android:id="@+id/imageViewGradiente"
             android:layout_width="0dp"
             android:layout_height="0dp"
+            android:background="#00C08A8A"
             android:src="@drawable/gradient_bg"
-            app:layout_constraintBottom_toBottomOf="@+id/detail_movie_cover"
-            app:layout_constraintEnd_toEndOf="@+id/detail_movie_cover"
-            app:layout_constraintStart_toStartOf="@+id/detail_movie_cover"
-            app:layout_constraintTop_toTopOf="@+id/detail_movie_cover" />
+            app:layout_constraintVertical_bias="0.0"
+            app:layout_constraintBottom_toBottomOf="@+id/imageViewFundoSerie"
+            app:layout_constraintEnd_toEndOf="@+id/imageViewFundoSerie"
+            app:layout_constraintStart_toStartOf="@+id/imageViewFundoSerie"
+            app:layout_constraintTop_toTopOf="@+id/imageViewFundoSerie" />
 
         <ImageView
-            android:id="@+id/imageViewCapaAutor"
+            android:id="@+id/imageViewCapaSerie"
             android:layout_width="137dp"
             android:layout_height="188dp"
             android:layout_marginStart="16dp"
             android:layout_marginLeft="16dp"
             android:scaleType="centerCrop"
             android:transitionName="=sharedName"
-            app:layout_constraintBottom_toBottomOf="@+id/detail_movie_cover"
+            app:layout_constraintBottom_toBottomOf="@+id/imageViewFundoSerie"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/detail_movie_cover"
+            app:layout_constraintTop_toBottomOf="@+id/imageViewFundoSerie"
             app:srcCompat="@drawable/glass" />
 
         <TextView
             android:id="@+id/detail_serie_nome"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginTop="44dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
             android:layout_marginEnd="16dp"
             android:layout_marginRight="16dp"
             android:text="TextView"
             android:textColor="@android:color/white"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/imageViewCapaAutor"
-            app:layout_constraintTop_toBottomOf="@+id/detail_movie_cover" />
+            app:layout_constraintStart_toEndOf="@+id/imageView_classificacao"
+            app:layout_constraintTop_toTopOf="@+id/imageView_classificacao" />
 
         <TextView
             android:id="@+id/detail_serie_tipo"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginLeft="16dp"
             android:layout_marginTop="8dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginRight="16dp"
             android:text="TextView"
             android:textColor="@android:color/white"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/imageViewCapaAutor"
-            app:layout_constraintTop_toBottomOf="@+id/detail_serie_nome" />
+            app:layout_constraintStart_toStartOf="@+id/detail_serie_autor"
+            app:layout_constraintTop_toBottomOf="@+id/detail_serie_autor" />
 
         <ImageView
             android:id="@+id/imageView_classificacao"
-            android:layout_width="49dp"
-            android:layout_height="60dp"
+            android:layout_width="76dp"
+            android:layout_height="83dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
             android:layout_marginTop="8dp"
-            app:layout_constraintBottom_toBottomOf="@+id/imageViewCapaAutor"
-            app:layout_constraintEnd_toEndOf="@+id/imageViewCapaAutor"
-            app:layout_constraintTop_toBottomOf="@+id/imageViewCapaAutor"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toBottomOf="@+id/imageViewCapaSerie"
+            app:layout_constraintEnd_toEndOf="@+id/imageViewCapaSerie"
+            app:layout_constraintHorizontal_bias="0.3"
+            app:layout_constraintStart_toEndOf="@+id/imageViewCapaSerie"
+            app:layout_constraintTop_toBottomOf="@+id/imageViewCapaSerie"
             app:srcCompat="@android:drawable/btn_star_big_on" />
 
         <TextView
             android:id="@+id/detail_serie_classificacao"
-            android:layout_width="16dp"
-            android:layout_height="16dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginLeft="8dp"
             android:layout_marginTop="8dp"
@@ -100,14 +103,14 @@
             android:autoText="false"
             android:textAppearance="@style/TextAppearance.AppCompat.Display1"
             android:textColor="#000000"
-            android:textSize="8sp"
+            android:textSize="14sp"
             app:fontFamily="sans-serif-black"
             app:layout_constraintBottom_toBottomOf="@+id/imageView_classificacao"
             app:layout_constraintEnd_toEndOf="@+id/imageView_classificacao"
             app:layout_constraintHorizontal_bias="0.588"
             app:layout_constraintStart_toStartOf="@+id/imageView_classificacao"
             app:layout_constraintTop_toTopOf="@+id/imageView_classificacao"
-            app:layout_constraintVertical_bias="0.678"
+            app:layout_constraintVertical_bias="0.53"
             tools:text="4.9" />
 
         <TextView
@@ -116,33 +119,29 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginLeft="16dp"
-            android:layout_marginTop="16dp"
             android:text="TextView"
             android:textColor="@android:color/white"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageViewCapaAutor" />
+            app:layout_constraintTop_toBottomOf="@+id/imageView_classificacao" />
 
         <TextView
             android:id="@+id/detail_serie_ano"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginLeft="16dp"
             android:layout_marginTop="8dp"
             android:text="2009"
-            android:textColor="#7A6464"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/detail_serie_autor" />
+            android:textColor="#A1887F"
+            app:layout_constraintStart_toStartOf="@+id/detail_serie_nome"
+            app:layout_constraintTop_toBottomOf="@+id/detail_serie_nome" />
 
         <TextView
             android:id="@+id/detail_serie_temporadas"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
             android:text="20"
             android:textColor="@android:color/white"
             app:layout_constraintStart_toEndOf="@+id/textView9"
-            app:layout_constraintTop_toBottomOf="@+id/detail_serie_tipo" />
+            app:layout_constraintTop_toTopOf="@+id/textView9" />
 
         <TextView
             android:id="@+id/detail_serie_descricao"
@@ -161,7 +160,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.494"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/detail_serie_ano" />
+            app:layout_constraintTop_toBottomOf="@+id/detail_serie_tipo" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/botao_favorito"
@@ -174,8 +173,8 @@
             android:src="@drawable/ic_favorite_black_24dp"
             app:backgroundTint="#F1B814"
             app:layout_constraintBottom_toTopOf="@+id/detail_serie_nome"
-            app:layout_constraintStart_toEndOf="@+id/imageViewCapaAutor"
-            tools:ignore="VectorDrawableCompat" />
+            app:layout_constraintStart_toEndOf="@+id/imageViewCapaSerie"
+            tools:ignore="VectorDrawableCompat,SpeakableTextPresentCheck,SpeakableTextPresentCheck" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/botao_visto"
@@ -183,13 +182,12 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginLeft="8dp"
-            android:layout_marginBottom="16dp"
             android:clickable="true"
-            app:layout_constraintBottom_toTopOf="@+id/detail_serie_nome"
-            app:layout_constraintStart_toEndOf="@+id/botao_favorito"
-            android:src="@drawable/ic_remove_red_eye_black_24dp"
             android:focusable="true"
-            tools:ignore="VectorDrawableCompat" />
+            android:src="@drawable/ic_remove_red_eye_black_24dp"
+            app:layout_constraintStart_toEndOf="@+id/botao_favorito"
+            app:layout_constraintTop_toTopOf="@+id/botao_favorito"
+            tools:ignore="VectorDrawableCompat,SpeakableTextPresentCheck,SpeakableTextPresentCheck,SpeakableTextPresentCheck" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/detail_serie_trailer"
@@ -197,23 +195,22 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginLeft="8dp"
-            android:layout_marginBottom="16dp"
             android:clickable="true"
             android:focusable="true"
             android:src="@drawable/ic_movie_black_24dp"
-            app:layout_constraintBottom_toTopOf="@+id/detail_serie_nome"
-            app:layout_constraintStart_toEndOf="@+id/botao_visto" />
+            app:layout_constraintStart_toEndOf="@+id/botao_visto"
+            app:layout_constraintTop_toTopOf="@+id/botao_visto"
+            tools:ignore="SpeakableTextPresentCheck,SpeakableTextPresentCheck,SpeakableTextPresentCheck" />
 
 
         <TextView
             android:id="@+id/textView9"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
             android:text="Temporadas:"
             android:textColor="@android:color/white"
-            app:layout_constraintStart_toStartOf="@+id/detail_serie_tipo"
-            app:layout_constraintTop_toBottomOf="@+id/detail_serie_tipo"
+            app:layout_constraintStart_toStartOf="@+id/detail_serie_ano"
+            app:layout_constraintTop_toBottomOf="@+id/detail_serie_ano"
             tools:ignore="MissingConstraints" />
 
 

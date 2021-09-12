@@ -1,5 +1,6 @@
 package com.example.popcornsoda.adapters;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -27,7 +28,7 @@ public class myDbAdapter {
         return id;
     }*/
 
-    public String getData() {
+    /*public String getData() {
         SQLiteDatabase db = myhelper.getWritableDatabase();
         String[] columns = {BdTableCategorias._ID, BdTableCategorias.CAMPO_NOME};
         Cursor cursor = db.query(BdTableCategorias.NOME_TABELA, columns, null, null, null, null, null);
@@ -38,23 +39,22 @@ public class myDbAdapter {
             buffer.append(cid + " " + cname  + " \n");
         }
         return buffer.toString();
-    }
+    }*/
 
-    public String[] getCategorias(){
+    /*public Cursor getCategorias(){
         Cursor cursor = myhelper.getReadableDatabase().rawQuery("SELECT nome_categoria FROM categorias", null);
         String [] names = {""};
         for(int i = 0; i < cursor.getCount(); i ++){
             names[i] = cursor.getString(i);
         }
-        cursor.close();
-        return names;
-    }
+        return cursor;
+    }*/
 
-    public List<Categoria> getAll(){
+    public ArrayList<Categoria> getAll(){
 
         SQLiteDatabase db = myhelper.getReadableDatabase();
 
-        List<Categoria> categoriaList = new ArrayList<>();
+        ArrayList<Categoria> categoriaList = new ArrayList<>();
 
         String query = "Select * from categorias";
 
@@ -64,8 +64,8 @@ public class myDbAdapter {
         if(cursor.moveToFirst()){
             //loop throught the cursor
             do{
-                long id_categoria = cursor.getLong(cursor.getColumnIndex(BdTableCategorias._ID));
-                String nome_categoria = cursor.getString(cursor.getColumnIndex(BdTableCategorias.CAMPO_NOME));
+                @SuppressLint("Range") long id_categoria = cursor.getLong(cursor.getColumnIndex(BdTableCategorias._ID));
+                @SuppressLint("Range") String nome_categoria = cursor.getString(cursor.getColumnIndex(BdTableCategorias.CAMPO_NOME));
 
                 Categoria categoria = new Categoria();
                 categoria.setId_categoria(id_categoria);
@@ -80,6 +80,37 @@ public class myDbAdapter {
         db.close();
         return categoriaList;
     }
+
+    public Cursor getCategorias() {
+        SQLiteDatabase db = myhelper.getReadableDatabase();
+        String query = "Select * from categorias";
+        Cursor cursor = db.rawQuery(query, null);
+        return cursor;
+    }
+    /*
+
+        if(cursor.moveToFirst()){
+            //loop throught the cursor
+            do{
+                @SuppressLint("Range") long id_categoria = cursor.getLong(cursor.getColumnIndex(BdTableCategorias._ID));
+                @SuppressLint("Range") String nome_categoria = cursor.getString(cursor.getColumnIndex(BdTableCategorias.CAMPO_NOME));
+
+                Categoria categoria = new Categoria();
+                categoria.setId_categoria(id_categoria);
+                categoria.setNome_categoria(nome_categoria);
+
+                categoriaList.add(categoria);
+            }while(cursor.moveToNext());
+        }else{
+
+        }
+        cursor.close();
+        db.close();
+        return categoriaList;
+    }
+
+
+    } */
 
     /*public int delete(String uname) {
         SQLiteDatabase db = myhelper.getWritableDatabase();

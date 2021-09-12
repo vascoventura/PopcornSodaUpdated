@@ -60,7 +60,7 @@
         android:textColor="#FFFFFF"
         app:layout_constraintStart_toStartOf="@+id/textViewNomeFilme"
         app:layout_constraintTop_toBottomOf="@+id/textViewNomeFilme"
-        tools:text="Sci-fi" />
+        tools:text="Steven Spielberg" />
 
     <TextView
         android:id="@+id/textViewAnoFilme"

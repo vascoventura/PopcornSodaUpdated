@@ -1,5 +1,6 @@
 package com.example.popcornsoda.models;
 
+import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.widget.ImageView;
@@ -27,6 +28,8 @@ public class Movie {
     private String nomeCategoria;
     private long autor_filme;
     private String nomeAutor;
+
+    Cursor cursor;
 
 
 
@@ -192,49 +195,48 @@ public class Movie {
     }
 
     public static Movie fromCursor(Cursor cursor) {
-        long id = cursor.getLong(
-                cursor.getColumnIndex(BdTableFilmes._ID)
+        @SuppressLint("Range") long id = cursor.getLong(cursor.getColumnIndex(BdTableFilmes._ID)
         );
 
-        String nome = cursor.getString(
+        @SuppressLint("Range") String nome = cursor.getString(
                 cursor.getColumnIndex(BdTableFilmes.CAMPO_NOME)
         );
 
-        long categoria = cursor.getLong(
+        @SuppressLint("Range") long categoria = cursor.getLong(
                 cursor.getColumnIndex(BdTableFilmes.CAMPO_CATEGORIA)
         );
 
-        long autor = cursor.getLong(
+        @SuppressLint("Range") long autor = cursor.getLong(
                 cursor.getColumnIndex(BdTableFilmes.CAMPO_AUTOR)
         );
 
-        double classificacao = cursor.getDouble(
+        @SuppressLint("Range") double classificacao = cursor.getDouble(
                 cursor.getColumnIndex(BdTableFilmes.CAMPO_CLASSIFICACAO)
         );
 
-        int ano = cursor.getInt(
+        @SuppressLint("Range") int ano = cursor.getInt(
                 cursor.getColumnIndex(BdTableFilmes.CAMPO_ANO)
         );
 
-        String descricao = cursor.getString(
+        @SuppressLint("Range") String descricao = cursor.getString(
                 cursor.getColumnIndex(BdTableFilmes.CAMPO_DESCRICAO)
         );
-        byte[] foto_capa = cursor.getBlob(
+        @SuppressLint("Range") byte[] foto_capa = cursor.getBlob(
                 cursor.getColumnIndex(BdTableFilmes.CAMPO_CAPA)
         );
 
-        byte[] foto_fundo = cursor.getBlob(
+        @SuppressLint("Range") byte[] foto_fundo = cursor.getBlob(
                 cursor.getColumnIndex(BdTableFilmes.CAMPO_FUNDO)
         );
-        String link = cursor.getString(
+        @SuppressLint("Range") String link = cursor.getString(
                 cursor.getColumnIndex(BdTableFilmes.CAMPO_LINK)
         );
 
-        String nomeAutor = cursor.getString(
+        @SuppressLint("Range") String nomeAutor = cursor.getString(
                 cursor.getColumnIndex(BdTableFilmes.ALIAS_NOME_AUTOR)
         );
 
-        String nomeCategoria = cursor.getString(
+        @SuppressLint("Range") String nomeCategoria = cursor.getString(
                 cursor.getColumnIndex(BdTableFilmes.ALIAS_NOME_CATEGORIA)
         );
 
@@ -264,7 +266,7 @@ public class Movie {
         movie.setId_filme(id);
 
         movie.setNome_filme(nome);
-        movie.setCategoria_filme(categoria);
+        movie.setCategoria_filme(1);
         movie.setAutor_filme(autor);
         movie.setClassificacao_filme(classificacao);
         movie.setAno_filme(ano);
