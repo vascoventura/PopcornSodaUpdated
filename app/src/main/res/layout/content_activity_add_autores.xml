@@ -29,7 +29,7 @@
                 android:layout_height="wrap_content"
                 android:inputType="textPersonName"
                 android:textColor="#FFFFFF"
-                tools:ignore="TouchTargetSizeCheck" />
+                tools:ignore="TouchTargetSizeCheck,TextContrastCheck,TextContrastCheck" />
         </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -46,7 +46,7 @@
                 android:layout_marginTop="8dp"
                 android:inputType="number"
                 android:textColor="#FFFFFF"
-                tools:ignore="TouchTargetSizeCheck" />
+                tools:ignore="TouchTargetSizeCheck,TextContrastCheck,TextContrastCheck" />
         </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -63,7 +63,7 @@
                 android:layout_height="wrap_content"
                 android:inputType="text"
                 android:textColor="#FFFFFF"
-                tools:ignore="TouchTargetSizeCheck" />
+                tools:ignore="TouchTargetSizeCheck,TextContrastCheck,TextContrastCheck" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -79,7 +79,7 @@
                 android:layout_height="wrap_content"
                 android:inputType="textLongMessage"
                 android:textColor="#FFFFFF"
-                tools:ignore="TouchTargetSizeCheck" />
+                tools:ignore="TouchTargetSizeCheck,TextContrastCheck,TextContrastCheck" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <Switch
@@ -89,7 +89,7 @@
             android:layout_marginStart="5dp"
             android:layout_marginLeft="5dp"
             android:minHeight="48dp"
-            android:text="Favorito"
+            android:text="@string/favorito"
             android:textColor="#9900BCD4"
             android:textSize="16sp" />
 
@@ -102,8 +102,9 @@
             android:layout_marginTop="20dp"
             android:layout_marginEnd="10dp"
             android:layout_marginRight="10dp"
-            android:text="Capa do Realizador"
-            android:textColor="#9900BCD4" />
+            android:text="@string/capa_do_realizador"
+            android:textColor="#9900BCD4"
+            tools:ignore="TextContrastCheck,TextContrastCheck" />
 
         <ImageView
             android:id="@+id/foto_capa_add_autor"
@@ -116,7 +117,9 @@
             android:layout_marginRight="30dp"
             android:paddingLeft="0dp"
             android:paddingRight="0dp"
-            tools:srcCompat="@tools:sample/avatars" />
+            tools:ignore="ImageContrastCheck,ImageContrastCheck,ImageContrastCheck"
+            tools:srcCompat="@tools:sample/avatars"
+            android:contentDescription="@string/todo" />
 
 
         <Button
@@ -126,7 +129,8 @@
             android:layout_marginStart="30dp"
             android:layout_marginLeft="30dp"
             android:layout_marginTop="5dp"
-            android:text="Buscar..." />
+            android:text="@string/buscar"
+            tools:ignore="DuplicateSpeakableTextCheck" />
 
         <TextView
             android:layout_width="match_parent"
@@ -137,8 +141,9 @@
             android:layout_marginEnd="10dp"
             android:layout_marginRight="10dp"
             android:layout_marginBottom="10dp"
-            android:hint="Fundo do Realizador"
-            android:textColorHint="#9900BCD4" />
+            android:hint="@string/fundo_do_realizador"
+            android:textColorHint="#9900BCD4"
+            tools:ignore="TextContrastCheck,TextContrastCheck" />
 
 
         <ImageView
@@ -152,7 +157,8 @@
             android:layout_marginRight="30dp"
             android:paddingLeft="0dp"
             android:paddingRight="0dp"
-            tools:srcCompat="@tools:sample/avatars" />
+            tools:srcCompat="@tools:sample/avatars"
+            android:contentDescription="@string/todo" />
 
         <Button
             android:id="@+id/botao_fundo_add_autor"
@@ -162,7 +168,7 @@
             android:layout_marginLeft="30dp"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
-            android:text="Buscar..." />
+            android:text="@string/buscar" />
 
 
     </LinearLayout>

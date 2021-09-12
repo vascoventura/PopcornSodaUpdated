@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="a_dicionar">Adicionar</string>
     <string name="e_liminar">Eliminar</string>
     <string name="e_ditar">Editar</string>
@@ -15,4 +15,9 @@
     <string name="a_utores">Autores</string>
     <string name="n_acionalidade">Nacionalidade</string>
     <string name="categoria">Categoria</string>
+    <string name="buscar">Buscar...</string>
+    <string name="todo" tools:ignore="MissingTranslation" translatable="false">TODO</string>
+    <string name="fundo_do_realizador">Fundo do Realizador</string>
+    <string name="capa_do_realizador">Capa do Realizador</string>
+    <string name="favorito">Favorito</string>
 </resources>

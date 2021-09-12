@@ -16,4 +16,8 @@
     <string name="a_utores">Authors</string>
     <string name="n_acionalidade">Nacionality</string>
     <string name="categoria">Categoria</string>
+    <string name="buscar">Open…</string>
+    <string name="fundo_do_realizador">Director´s Background</string>
+    <string name="capa_do_realizador">Director´s Cover</string>
+    <string name="favorito">Favorite</string>
 </resources>
