@@ -1,5 +1,6 @@
 package com.example.popcornsoda.models;
 
+import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.database.Cursor;
 
@@ -194,56 +195,61 @@ public class Serie {
     }
 
     public static Serie fromCursor(Cursor cursor) {
-        long id = cursor.getLong(
+        @SuppressLint("Range") long id = cursor.getLong(
                 cursor.getColumnIndex(BdTableSeries._ID)
         );
 
-        String nome = cursor.getString(
+        @SuppressLint("Range") String nome = cursor.getString(
                 cursor.getColumnIndex(BdTableSeries.CAMPO_NOME)
         );
 
-        long categoria = cursor.getLong(
+        @SuppressLint("Range") long categoria = cursor.getLong(
                 cursor.getColumnIndex(BdTableSeries.CAMPO_CATEGORIA)
         );
 
-        long autor = cursor.getLong(
+        @SuppressLint("Range") long autor = cursor.getLong(
                 cursor.getColumnIndex(BdTableSeries.CAMPO_AUTOR)
         );
 
-        double classificacao = cursor.getDouble(
+        @SuppressLint("Range") double classificacao = cursor.getDouble(
                 cursor.getColumnIndex(BdTableSeries.CAMPO_CLASSIFICACAO)
         );
 
-        int ano = cursor.getInt(
+        @SuppressLint("Range") int ano = cursor.getInt(
                 cursor.getColumnIndex(BdTableSeries.CAMPO_ANO)
         );
 
-        int temporadas = cursor.getInt(
+        @SuppressLint("Range") int temporadas = cursor.getInt(
                 cursor.getColumnIndex(BdTableSeries.CAMPO_TEMPORADAS)
         );
 
-        String descricao = cursor.getString(
+        @SuppressLint("Range") String descricao = cursor.getString(
                 cursor.getColumnIndex(BdTableSeries.CAMPO_DESCRICAO)
         );
 
-        byte[] foto_capa = cursor.getBlob(
+        @SuppressLint("Range") byte[] foto_capa = cursor.getBlob(
                 cursor.getColumnIndex(BdTableSeries.CAMPO_CAPA)
         );
 
-        byte[] foto_fundo = cursor.getBlob(
+        @SuppressLint("Range") byte[] foto_fundo = cursor.getBlob(
                 cursor.getColumnIndex(BdTableSeries.CAMPO_FUNDO)
         );
-        String link = cursor.getString(
+        @SuppressLint("Range") String link = cursor.getString(
                 cursor.getColumnIndex(BdTableSeries.CAMPO_LINK)
         );
 
-        String nomeAutor = cursor.getString(
+        @SuppressLint("Range") String nomeAutor = cursor.getString(
                 cursor.getColumnIndex(BdTableSeries.ALIAS_NOME_AUTOR)
         );
 
-        String nomeCategoria = cursor.getString(
+        @SuppressLint("Range") String nomeCategoria = cursor.getString(
                 cursor.getColumnIndex(BdTableSeries.ALIAS_NOME_CATEGORIA)
         );
+
+        @SuppressLint("Range") boolean visto = Boolean.parseBoolean(cursor.getString(cursor.getColumnIndex(BdTableSeries.CAMPO_VISTO)));
+
+        @SuppressLint("Range") boolean favorito = Boolean.parseBoolean(cursor.getString(cursor.getColumnIndex(BdTableSeries.CAMPO_FAVORITO)));
+
 
         Serie serie = new Serie();
 
@@ -257,13 +263,16 @@ public class Serie {
         serie.setDescricao_serie(descricao);
         serie.setFoto_capa_serie(foto_capa);
         serie.setFoto_fundo_serie(foto_fundo);
-        serie.setFavorito_serie(false);
-        serie.setVisto_serie(false);
+        serie.setFavorito_serie(favorito);
+        serie.setVisto_serie(visto);
         serie.setLink_trailer_serie(link);
 
         serie.nomeAutor = nomeAutor;
         serie.nomeCategoria = nomeCategoria;
 
+
+        System.out.println("FAVORITO: " + favorito);
+        System.out.println("VISTO: " + visto);
 
         return serie;
     }

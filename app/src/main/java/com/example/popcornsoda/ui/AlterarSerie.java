@@ -43,6 +43,7 @@ import java.util.Calendar;
 
 public class AlterarSerie extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
     private static final int ID_CURSO_LOADER_AUTORES = 0;
+    private static final int ID_CURSO_LOADER_CATEGORIAS = 0;
     private static final int REQUEST_CODE_GALLERY = 399;
 
     private EditText editTextNomeSerie;
@@ -64,10 +65,6 @@ public class AlterarSerie extends AppCompatActivity implements LoaderManager.Loa
     private Button botaoCapaAlterarSerie;
     private Button botaoFundoAlterarSerie;
 
-    private boolean estadoSwitchFavoritos;
-    private boolean estadoSwitchVistos;
-
-
     private Serie serie = null;
 
     private boolean autoresCarregados = false;
@@ -78,7 +75,7 @@ public class AlterarSerie extends AppCompatActivity implements LoaderManager.Loa
     private boolean categoriaAtualizada = false;
 
     private Uri enderecoSerieEditar;
-
+    private Cursor cursor_categorias;
     private double classificacao;
     private int ano;
 
@@ -154,6 +151,7 @@ public class AlterarSerie extends AppCompatActivity implements LoaderManager.Loa
         botaoCapaAlterarSerie = (Button) findViewById(R.id.botao_capa_alterar_serie);
         botaoFundoAlterarSerie = (Button) findViewById(R.id.botao_fundo_alterar_serie);
 
+        getSupportLoaderManager().initLoader(ID_CURSO_LOADER_CATEGORIAS, null, this);
         getSupportLoaderManager().initLoader(ID_CURSO_LOADER_AUTORES, null, this);
 
         botaoCapaAlterarSerie.setOnClickListener(new View.OnClickListener() {
@@ -202,8 +200,13 @@ public class AlterarSerie extends AppCompatActivity implements LoaderManager.Loa
         editTextDescricaoSerie.setText(serie.getDescricao_serie());
         editTextLink.setText(serie.getLink_trailer_serie());
 
+
         switchFavoritoSerie.setChecked(serie.isFavorito_serie());
         switchVistoSerie.setChecked(serie.isVisto_serie());
+
+        System.out.println("Estado Visto SERIE: " + serie.isVisto_serie());
+        System.out.println("Estado Favorito SERIE: " + serie.isFavorito_serie());
+
 
         byte[] serieImageCapaByte = serie.getFoto_capa_serie();
         Bitmap bitmap_serieImage = BitmapFactory.decodeByteArray(serieImageCapaByte, 0, serieImageCapaByte.length);
@@ -216,10 +219,9 @@ public class AlterarSerie extends AppCompatActivity implements LoaderManager.Loa
 
         helper = new myDbAdapter(this);
 
-        Cursor cursor_categorias = helper.getCategorias();
-        mostraCategoriasSpinner(cursor_categorias);
-        atualizaCategoriaSelecionada();
+        cursor_categorias = helper.getCategorias();
 
+        atualizaCategoriaSelecionada();
         atualizaAutorSelecionado();
 
     }
@@ -266,6 +268,7 @@ public class AlterarSerie extends AppCompatActivity implements LoaderManager.Loa
     @Override
     protected void onResume() {
         getSupportLoaderManager().restartLoader(ID_CURSO_LOADER_AUTORES, null, this);
+        getSupportLoaderManager().restartLoader(ID_CURSO_LOADER_CATEGORIAS, null, this);
 
         super.onResume();
     }
@@ -406,20 +409,11 @@ public class AlterarSerie extends AppCompatActivity implements LoaderManager.Loa
             Toast.makeText(this, "Insira uma imagem para o fundo", Toast.LENGTH_SHORT).show();
         }
 
-        if(estadoSwitchFavoritos){
-            serie.setFavorito_serie(true);
-        } else{
-            serie.setFavorito_serie(false);
-        }
-
-        if(estadoSwitchVistos){
-            serie.setVisto_serie(true);
-        } else{
-            serie.setVisto_serie(false);
-        }
-
         long idAutor = spinnerAutores.getSelectedItemId();
         long idCategoria = spinnerCategorias.getSelectedItemId();
+
+        boolean estadoSwitchFavorito = switchFavoritoSerie.isChecked();
+        boolean estadoSwitchVisto = switchVistoSerie.isChecked();
 
 
         // guardar os dados
@@ -432,6 +426,8 @@ public class AlterarSerie extends AppCompatActivity implements LoaderManager.Loa
         serie.setTemporadas(temporada);
         serie.setDescricao_serie(descricao);
         serie.setLink_trailer_serie(link);
+        serie.setVisto_serie(estadoSwitchVisto);
+        serie.setFavorito_serie(estadoSwitchFavorito);
 
 
         try {
@@ -439,6 +435,8 @@ public class AlterarSerie extends AppCompatActivity implements LoaderManager.Loa
 
             Toast.makeText(this, "Serie guardada com sucesso", Toast.LENGTH_SHORT).show();
             finish();
+            System.out.println("Estado Visto: " + switchVistoSerie.isChecked());
+            System.out.println("Estado Favorito: " + switchFavoritoSerie.isChecked());
         } catch (Exception e) {
             Snackbar.make(
                     editTextNomeSerie,
@@ -465,6 +463,15 @@ public class AlterarSerie extends AppCompatActivity implements LoaderManager.Loa
         autoresCarregados = true;
         atualizaAutorSelecionado();
 
+        mostraCategoriasSpinner(cursor_categorias);
+        categoriasCarregadas = true;
+        atualizaCategoriaSelecionada();
+
+
+        System.out.println("Estado Visto: " + switchVistoSerie.isChecked());
+        System.out.println("Estado Favorito: " + switchFavoritoSerie.isChecked());
+
+
     }
 
     @Override
@@ -472,6 +479,10 @@ public class AlterarSerie extends AppCompatActivity implements LoaderManager.Loa
         autoresCarregados = false;
         autorAtualizado = false;
         mostraAutoresSpinner(null);
+
+        categoriasCarregadas = false;
+        categoriaAtualizada = false;
+        mostraCategoriasSpinner(null);
 
     }
 

@@ -42,6 +42,7 @@ import java.util.Calendar;
 
 public class AlterarMovie extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
     private static final int ID_CURSO_LOADER_AUTORES = 0;
+    private static final int ID_CURSO_LOADER_CATEGORIAS = 0;
     private static final int REQUEST_CODE_GALLERY = 399;
 
     private EditText editTextNomeFilme;
@@ -50,7 +51,8 @@ public class AlterarMovie extends AppCompatActivity implements LoaderManager.Loa
     private EditText editTextDescricaoFilme;
     private EditText editTextLink;
 
-    private Spinner spinnerAutores, spinnerCategorias;
+    private Spinner spinnerAutores;
+    private Spinner spinnerCategorias;
 
 
     private Switch switchFavoritoFilme;
@@ -61,6 +63,8 @@ public class AlterarMovie extends AppCompatActivity implements LoaderManager.Loa
 
     private Button botaoCapaAlterarFilme;
     private Button botaoFundoAlterarFilme;
+
+    private Cursor cursor_categorias;
 
     private boolean estadoSwitchFavoritos;
     private boolean estadoSwitchVistos;
@@ -133,7 +137,6 @@ public class AlterarMovie extends AppCompatActivity implements LoaderManager.Loa
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_alterar_movie);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 
         editTextNomeFilme = findViewById(R.id.editText_nome_filme_alterar);
@@ -142,8 +145,8 @@ public class AlterarMovie extends AppCompatActivity implements LoaderManager.Loa
         editTextDescricaoFilme = findViewById(R.id.editText_descricao_filme_alterar);
         editTextLink = findViewById(R.id.editTextLink_filme_alterar);
 
-        spinnerAutores = findViewById(R.id.spinnerAutores_filmes_alterar);
-        spinnerCategorias = findViewById(R.id.spinnerCategorias_filmes_alterar);
+        spinnerAutores = (Spinner) findViewById(R.id.spinnerAutores_filmes_alterar);
+        spinnerCategorias = (Spinner) findViewById(R.id.spinnerCategorias_filmes_alterar);
 
         imageViewCapaFilme = findViewById(R.id.foto_capa_alterar_filme);
         imageViewFundoFilme = findViewById(R.id.foto_fundo_add_filme);
@@ -158,6 +161,7 @@ public class AlterarMovie extends AppCompatActivity implements LoaderManager.Loa
 
 
         getSupportLoaderManager().initLoader(ID_CURSO_LOADER_AUTORES, null, this);
+        getSupportLoaderManager().initLoader(ID_CURSO_LOADER_CATEGORIAS, null, this);
 
         botaoCapaAlterarFilme.setOnClickListener(new View.OnClickListener() {
 
@@ -221,13 +225,26 @@ public class AlterarMovie extends AppCompatActivity implements LoaderManager.Loa
 
         helper = new myDbAdapter(this);
 
-        Cursor cursor_categorias = helper.getCategorias();
-        mostraCategoriasSpinner(cursor_categorias);
-        atualizaAutorSelecionado();
+        cursor_categorias = helper.getCategorias();
+
         atualizaCategoriaSelecionada();
+        atualizaAutorSelecionado();
+
+        spinnerCategorias.setSelection((int) filme.getCategoria_filme());
+
 
     }
 
+    private void mostraCategoriasSpinner(Cursor cursorCategorias) {
+        SimpleCursorAdapter adaptadorCategorias = new SimpleCursorAdapter(
+                this,
+                android.R.layout.simple_list_item_1,
+                cursorCategorias,
+                new String[]{BdTableCategorias.CAMPO_NOME},
+                new int[]{android.R.id.text1}
+        );
+        spinnerCategorias.setAdapter(adaptadorCategorias);
+    }
     private void atualizaCategoriaSelecionada() {
         if(!categoriasCarregadas) return;
         if(categoriaAtualizada) return;
@@ -259,6 +276,7 @@ public class AlterarMovie extends AppCompatActivity implements LoaderManager.Loa
     @Override
     protected void onResume() {
         getSupportLoaderManager().restartLoader(ID_CURSO_LOADER_AUTORES, null, this);
+        getSupportLoaderManager().restartLoader(ID_CURSO_LOADER_CATEGORIAS, null, this);
 
         super.onResume();
     }
@@ -274,16 +292,6 @@ public class AlterarMovie extends AppCompatActivity implements LoaderManager.Loa
         spinnerAutores.setAdapter(adaptadorAutores);
     }
 
-    private void mostraCategoriasSpinner(Cursor cursorCategorias) {
-        SimpleCursorAdapter adaptadorCategorias = new SimpleCursorAdapter(
-                this,
-                android.R.layout.simple_list_item_1,
-                cursorCategorias,
-                new String[]{BdTableCategorias.CAMPO_NOME},
-                new int[]{android.R.id.text1}
-        );
-        spinnerCategorias.setAdapter(adaptadorCategorias);
-    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -446,9 +454,12 @@ public class AlterarMovie extends AppCompatActivity implements LoaderManager.Loa
     public void onLoadFinished(@NonNull Loader<Cursor> loader, Cursor data) {
         mostraAutoresSpinner(data);
         autoresCarregados = true;
-        categoriasCarregadas = true;
         atualizaAutorSelecionado();
+
+        mostraCategoriasSpinner(cursor_categorias);
+        categoriasCarregadas = true;
         atualizaCategoriaSelecionada();
+
 
     }
 
@@ -456,13 +467,11 @@ public class AlterarMovie extends AppCompatActivity implements LoaderManager.Loa
     public void onLoaderReset(@NonNull Loader<Cursor> loader) {
         autoresCarregados = false;
         autorAtualizado = false;
+        mostraAutoresSpinner(null);
 
         categoriasCarregadas = false;
         categoriaAtualizada = false;
-
-        mostraAutoresSpinner(null);
         mostraCategoriasSpinner(null);
-
     }
 
     private byte[] ImagemParaByte(ImageView image){
