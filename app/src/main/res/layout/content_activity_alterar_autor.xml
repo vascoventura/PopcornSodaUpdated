@@ -21,7 +21,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:hint="@string/n_ome"
-            android:textColorHint="#9900BCD4">
+            android:textColorHint="@color/colorAccent">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/editTextNome_autorEditar"
@@ -38,7 +38,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/a_no"
-            android:textColorHint="#9900BCD4">
+            android:textColorHint="@color/colorAccent">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/editTextAno_autorEditar"
@@ -56,7 +56,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:hint="@string/n_acionalidade"
-            android:textColorHint="#9900BCD4">
+            android:textColorHint="@color/colorAccent">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/editTextNacionalidade_autorEditar"
@@ -72,7 +72,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:hint="@string/d_escricao"
-            android:textColorHint="#9900BCD4">
+            android:textColorHint="@color/colorAccent">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/editTextDescricao_autorEditar"
@@ -91,7 +91,7 @@
             android:layout_marginLeft="5dp"
             android:minHeight="48dp"
             android:text="Favorito"
-            android:textColor="#9900BCD4"
+            android:textColor="@color/colorAccent"
             android:textSize="16sp" />
 
         <TextView
@@ -104,7 +104,7 @@
             android:layout_marginRight="5dp"
             android:layout_marginBottom="0dp"
             android:hint="Imagem de Capa"
-            android:textColorHint="#9900BCD4">
+            android:textColorHint="@color/colorAccent">
 
         </TextView>
 
@@ -139,7 +139,7 @@
             android:layout_marginRight="5dp"
             android:layout_marginBottom="0dp"
             android:hint="Imagem de Fundo"
-            android:textColorHint="#9900BCD4">
+            android:textColorHint="@color/colorAccent">
 
         </TextView>
 
@@ -150,6 +150,8 @@
             android:layout_marginStart="30dp"
             android:layout_marginLeft="30dp"
             android:layout_marginTop="5dp"
+            android:layout_marginEnd="30dp"
+            android:layout_marginRight="30dp"
             android:paddingLeft="0dp"
             android:paddingRight="0dp"
             tools:srcCompat="@tools:sample/avatars" />

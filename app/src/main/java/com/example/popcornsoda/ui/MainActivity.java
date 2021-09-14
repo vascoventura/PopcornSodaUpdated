@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Toast.makeText(getApplicationContext(), "Secção de Realizadores", Toast.LENGTH_SHORT).show();
                 openAutores();
-                //ApagarAutor();
+                //ApagarAutor(1);
             }
         });
 
@@ -114,10 +114,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    private void ApagarAutor(){
+    private void ApagarAutor(int i){
         try {
 
-            enderecoAutorApagar = Uri.withAppendedPath(ContentProviderPopcorn.ENDERECO_AUTORES, String.valueOf(1));
+            enderecoAutorApagar = Uri.withAppendedPath(ContentProviderPopcorn.ENDERECO_AUTORES, String.valueOf(i));
 
 
             int autoresApagados = getContentResolver().delete(enderecoAutorApagar, null, null);

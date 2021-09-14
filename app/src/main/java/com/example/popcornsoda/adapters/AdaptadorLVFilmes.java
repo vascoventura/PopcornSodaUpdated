@@ -13,8 +13,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.popcornsoda.R;
 import com.example.popcornsoda.models.Movie;
-import com.example.popcornsoda.ui.Autores;
-import com.example.popcornsoda.ui.DetailActivityAutor;
 import com.example.popcornsoda.ui.DetailActivityMovie;
 import com.example.popcornsoda.ui.Filmes;
 
@@ -95,11 +93,11 @@ public class AdaptadorLVFilmes extends RecyclerView.Adapter<AdaptadorLVFilmes.Vi
         public ViewHolderFilme(@NonNull View itemView) {
             super(itemView);
 
-            textViewNome = (TextView) itemView.findViewById(R.id.textViewNomeFilme);
-            textViewCategoria = (TextView) itemView.findViewById(R.id.textViewCategoriaFilme);
-            textViewAno = (TextView) itemView.findViewById(R.id.textViewAnoFilme);
-            textViewAutor = (TextView) itemView.findViewById(R.id.textViewAutorFilme);
-            textViewClassificacao = (TextView) itemView.findViewById(R.id.textViewClassificacaoFilme);
+            textViewNome = (TextView) itemView.findViewById(R.id.textViewNomeFilme_eliminar);
+            textViewCategoria = (TextView) itemView.findViewById(R.id.textViewCategoriaSerie_eliminar);
+            textViewAno = (TextView) itemView.findViewById(R.id.textViewAnoSerie_eliminar);
+            textViewAutor = (TextView) itemView.findViewById(R.id.textViewAutorFilme_eliminar);
+            textViewClassificacao = (TextView) itemView.findViewById(R.id.textViewClassificacaoSerie_eliminar);
 
             itemView.setOnClickListener(this);
             itemView.setOnLongClickListener(this);

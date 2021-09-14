@@ -28,27 +28,7 @@
             android:layout_marginStart="8dp" />
 
         <TextView
-            android:id="@+id/textViewNomeFilme"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp"
-            android:layout_marginTop="8dp"
-            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-            android:textColor="#FFFFFF"
-            android:layout_marginStart="8dp" />
-
-        <TextView
-            android:id="@+id/textView2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp"
-            android:layout_marginTop="8dp"
-            android:text="@string/t_ipo"
-            android:textColor="@color/colorAccent"
-            android:layout_marginStart="8dp" />
-
-        <TextView
-            android:id="@+id/textViewCategoriaFilme"
+            android:id="@+id/textViewNomeFilme_eliminar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="8dp"
@@ -63,19 +43,42 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="8dp"
             android:layout_marginTop="8dp"
-            android:text="@string/a_utor"
+            android:text="Realizador"
             android:textColor="@color/colorAccent"
             android:layout_marginStart="8dp" />
 
         <TextView
-            android:id="@+id/textViewAutorFilme"
+            android:id="@+id/textViewAutorFilme_eliminar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"
+            android:background="#ffffff"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textColor="#000000" />
+
+
+        <TextView
+            android:id="@+id/textView2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="8dp"
             android:layout_marginTop="8dp"
-            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-            android:textColor="#FFFFFF"
+            android:text="@string/categoria"
+            android:textColor="@color/colorAccent"
             android:layout_marginStart="8dp" />
+
+        <TextView
+            android:id="@+id/textViewCategoriaFilme_eliminar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"
+            android:background="@color/button_text"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textColor="#000000" />
 
         <TextView
             android:id="@+id/textView4"
@@ -88,7 +91,7 @@
             android:layout_marginStart="8dp" />
 
         <TextView
-            android:id="@+id/textViewClassificacaoFilme"
+            android:id="@+id/textViewClassificacaoFilme_eliminar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="8dp"
@@ -108,7 +111,7 @@
             android:layout_marginStart="8dp" />
 
         <TextView
-            android:id="@+id/textViewAnoFilme"
+            android:id="@+id/textViewAnoFilme_eliminar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="8dp"
@@ -129,7 +132,7 @@
             android:layout_marginStart="8dp" />
 
         <TextView
-            android:id="@+id/textViewDescricaoFilme"
+            android:id="@+id/textViewDescricaoFilme_eliminar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="8dp"
@@ -139,6 +142,107 @@
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             android:textColor="#FFFFFF"
             android:layout_marginStart="8dp" />
+
+
+        <Switch
+            android:id="@+id/botao_favorito_eliminar_filme"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginRight="5dp"
+            android:minHeight="48dp"
+            android:text="Favorito"
+            android:textColor="@color/colorAccent" />
+
+
+        <Switch
+            android:id="@+id/botao_visto_eliminar_filme"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginRight="5dp"
+            android:minHeight="48dp"
+            android:text="Visto"
+            android:textColor="@color/colorAccent" />
+
+        <TextView
+            android:id="@+id/textView8"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"
+            android:text="@string/d_escricao"
+            android:textColor="@color/colorAccent"
+            android:layout_marginStart="8dp" />
+
+        <TextView
+            android:id="@+id/textViewTrailerFilme_eliminar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:text=""
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textColor="#FFFFFF"
+            android:layout_marginStart="8dp" />
+
+        <TextView
+            android:id="@+id/textView16"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginRight="10dp"
+            android:text="Capa do Filme"
+            android:textColor="@color/colorAccent" />
+
+        <ImageView
+            android:id="@+id/foto_capa_eliminar_filme"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="20dp"
+            android:paddingLeft="0dp"
+            android:paddingRight="0dp"
+            tools:srcCompat="@tools:sample/avatars" />
+
+        <TextView
+            android:id="@+id/textView17"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="10dp"
+            android:text="Fundo do Filme"
+            android:textColor="@color/colorAccent" />
+
+        <ImageView
+            android:id="@+id/foto_fundo_eliminar_filme"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="30dp"
+            android:layout_marginRight="30dp"
+            android:paddingLeft="0dp"
+            android:paddingRight="0dp"
+            tools:srcCompat="@tools:sample/avatars" />
+
+
     </LinearLayout>
 
 </ScrollView>

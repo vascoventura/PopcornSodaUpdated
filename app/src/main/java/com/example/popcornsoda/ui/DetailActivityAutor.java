@@ -14,22 +14,15 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.AnimationUtils;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.Toolbar;
 
-import com.example.popcornsoda.BdPopcorn.BdPopcornOpenHelper;
 import com.example.popcornsoda.BdPopcorn.BdTableAutores;
-import com.example.popcornsoda.BdPopcorn.BdTableSeries;
 import com.example.popcornsoda.BdPopcorn.ContentProviderPopcorn;
 import com.example.popcornsoda.R;
 import com.example.popcornsoda.models.Autor;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
-
-import java.sql.SQLOutput;
 
 public class DetailActivityAutor extends AppCompatActivity{
 
@@ -57,7 +50,7 @@ public class DetailActivityAutor extends AppCompatActivity{
         TextView textViewDescricaoAutor = (TextView) findViewById(R.id.detail_autor_descricao);
         ImageView imageViewCapaAutor = (ImageView) findViewById(R.id.detail_autor_capa);
         ImageView imageViewFundoAutor = (ImageView) findViewById(R.id.detail_autor_fundo);
-        FloatingActionButton favoritoAutor = (FloatingActionButton) findViewById(R.id.botao_favorito_add_autor);
+        FloatingActionButton favoritoAutor = (FloatingActionButton) findViewById(R.id.botao_favorito_apagar_autor);
 
         textViewNomeAutor.setAnimation(AnimationUtils.loadAnimation(this, R.anim.scale_animation));
         textViewAnoAutor.setAnimation(AnimationUtils.loadAnimation(this, R.anim.scale_animation));

@@ -21,7 +21,6 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.loader.app.LoaderManager;
 import androidx.loader.content.Loader;
@@ -115,14 +114,14 @@ public class AddAutor extends AppCompatActivity implements LoaderManager.LoaderC
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        editTextNomeAutor = findViewById(R.id.editTextNome_autor);
-        editTextAnoAutor = findViewById(R.id.editTextAno_autor);
-        editTextNacionalidadeAutor = findViewById(R.id.editTextNacionalidade_autor);
-        imageViewFotoCapa = findViewById(R.id.foto_capa_add_autor);
+        editTextNomeAutor = findViewById(R.id.editTextNome_autor_apagar);
+        editTextAnoAutor = findViewById(R.id.editTextAno_autor_apagar);
+        editTextNacionalidadeAutor = findViewById(R.id.editTextNacionalidade_autor_apagar);
+        imageViewFotoCapa = findViewById(R.id.foto_capa_apagar_autor);
         botaoImagemCapa = findViewById(R.id.botao_capa_add_autor);
-        editTextDescricaoAutor = findViewById(R.id.editTextDescricao_autor);
-        switchFavoritoAddAutor = (Switch) findViewById(R.id.botao_favorito_add_autor);
-        imageViewFotoFundo = findViewById(R.id.foto_fundo_add_autor);
+        editTextDescricaoAutor = findViewById(R.id.editTextDescricao_autor_apagar);
+        switchFavoritoAddAutor = (Switch) findViewById(R.id.botao_favorito_apagar_autor);
+        imageViewFotoFundo = findViewById(R.id.foto_fundo_apagar_autor);
         botaoImagemFundo = findViewById(R.id.botao_fundo_add_autor);
 
         //Estado do Switch dos Favoritos

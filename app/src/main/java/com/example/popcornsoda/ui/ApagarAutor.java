@@ -4,10 +4,15 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -17,8 +22,21 @@ import com.example.popcornsoda.R;
 import com.example.popcornsoda.models.Autor;
 import com.example.popcornsoda.ui.Autores;
 
+import java.io.ByteArrayOutputStream;
+
 public class ApagarAutor extends AppCompatActivity {
     private Uri enderecoAutorApagar;
+
+    private TextView textViewNome;
+    private TextView textViewAno;
+    private TextView textViewNacionalidade;
+    private TextView textViewDescricao;
+    private Switch switchFavorito;
+    private ImageView imageViewCapa;
+    private ImageView imageViewFundo;
+
+    private Autor autor;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,9 +45,14 @@ public class ApagarAutor extends AppCompatActivity {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        TextView textViewNome = (TextView) findViewById(R.id.textViewNomeAutor);
-        TextView textViewAno = (TextView) findViewById(R.id.textViewAnoAutor);
-        TextView textViewNacionalidade = (TextView) findViewById(R.id.textViewNacionalidadeAutor);
+        textViewNome = (TextView) findViewById(R.id.textViewNomeAutor_eliminar);
+        textViewAno = (TextView) findViewById(R.id.textViewAnoAutor_eliminar);
+        textViewNacionalidade = (TextView) findViewById(R.id.textViewNacionalidadeAutor_eliminar);
+        textViewDescricao = (TextView) findViewById(R.id.textViewDescricaoAutor_eliminar);
+        switchFavorito = (Switch) findViewById(R.id.botao_favorito_apagar_autor);
+        imageViewCapa = (ImageView) findViewById(R.id.foto_capa_apagar_autor);
+        imageViewFundo = (ImageView) findViewById(R.id.foto_fundo_apagar_autor);
+
 
         Intent intent = getIntent();
         long idAutor = intent.getLongExtra(Autores.ID_AUTOR, -1);
@@ -49,11 +72,24 @@ public class ApagarAutor extends AppCompatActivity {
             return;
         }
 
-        Autor autor = Autor.fromCursor(cursor);
+        autor = autor.fromCursor(cursor);
 
         textViewNome.setText(autor.getNome_autor());
         textViewAno.setText(String.valueOf(autor.getAno_nascimento()));
         textViewNacionalidade.setText(autor.getNacionalidade());
+        textViewDescricao.setText(autor.getDescricao_autor());
+        switchFavorito.setChecked(autor.isFavorito_autor());
+
+
+
+        byte[] autorImageCapaByte = autor.getFoto_capa_autor();
+        Bitmap bitmap_filmeImage = BitmapFactory.decodeByteArray(autorImageCapaByte, 0, autorImageCapaByte.length);
+        imageViewCapa.setImageBitmap(bitmap_filmeImage);
+
+        byte[] autorImageFundoByte = autor.getFoto_fundo_autor();
+        Bitmap bitmap_filmeImageFundo = BitmapFactory.decodeByteArray(autorImageFundoByte, 0, autorImageFundoByte.length);
+        imageViewFundo.setImageBitmap(bitmap_filmeImageFundo);
+
     }
 
     @Override

@@ -59,8 +59,8 @@
             android:layout_marginTop="16dp"
             android:text="TextView"
             android:textColor="@android:color/white"
-            app:layout_constraintStart_toStartOf="@+id/botao_favorito_add_autor"
-            app:layout_constraintTop_toBottomOf="@+id/botao_favorito_add_autor" />
+            app:layout_constraintStart_toStartOf="@+id/botao_favorito_apagar_autor"
+            app:layout_constraintTop_toBottomOf="@+id/botao_favorito_apagar_autor" />
 
         <TextView
             android:id="@+id/detail_autor_ano"
@@ -102,7 +102,7 @@
             app:layout_constraintTop_toBottomOf="@+id/detail_autor_nacionalidade" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/botao_favorito_add_autor"
+            android:id="@+id/botao_favorito_apagar_autor"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"

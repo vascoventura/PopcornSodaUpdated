@@ -23,10 +23,10 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:hint="@string/n_ome"
-            android:textColorHint="#9900BCD4">
+            android:textColorHint="@color/colorAccent">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/editTextNome_autor"
+                android:id="@+id/editTextNome_autor_apagar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textPersonName"
@@ -39,10 +39,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/a_no"
-            android:textColorHint="#9900BCD4">
+            android:textColorHint="@color/colorAccent">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/editTextAno_autor"
+                android:id="@+id/editTextAno_autor_apagar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
@@ -57,10 +57,10 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:hint="@string/n_acionalidade"
-            android:textColorHint="#9900BCD4">
+            android:textColorHint="@color/colorAccent">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/editTextNacionalidade_autor"
+                android:id="@+id/editTextNacionalidade_autor_apagar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="text"
@@ -73,10 +73,10 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:hint="@string/d_escricao"
-            android:textColorHint="#9900BCD4">
+            android:textColorHint="@color/colorAccent">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/editTextDescricao_autor"
+                android:id="@+id/editTextDescricao_autor_apagar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textLongMessage"
@@ -85,14 +85,14 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <Switch
-            android:id="@+id/botao_favorito_add_autor"
+            android:id="@+id/botao_favorito_apagar_autor"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
             android:layout_marginLeft="5dp"
             android:minHeight="48dp"
             android:text="@string/favorito"
-            android:textColor="#9900BCD4"
+            android:textColor="@color/colorAccent"
             android:textSize="16sp" />
 
         <TextView
@@ -105,11 +105,11 @@
             android:layout_marginEnd="10dp"
             android:layout_marginRight="10dp"
             android:text="@string/capa_do_realizador"
-            android:textColor="#9900BCD4"
+            android:textColor="@color/colorAccent"
             tools:ignore="TextContrastCheck,TextContrastCheck" />
 
         <ImageView
-            android:id="@+id/foto_capa_add_autor"
+            android:id="@+id/foto_capa_apagar_autor"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="30dp"
@@ -144,12 +144,12 @@
             android:layout_marginRight="10dp"
             android:layout_marginBottom="10dp"
             android:hint="@string/fundo_do_realizador"
-            android:textColorHint="#9900BCD4"
+            android:textColorHint="@color/colorAccent"
             tools:ignore="TextContrastCheck,TextContrastCheck" />
 
 
         <ImageView
-            android:id="@+id/foto_fundo_add_autor"
+            android:id="@+id/foto_fundo_apagar_autor"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="30dp"

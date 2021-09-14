@@ -139,7 +139,7 @@ public class AddMovie extends AppCompatActivity implements LoaderManager.LoaderC
         editTextDescricaoFilme = findViewById(R.id.editText_descricao_filme_alterar);
         editTextLinkFilme = findViewById(R.id.editTextLink_filme_alterar);
         imagemCapaFilme = findViewById(R.id.foto_capa_alterar_filme);
-        imagemFundoFilme = findViewById(R.id.foto_fundo_alterar_filme);
+        imagemFundoFilme = findViewById(R.id.foto_fundo_add_filme);
         botaoFundoFilme = findViewById(R.id.botao_fundo_alterar_filme);
         botaoCapaFilme = findViewById(R.id.botao_capa_alterar_filme);
 

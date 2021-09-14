@@ -41,6 +41,9 @@
         <entry key="..\:/Users/vasco/Documents/PopcornSodaUpdated/app/src/main/res/drawable/indicator_selector.xml" value="0.1125" />
         <entry key="..\:/Users/vasco/Documents/PopcornSodaUpdated/app/src/main/res/drawable/selector_indicator.xml" value="0.1125" />
         <entry key="..\:/Users/vasco/Documents/PopcornSodaUpdated/app/src/main/res/layout/activity_add_autor.xml" value="0.25" />
+        <entry key="..\:/Users/vasco/Documents/PopcornSodaUpdated/app/src/main/res/layout/activity_alterar_serie.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/vasco/Documents/PopcornSodaUpdated/app/src/main/res/layout/activity_apagar_movie.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/vasco/Documents/PopcornSodaUpdated/app/src/main/res/layout/activity_apagar_serie.xml" value="0.1" />
         <entry key="..\:/Users/vasco/Documents/PopcornSodaUpdated/app/src/main/res/layout/activity_autores.xml" value="0.11041666666666666" />
         <entry key="..\:/Users/vasco/Documents/PopcornSodaUpdated/app/src/main/res/layout/activity_detail.xml" value="0.33" />
         <entry key="..\:/Users/vasco/Documents/PopcornSodaUpdated/app/src/main/res/layout/activity_detail_activty_serie.xml" value="0.5" />
@@ -50,30 +53,18 @@
         <entry key="..\:/Users/vasco/Documents/PopcornSodaUpdated/app/src/main/res/layout/content_activity_add_autores.xml" value="0.33" />
         <entry key="..\:/Users/vasco/Documents/PopcornSodaUpdated/app/src/main/res/layout/content_activity_add_movie.xml" value="0.1" />
         <entry key="..\:/Users/vasco/Documents/PopcornSodaUpdated/app/src/main/res/layout/content_activity_add_serie.xml" value="0.10714285714285714" />
+        <entry key="..\:/Users/vasco/Documents/PopcornSodaUpdated/app/src/main/res/layout/content_activity_alterar_autor.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/vasco/Documents/PopcornSodaUpdated/app/src/main/res/layout/content_activity_alterar_movie.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/vasco/Documents/PopcornSodaUpdated/app/src/main/res/layout/content_activity_alterar_serie.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/vasco/Documents/PopcornSodaUpdated/app/src/main/res/layout/content_activity_eliminar_autor.xml" value="0.1756440281030445" />
+        <entry key="..\:/Users/vasco/Documents/PopcornSodaUpdated/app/src/main/res/layout/content_activity_eliminar_movie.xml" value="0.1" />
+        <entry key="..\:/Users/vasco/Documents/PopcornSodaUpdated/app/src/main/res/layout/content_activity_eliminar_serie.xml" value="0.1" />
         <entry key="..\:/Users/vasco/Documents/PopcornSodaUpdated/app/src/main/res/layout/item_movie.xml" value="0.1" />
         <entry key="..\:/Users/vasco/Documents/PopcornSodaUpdated/app/src/main/res/layout/item_movie_lista.xml" value="0.1" />
         <entry key="..\:/Users/vasco/Documents/PopcornSodaUpdated/app/src/main/res/layout/item_serie.xml" value="0.1" />
         <entry key="..\:/Users/vasco/Documents/PopcornSodaUpdated/app/src/main/res/menu/menu_conteudo.xml" value="0.1" />
         <entry key="..\:/Users/vasco/Documents/PopcornSodaUpdated/app/src/main/res/menu/menu_detalhes.xml" value="0.1" />
         <entry key="..\:/Users/vasco/Documents/PopcornSodaUpdated/app/src/main/res/menu/menu_tabelas.xml" value="0.22" />
-        <entry key="..\:/Users/vasco/StudioProjects/PopcornSodaUpdated/app/src/main/res/drawable/ic_remove_red_eye_black_24dp.xml" value="0.3536458333333333" />
-        <entry key="..\:/Users/vasco/StudioProjects/PopcornSodaUpdated/app/src/main/res/drawable/olho_amarelo.xml" value="0.3536458333333333" />
-        <entry key="..\:/Users/vasco/StudioProjects/PopcornSodaUpdated/app/src/main/res/layout/activity_add_serie.xml" value="0.1765625" />
-        <entry key="..\:/Users/vasco/StudioProjects/PopcornSodaUpdated/app/src/main/res/layout/activity_alterar_movie.xml" value="0.3333333333333333" />
-        <entry key="..\:/Users/vasco/StudioProjects/PopcornSodaUpdated/app/src/main/res/layout/activity_alterar_serie.xml" value="0.11548913043478261" />
-        <entry key="..\:/Users/vasco/StudioProjects/PopcornSodaUpdated/app/src/main/res/layout/activity_detail.xml" value="0.33" />
-        <entry key="..\:/Users/vasco/StudioProjects/PopcornSodaUpdated/app/src/main/res/layout/activity_detail_activty_serie.xml" value="0.33" />
-        <entry key="..\:/Users/vasco/StudioProjects/PopcornSodaUpdated/app/src/main/res/layout/activity_series.xml" value="0.14673913043478262" />
-        <entry key="..\:/Users/vasco/StudioProjects/PopcornSodaUpdated/app/src/main/res/layout/content_activity_add_movie.xml" value="0.1" />
-        <entry key="..\:/Users/vasco/StudioProjects/PopcornSodaUpdated/app/src/main/res/layout/content_activity_add_serie.xml" value="0.1" />
-        <entry key="..\:/Users/vasco/StudioProjects/PopcornSodaUpdated/app/src/main/res/layout/content_activity_alterar_autor.xml" value="0.22" />
-        <entry key="..\:/Users/vasco/StudioProjects/PopcornSodaUpdated/app/src/main/res/layout/content_activity_alterar_movie.xml" value="0.25" />
-        <entry key="..\:/Users/vasco/StudioProjects/PopcornSodaUpdated/app/src/main/res/layout/content_activity_alterar_serie.xml" value="0.22" />
-        <entry key="..\:/Users/vasco/StudioProjects/PopcornSodaUpdated/app/src/main/res/layout/item_serie.xml" value="0.25" />
-        <entry key="..\:/Users/vasco/StudioProjects/PopcornSodaUpdated/app/src/main/res/layout/spinner.xml" value="0.1" />
-        <entry key="..\:/Users/vasco/StudioProjects/PopcornSodaUpdated/app/src/main/res/menu/menu_autores.xml" value="0.3333333333333333" />
-        <entry key="..\:/Users/vasco/StudioProjects/PopcornSodaUpdated/app/src/main/res/menu/menu_detalhes.xml" value="0.1765625" />
-        <entry key="..\:/Users/vasco/StudioProjects/PopcornSodaUpdated/app/src/main/res/menu/menu_tabelas.xml" value="0.1765625" />
       </map>
     </option>
   </component>

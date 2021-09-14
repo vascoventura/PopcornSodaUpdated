@@ -21,7 +21,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:textColorHint="#9900BCD4"
+        android:textColorHint="@color/colorAccent"
         android:hint="@string/n_ome">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -41,7 +41,7 @@
         android:layout_marginTop="8dp"
         android:text="Realizador"
         android:textAppearance="@style/TextAppearance.AppCompat.Small"
-        android:textColor="#0097A7" />
+        android:textColor="@color/colorAccent" />
 
     <Spinner
         android:id="@+id/spinnerAutores_series_alterar"
@@ -68,7 +68,7 @@
         android:layout_marginTop="8dp"
         android:text="Categoria"
         android:textAppearance="@style/TextAppearance.AppCompat.Small"
-        android:textColor="#9900BCD4" />
+        android:textColor="@color/colorAccent" />
 
     <Spinner
         android:id="@+id/spinnerCategorias_series_alterar"
@@ -90,7 +90,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/c_lassificacao"
-        android:textColorHint="#9900BCD4">
+        android:textColorHint="@color/colorAccent">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/editText_classificacao_serie_alterar"
@@ -105,7 +105,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/a_no"
-        android:textColorHint="#9900BCD4">
+        android:textColorHint="@color/colorAccent">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/editText_ano_serie_alterar"
@@ -120,7 +120,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/t_emporadas"
-        android:textColorHint="#9900BCD4">
+        android:textColorHint="@color/colorAccent">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/editText_temporadas_serie_alterar"
@@ -136,7 +136,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:hint="@string/d_escricao"
-        android:textColorHint="#9900BCD4">
+        android:textColorHint="@color/colorAccent">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/editText_descricao_serie_alterar"
@@ -157,7 +157,7 @@
         android:layout_marginRight="5dp"
         android:minHeight="48dp"
         android:text="Favorito"
-        android:textColor="#9900BCD4" />
+        android:textColor="@color/colorAccent" />
 
 
     <Switch
@@ -171,14 +171,14 @@
         android:layout_marginRight="5dp"
         android:minHeight="48dp"
         android:text="Visto"
-        android:textColor="#9900BCD4" />
+        android:textColor="@color/colorAccent" />
 
 
 
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColorHint="#9900BCD4"
+        android:textColorHint="@color/colorAccent"
         android:hint="Trailer da Série">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -200,7 +200,7 @@
         android:layout_marginEnd="10dp"
         android:layout_marginRight="10dp"
         android:text="Capa da Série"
-        android:textColor="#9900BCD4"
+        android:textColor="@color/colorAccent"
         tools:ignore="TextContrastCheck,TextContrastCheck" />
 
     <ImageView
@@ -234,7 +234,7 @@
         android:layout_marginRight="10dp"
         android:layout_marginBottom="10dp"
         android:text="Fundo da Série"
-        android:textColor="#9900BCD4" />
+        android:textColor="@color/colorAccent" />
 
     <ImageView
         android:id="@+id/foto_fundo_alterar_serie"
@@ -243,6 +243,8 @@
         android:layout_marginStart="30dp"
         android:layout_marginLeft="30dp"
         android:layout_marginTop="10dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginRight="30dp"
         android:paddingLeft="0dp"
         android:paddingRight="0dp"
         tools:srcCompat="@tools:sample/avatars" />

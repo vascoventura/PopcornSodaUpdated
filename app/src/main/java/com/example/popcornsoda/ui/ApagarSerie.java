@@ -4,21 +4,21 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.popcornsoda.BdPopcorn.BdTableAutores;
 import com.example.popcornsoda.BdPopcorn.BdTableSeries;
 import com.example.popcornsoda.BdPopcorn.ContentProviderPopcorn;
 import com.example.popcornsoda.R;
-import com.example.popcornsoda.models.Autor;
 import com.example.popcornsoda.models.Serie;
-import com.example.popcornsoda.ui.Autores;
-import com.example.popcornsoda.ui.Series;
 
 public class ApagarSerie extends AppCompatActivity {
     private Uri enderecoSerieApagar;
@@ -30,13 +30,18 @@ public class ApagarSerie extends AppCompatActivity {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        TextView textViewNome = (TextView) findViewById(R.id.textViewNomeSerie);
-        TextView textViewTipo = (TextView) findViewById(R.id.textViewTipoSerie);
-        TextView textViewAutorSerie = (TextView) findViewById(R.id.textViewAutorSerie);
-        TextView textViewClassificacao = (TextView) findViewById(R.id.textViewClassificacaoSerie);
-        TextView textViewAno = (TextView) findViewById(R.id.textViewAnoSerie);
-        TextView textViewTemporadas = (TextView) findViewById(R.id.textViewTemporadasSerie);
-        TextView textViewDescricao = (TextView) findViewById(R.id.textViewDescricaoSerie);
+        TextView textViewNome = (TextView) findViewById(R.id.textViewNomeSerie_eliminar);
+        TextView textViewCategoria = (TextView) findViewById(R.id.textViewCategoriaSerie_eliminar);
+        TextView textViewAutorSerie = (TextView) findViewById(R.id.textViewAutorSerie_eliminar);
+        TextView textViewClassificacao = (TextView) findViewById(R.id.textViewClassificacaoSerie_eliminar);
+        TextView textViewAno = (TextView) findViewById(R.id.textViewAnoSerie_eliminar);
+        TextView textViewTemporadas = (TextView) findViewById(R.id.textViewTemporadasSerie_eliminar);
+        TextView textViewDescricao = (TextView) findViewById(R.id.textViewDescricaoSerie_eliminar);
+        TextView textViewTrailer = (TextView) findViewById(R.id.textViewTrailerSerie_eliminar);
+        ImageView imageCapaFilme = (ImageView) findViewById(R.id.foto_capa_eliminar_serie);
+        ImageView imageFundoFilme = (ImageView) findViewById(R.id.foto_fundo_eliminar_serie);
+        Switch botaoFavorito = (Switch) findViewById(R.id.botao_favorito_eliminar_serie);
+        Switch botaoVisto = (Switch) findViewById(R.id.botao_visto_eliminar_filme);
 
         Intent intent = getIntent();
         long idSerie = intent.getLongExtra(Series.ID_SERIE, -1);
@@ -61,10 +66,24 @@ public class ApagarSerie extends AppCompatActivity {
 
         textViewNome.setText(serie.getNome_serie());
         textViewAutorSerie.setText(serie.getNomeAutor());
+        textViewCategoria.setText(serie.getNomeCategoria());
         textViewClassificacao.setText(String.valueOf(serie.getClassificacao_serie()));
         textViewAno.setText(String.valueOf(serie.getAno_serie()));
         textViewTemporadas.setText(String.valueOf(serie.getTemporadas()));
         textViewDescricao.setText(serie.getDescricao_serie());
+        textViewTrailer.setText(serie.getLink_trailer_serie());
+        botaoFavorito.setChecked(serie.isFavorito_serie());
+        botaoVisto.setChecked(serie.isVisto_serie());
+
+
+        byte[] serieImageCapaByte = serie.getFoto_capa_serie();
+        Bitmap bitmap_serieImage = BitmapFactory.decodeByteArray(serieImageCapaByte, 0, serieImageCapaByte.length);
+        imageCapaFilme.setImageBitmap(bitmap_serieImage);
+
+        byte[] serieImageFundoByte = serie.getFoto_fundo_serie();
+        Bitmap bitmap_serieImageFundo = BitmapFactory.decodeByteArray(serieImageFundoByte, 0, serieImageFundoByte.length);
+        imageFundoFilme.setImageBitmap(bitmap_serieImageFundo);
+
 
     }
 

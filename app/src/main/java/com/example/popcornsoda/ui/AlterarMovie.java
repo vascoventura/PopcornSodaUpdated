@@ -146,7 +146,7 @@ public class AlterarMovie extends AppCompatActivity implements LoaderManager.Loa
         spinnerCategorias = findViewById(R.id.spinnerCategorias_filmes_alterar);
 
         imageViewCapaFilme = findViewById(R.id.foto_capa_alterar_filme);
-        imageViewFundoFilme = findViewById(R.id.foto_fundo_alterar_filme);
+        imageViewFundoFilme = findViewById(R.id.foto_fundo_add_filme);
 
         switchFavoritoFilme = findViewById(R.id.botao_favorito_alterar_filme);
         switchVistoFilme = findViewById(R.id.botao_visto_alterar_filme);
@@ -396,17 +396,6 @@ public class AlterarMovie extends AppCompatActivity implements LoaderManager.Loa
             Toast.makeText(this, "Insira uma imagem para o fundo", Toast.LENGTH_SHORT).show();
         }
 
-        if(estadoSwitchFavoritos){
-            filme.setFavorito_filme(true);
-        } else{
-            filme.setFavorito_filme(false);
-        }
-
-        if(estadoSwitchVistos){
-            filme.setVisto_filme(true);
-        } else{
-            filme.setVisto_filme(false);
-        }
 
         long idAutor = spinnerAutores.getSelectedItemId();
         long idCategoria = spinnerCategorias.getSelectedItemId();
@@ -418,6 +407,8 @@ public class AlterarMovie extends AppCompatActivity implements LoaderManager.Loa
         filme.setClassificacao_filme(classificacao);
         filme.setAno_filme(ano);
         filme.setDescricao_filme(descricao);
+        filme.setVisto_filme(estadoSwitchFavoritos);
+        filme.setFavorito_filme(estadoSwitchVistos);
         filme.setFoto_capa_filme(imagem_capa);
         filme.setFoto_fundo_filme(imagem_fundo);
         filme.setLink_trailer_filme(link);
