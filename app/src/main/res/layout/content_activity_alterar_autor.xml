@@ -112,9 +112,9 @@
             android:id="@+id/foto_capa_edit_autor"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="30dp"
             android:layout_marginLeft="30dp"
             android:layout_marginTop="5dp"
+            android:layout_marginRight="30dp"
             android:paddingLeft="0dp"
             android:paddingRight="0dp"
             tools:srcCompat="@tools:sample/avatars" />

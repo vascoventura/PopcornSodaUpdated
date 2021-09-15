@@ -19,7 +19,6 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.popcornsoda.BdPopcorn.BdTableAutores;
 import com.example.popcornsoda.BdPopcorn.BdTableFilmes;
 import com.example.popcornsoda.BdPopcorn.ContentProviderPopcorn;
 import com.example.popcornsoda.R;
@@ -28,6 +27,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class DetailActivityMovie extends AppCompatActivity {
 
+    public static final String ID_FILME = "ID_FILME";
 
     private Uri enderecoFilme;
     private Movie movie = null;
@@ -39,7 +39,7 @@ public class DetailActivityMovie extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_detail);
+        setContentView(R.layout.activity_detail_movie);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
@@ -175,12 +175,32 @@ public class DetailActivityMovie extends AppCompatActivity {
             }
         });
 
+        trailer.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                openTrailer();
+            }
+
+            private void openTrailer() {
+                try {
+                    Intent intent = new Intent(DetailActivityMovie.this, TrailerFilme.class);
+                    intent.putExtra(ID_FILME, movie.getId_filme());
+                    startActivity(intent);
+
+                } catch (Exception e) {
+                    Toast.makeText(DetailActivityMovie.this, "Não Foi Possível Realizar a Operação", Toast.LENGTH_SHORT).show();
+                    e.printStackTrace();
+                }
+            }
+        });
+
         getSupportActionBar().setTitle(movie.getNome_filme());
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_detalhes, menu);
+        getMenuInflater().inflate(R.menu.menu_conteudo, menu);
         this.menu = menu;
         return true;
     }
@@ -188,16 +208,16 @@ public class DetailActivityMovie extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.itemEditarDetalhes:
-                Intent intent1 = new Intent(this, AlterarAutor.class);
-                //intent1.putExtra(ID_AUTOR, autor.getId());
-                //startActivity(intent1);
+            case R.id.itemEditarConteudo:
+                Intent intent1 = new Intent(this, AlterarMovie.class);
+                intent1.putExtra(ID_FILME, movie.getId_filme());
+                startActivity(intent1);
                 return true;
 
-            case R.id.itemEliminarDetalhes:
-                Intent intent2 = new Intent(this, ApagarAutor.class);
-                //intent2.putExtra(ID_AUTOR, adaptadorAutores.getAutorSelecionado().getId());
-                //startActivity(intent2);
+            case R.id.itemEliminarConteudo:
+                Intent intent2 = new Intent(this, ApagarMovie.class);
+                intent2.putExtra(ID_FILME, movie.getId_filme());
+                startActivity(intent2);
                 return true;
 
             default:

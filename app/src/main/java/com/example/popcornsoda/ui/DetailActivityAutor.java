@@ -27,6 +27,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 public class DetailActivityAutor extends AppCompatActivity{
 
 
+    public static final String ID_AUTOR = "ID_AUTOR";
     private Uri enderecoAutor;
     ContentProviderPopcorn db;
 
@@ -133,7 +134,7 @@ public class DetailActivityAutor extends AppCompatActivity{
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_detalhes, menu);
+        getMenuInflater().inflate(R.menu.menu_conteudo, menu);
         this.menu = menu;
         return true;
     }
@@ -141,16 +142,16 @@ public class DetailActivityAutor extends AppCompatActivity{
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.itemEditarDetalhes:
+            case R.id.itemEditarConteudo:
                 Intent intent1 = new Intent(this, AlterarAutor.class);
-                //intent1.putExtra(ID_AUTOR, autor.getId());
-                //startActivity(intent1);
+                intent1.putExtra(ID_AUTOR, autor.getId());
+                startActivity(intent1);
                 return true;
 
-            case R.id.itemEliminarDetalhes:
+            case R.id.itemEliminarConteudo:
                 Intent intent2 = new Intent(this, ApagarAutor.class);
-                //intent2.putExtra(ID_AUTOR, adaptadorAutores.getAutorSelecionado().getId());
-                //startActivity(intent2);
+                intent2.putExtra(ID_AUTOR, autor.getId());
+                startActivity(intent2);
                 return true;
 
             default:

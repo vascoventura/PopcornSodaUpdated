@@ -35,7 +35,7 @@ import java.util.TimerTask;
 
 public class Filmes extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
 
-    public static final String ID_FILME = "ID_FILME" ;
+    public static final String ID_FILME = "ID_FILME";
     private static final int ID_CURSO_LOADER_FILMES = 0;
 
 

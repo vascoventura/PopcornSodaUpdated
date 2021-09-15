@@ -10,7 +10,6 @@ import android.view.MenuItem;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.loader.app.LoaderManager;
 import androidx.loader.content.CursorLoader;
 import androidx.loader.content.Loader;
@@ -131,7 +130,7 @@ public class Series extends AppCompatActivity implements LoaderManager.LoaderCal
                 return true;
 
             case R.id.itemDetalhe:
-                Intent intent4 = new Intent(this, DetailActivtySerie.class);
+                Intent intent4 = new Intent(this, DetailActivitySerie.class);
                 intent4.putExtra(ID_SERIE, adaptadorSeries.getSerieSelecionada().getId_serie());
                 startActivity(intent4);
                 return true;

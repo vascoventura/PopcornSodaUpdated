@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.popcornsoda.R;
 import com.example.popcornsoda.models.Serie;
-import com.example.popcornsoda.ui.DetailActivtySerie;
+import com.example.popcornsoda.ui.DetailActivitySerie;
 import com.example.popcornsoda.ui.Series;
 
 public class AdaptadorLVSeries extends RecyclerView.Adapter<AdaptadorLVSeries.ViewHolderSerie> {
@@ -125,7 +125,7 @@ public class AdaptadorLVSeries extends RecyclerView.Adapter<AdaptadorLVSeries.Vi
                 Context context = v.getContext();
 
                 Intent intent = new Intent();
-                intent.setClass(context, DetailActivtySerie.class);
+                intent.setClass(context, DetailActivitySerie.class);
                 intent.putExtra(ID_SERIE, idSerie);
                 context.startActivity(intent);
             }

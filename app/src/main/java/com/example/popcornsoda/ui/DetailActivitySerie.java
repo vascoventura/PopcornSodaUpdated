@@ -24,7 +24,9 @@ import com.example.popcornsoda.R;
 import com.example.popcornsoda.models.Serie;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-public class DetailActivtySerie extends AppCompatActivity {
+public class DetailActivitySerie extends AppCompatActivity {
+
+    public static final String ID_SERIE = "ID_SERIE";
 
     private Uri enderecoSerie;
     private Serie serie = null;
@@ -36,7 +38,7 @@ public class DetailActivtySerie extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_detail_activty_serie);
+        setContentView(R.layout.activity_detail_serie);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
@@ -67,25 +69,6 @@ public class DetailActivtySerie extends AppCompatActivity {
         textViewTemporadasSerie.setAnimation(AnimationUtils.loadAnimation(this, R.anim.scale_animation));
         textView1.setAnimation(AnimationUtils.loadAnimation(this, R.anim.scale_animation));
         trailer.setAnimation(AnimationUtils.loadAnimation(this, R.anim.scale_animation));
-
-
-        //Botoes
-
-        favorito.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(getApplicationContext(), "Adicionado aos Favoritos", Toast.LENGTH_LONG).show();
-            }
-        });
-
-        visto.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(getApplicationContext(),"Marcado como Visto", Toast.LENGTH_LONG).show();
-            }
-        });
-
-
 
         Intent intent = getIntent();
         long idSerie = intent.getLongExtra(Series.ID_SERIE, -1);
@@ -145,13 +128,13 @@ public class DetailActivtySerie extends AppCompatActivity {
                     getContentResolver().update(enderecoSerie, serie.getContentValues(), null, null);
 
                     if (favSerie == false) {
-                        Toast.makeText(DetailActivtySerie.this, "Adicionado aos Favoritos", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(DetailActivitySerie.this, "Adicionado aos Favoritos", Toast.LENGTH_SHORT).show();
                     } else {
-                        Toast.makeText(DetailActivtySerie.this, "Removido dos Favoritos", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(DetailActivitySerie.this, "Removido dos Favoritos", Toast.LENGTH_SHORT).show();
                     }
 
                 } catch (Exception e) {
-                    Toast.makeText(DetailActivtySerie.this, "Não Foi Possível Realizar a Operação", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(DetailActivitySerie.this, "Não Foi Possível Realizar a Operação", Toast.LENGTH_SHORT).show();
                     e.printStackTrace();
                 }
                 return 0;
@@ -177,25 +160,46 @@ public class DetailActivtySerie extends AppCompatActivity {
                     getContentResolver().update(enderecoSerie, serie.getContentValues(), null, null);
 
                     if (vistoSerie == false) {
-                        Toast.makeText(DetailActivtySerie.this, "Adicionado aos Vistos", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(DetailActivitySerie.this, "Adicionado aos Vistos", Toast.LENGTH_SHORT).show();
                     } else {
-                        Toast.makeText(DetailActivtySerie.this, "Removido dos Vistos", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(DetailActivitySerie.this, "Removido dos Vistos", Toast.LENGTH_SHORT).show();
                     }
 
                 } catch (Exception e) {
-                    Toast.makeText(DetailActivtySerie.this, "Não Foi Possível Realizar a Operação", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(DetailActivitySerie.this, "Não Foi Possível Realizar a Operação", Toast.LENGTH_SHORT).show();
                     e.printStackTrace();
                 }
                 return 0;
             }
         });
 
+        trailer.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                openTrailer();
+            }
+
+            private void openTrailer() {
+                try {
+                    Intent intent = new Intent(DetailActivitySerie.this, TrailerSerie.class);
+                    intent.putExtra(ID_SERIE, serie.getId_serie());
+                    startActivity(intent);
+
+                } catch (Exception e) {
+                    Toast.makeText(DetailActivitySerie.this, "Não Foi Possível Realizar a Operação", Toast.LENGTH_SHORT).show();
+                    e.printStackTrace();
+                }
+            }
+        });
+
+
         getSupportActionBar().setTitle(serie.getNome_serie());
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_detalhes, menu);
+        getMenuInflater().inflate(R.menu.menu_conteudo, menu);
         this.menu = menu;
         return true;
     }
@@ -203,16 +207,16 @@ public class DetailActivtySerie extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.itemEditarDetalhes:
-                Intent intent1 = new Intent(this, AlterarAutor.class);
-                //intent1.putExtra(ID_AUTOR, autor.getId());
-                //startActivity(intent1);
+            case R.id.itemEditarConteudo:
+                Intent intent1 = new Intent(this, AlterarSerie.class);
+                intent1.putExtra(ID_SERIE, serie.getId_serie());
+                startActivity(intent1);
                 return true;
 
-            case R.id.itemEliminarDetalhes:
-                Intent intent2 = new Intent(this, ApagarAutor.class);
-                //intent2.putExtra(ID_AUTOR, adaptadorAutores.getAutorSelecionado().getId());
-                //startActivity(intent2);
+            case R.id.itemEliminarConteudo:
+                Intent intent2 = new Intent(this, ApagarSerie.class);
+                intent2.putExtra(ID_SERIE, serie.getId_serie());
+                startActivity(intent2);
                 return true;
 
             default:

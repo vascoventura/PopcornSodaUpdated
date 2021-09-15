@@ -5,20 +5,29 @@
     <string name="d_etalhe">Detalhe</string>
     <string name="n_ome">Nome</string>
     <string name="t_ipo">Tipo</string>
-    <string name="a_utor">Autor</string>
+    <string name="a_utor">Realizador</string>
     <string name="c_lassificacao">Classificação</string>
     <string name="a_no">Ano</string>
     <string name="t_emporadas">Temporadas</string>
     <string name="d_escricao">Descrição</string>
     <string name="f_ilmes">Filmes</string>
-    <string name="s_eries">Series</string>
-    <string name="a_utores">Autores</string>
+    <string name="s_eries">Séries</string>
+    <string name="a_utores">Realizadores</string>
     <string name="n_acionalidade">Nacionalidade</string>
     <string name="categoria">Categoria</string>
     <string name="buscar">Buscar...</string>
-    <string name="todo" tools:ignore="MissingTranslation" translatable="false">TODO</string>
+    <string name="todo" translatable="false" tools:ignore="MissingTranslation">TODO</string>
     <string name="fundo_do_realizador">Fundo do Realizador</string>
     <string name="capa_do_realizador">Capa do Realizador</string>
     <string name="favorito">Favorito</string>
     <string name="fundo_do_filme">Fundo do Filme</string>
+    <string name="add_categoria">Adicionar Categoria</string>
+    <string name="apagar_serie">Apagar Série?</string>
+    <string name="editar_serie">Editar Série...</string>
+    <string name="edit_autor">Editar Realizador?</string>
+    <string name="editar_filme">Editar Filme?</string>
+    <string name="adicionar_serie">Adicionar Série...</string>
+    <string name="add_filme">Adicionar Filme...</string>
+    <string name="add_autor">Adicionar Realizador...</string>
+    <string name="filmes">Filmes</string>
 </resources>
