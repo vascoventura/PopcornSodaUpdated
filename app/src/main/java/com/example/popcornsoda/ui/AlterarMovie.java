@@ -66,11 +66,6 @@ public class AlterarMovie extends AppCompatActivity implements LoaderManager.Loa
 
     private Cursor cursor_categorias;
 
-    private boolean estadoSwitchFavoritos;
-    private boolean estadoSwitchVistos;
-
-
-
     private Movie filme = null;
 
     private boolean autoresCarregados = false;
@@ -94,6 +89,10 @@ public class AlterarMovie extends AppCompatActivity implements LoaderManager.Loa
     public void setAcao_botao(int acao_botao) {
         this.acao_botao = acao_botao;
     }
+
+
+    private boolean estadoSwitchFavoritos;
+    private boolean estadoSwitchVistos;
 
 
     @Override
@@ -139,29 +138,29 @@ public class AlterarMovie extends AppCompatActivity implements LoaderManager.Loa
         setContentView(R.layout.activity_alterar_movie);
 
 
-        editTextNomeFilme = findViewById(R.id.editText_nome_filme_alterar);
-        editTextClassificacaoFilme = findViewById(R.id.editText_classificacao_filme_alterar);
-        editTextAnoFilme =  findViewById(R.id.editText_ano_filme_alterar);
-        editTextDescricaoFilme = findViewById(R.id.editText_descricao_filme_alterar);
-        editTextLink = findViewById(R.id.editTextLink_filme_alterar);
+        editTextNomeFilme = (EditText) findViewById(R.id.editText_nome_filme_alterar);
+        editTextClassificacaoFilme = (EditText) findViewById(R.id.editText_classificacao_filme_alterar);
+        editTextAnoFilme = (EditText) findViewById(R.id.editText_ano_filme_alterar);
+        editTextDescricaoFilme = (EditText) findViewById(R.id.editText_descricao_filme_alterar);
+        editTextLink = (EditText) findViewById(R.id.editTextLink_filme_alterar);
 
         spinnerAutores = (Spinner) findViewById(R.id.spinnerAutores_filmes_alterar);
         spinnerCategorias = (Spinner) findViewById(R.id.spinnerCategorias_filmes_alterar);
 
-        imageViewCapaFilme = findViewById(R.id.foto_capa_alterar_filme);
-        imageViewFundoFilme = findViewById(R.id.foto_fundo_add_filme);
+        imageViewCapaFilme = (ImageView) findViewById(R.id.foto_capa_alterar_filme);
+        imageViewFundoFilme = (ImageView) findViewById(R.id.foto_fundo_add_filme);
 
-        switchFavoritoFilme = findViewById(R.id.botao_favorito_alterar_filme);
-        switchVistoFilme = findViewById(R.id.botao_visto_alterar_filme);
-
-
-        botaoCapaAlterarFilme = findViewById(R.id.botao_capa_alterar_filme);
-        botaoFundoAlterarFilme = findViewById(R.id.botao_fundo_alterar_filme);
+        switchFavoritoFilme = (Switch) findViewById(R.id.botao_favorito_alterar_filme);
+        switchVistoFilme =  (Switch) findViewById(R.id.botao_visto_alterar_filme);
 
 
+        botaoCapaAlterarFilme = (Button) findViewById(R.id.botao_capa_alterar_filme);
+        botaoFundoAlterarFilme = (Button) findViewById(R.id.botao_fundo_alterar_filme);
 
-        getSupportLoaderManager().initLoader(ID_CURSO_LOADER_AUTORES, null, this);
+
+
         getSupportLoaderManager().initLoader(ID_CURSO_LOADER_CATEGORIAS, null, this);
+        getSupportLoaderManager().initLoader(ID_CURSO_LOADER_AUTORES, null, this);
 
         botaoCapaAlterarFilme.setOnClickListener(new View.OnClickListener() {
 
@@ -212,8 +211,8 @@ public class AlterarMovie extends AppCompatActivity implements LoaderManager.Loa
         switchFavoritoFilme.setChecked(filme.isFavorito_filme());
         switchVistoFilme.setChecked(filme.isVisto_filme());
 
-        estadoSwitchFavoritos = switchFavoritoFilme.isChecked();
-        estadoSwitchVistos = switchVistoFilme.isChecked();
+        switchFavoritoFilme.setChecked(filme.isFavorito_filme());
+        switchVistoFilme.setChecked(filme.isVisto_filme());
 
         byte[] filmeImageCapaByte = filme.getFoto_capa_filme();
         Bitmap bitmap_filmeImage = BitmapFactory.decodeByteArray(filmeImageCapaByte, 0, filmeImageCapaByte.length);
@@ -231,7 +230,6 @@ public class AlterarMovie extends AppCompatActivity implements LoaderManager.Loa
         atualizaAutorSelecionado();
 
         spinnerCategorias.setSelection((int) filme.getCategoria_filme());
-
 
     }
 
@@ -259,11 +257,12 @@ public class AlterarMovie extends AppCompatActivity implements LoaderManager.Loa
         categoriaAtualizada = true;
     }
 
+
     private void atualizaAutorSelecionado() {
         if(!autoresCarregados) return;
         if(autorAtualizado) return;
 
-        for (int i = 0; i < spinnerAutores.getCount(); i++){
+        for(int i = 0; i < spinnerAutores.getCount(); i++){
             if(spinnerAutores.getItemIdAtPosition(i) == filme.getAutor_filme()){
                 spinnerAutores.setSelection(i);
                 break;
@@ -459,7 +458,6 @@ public class AlterarMovie extends AppCompatActivity implements LoaderManager.Loa
         mostraCategoriasSpinner(cursor_categorias);
         categoriasCarregadas = true;
         atualizaCategoriaSelecionada();
-
 
     }
 

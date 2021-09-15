@@ -10,17 +10,6 @@ import android.util.Log;
 
 public class BdTableSeries implements BaseColumns {
 
-
-
-
-
-
-
-
-
-
-
-
     public static final String NOME_TABELA = "series";
 
     public static final String ALIAS_NOME_AUTOR = "nome_autor";

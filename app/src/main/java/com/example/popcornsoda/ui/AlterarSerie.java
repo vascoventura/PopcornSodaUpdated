@@ -62,8 +62,11 @@ public class AlterarSerie extends AppCompatActivity implements LoaderManager.Loa
 
     private ImageView imageViewCapaSerie;
     private ImageView imageViewFundoSerie;
+
     private Button botaoCapaAlterarSerie;
     private Button botaoFundoAlterarSerie;
+
+    private Cursor cursor_categorias;
 
     private Serie serie = null;
 
@@ -75,7 +78,7 @@ public class AlterarSerie extends AppCompatActivity implements LoaderManager.Loa
     private boolean categoriaAtualizada = false;
 
     private Uri enderecoSerieEditar;
-    private Cursor cursor_categorias;
+
     private double classificacao;
     private int ano;
 
@@ -412,8 +415,6 @@ public class AlterarSerie extends AppCompatActivity implements LoaderManager.Loa
         long idAutor = spinnerAutores.getSelectedItemId();
         long idCategoria = spinnerCategorias.getSelectedItemId();
 
-        boolean estadoSwitchFavorito = switchFavoritoSerie.isChecked();
-        boolean estadoSwitchVisto = switchVistoSerie.isChecked();
 
 
         // guardar os dados
@@ -426,8 +427,8 @@ public class AlterarSerie extends AppCompatActivity implements LoaderManager.Loa
         serie.setTemporadas(temporada);
         serie.setDescricao_serie(descricao);
         serie.setLink_trailer_serie(link);
-        serie.setVisto_serie(estadoSwitchVisto);
-        serie.setFavorito_serie(estadoSwitchFavorito);
+        serie.setVisto_serie(switchVistoSerie.isChecked());
+        serie.setFavorito_serie(switchFavoritoSerie.isChecked());
 
 
         try {

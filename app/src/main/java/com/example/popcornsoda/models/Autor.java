@@ -1,13 +1,16 @@
 package com.example.popcornsoda.models;
 
+import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.database.Cursor;
 
 import com.example.popcornsoda.BdPopcorn.BdTableAutores;
 import com.example.popcornsoda.BdPopcorn.BdTableFilmes;
+import com.example.popcornsoda.BdPopcorn.BdTableSeries;
 
 public class Autor {
 
+    //Atributos
     private long id;
     private String nome_autor;
     private int ano_nascimento;
@@ -125,45 +128,36 @@ public class Autor {
     }
 
     public static Autor fromCursor(Cursor cursor) {
-        long id = cursor.getLong(
+        @SuppressLint("Range") long id = cursor.getLong(
                 cursor.getColumnIndex(BdTableAutores._ID)
         );
 
-        String nome = cursor.getString(
+        @SuppressLint("Range") String nome = cursor.getString(
                 cursor.getColumnIndex(BdTableAutores.CAMPO_NOME)
         );
 
-        int ano = cursor.getInt(
+        @SuppressLint("Range") int ano = cursor.getInt(
                 cursor.getColumnIndex(BdTableAutores.CAMPO_ANONASCIMENTO)
         );
 
-        String nacionalidade = cursor.getString(
+        @SuppressLint("Range") String nacionalidade = cursor.getString(
                 cursor.getColumnIndex(BdTableAutores.CAMPO_NACIONALIDADE)
         );
 
-        String descricao = cursor.getString(
+        @SuppressLint("Range") String descricao = cursor.getString(
                 cursor.getColumnIndex(BdTableAutores.CAMPO_DESCRICAO)
         );
 
-        byte[] foto_capa = cursor.getBlob(
+        @SuppressLint("Range") byte[] foto_capa = cursor.getBlob(
                 cursor.getColumnIndex(BdTableAutores.CAMPO_FOTO_CAPA)
         );
 
-        byte[] foto_fundo = cursor.getBlob(
+        @SuppressLint("Range") byte[] foto_fundo = cursor.getBlob(
                 cursor.getColumnIndex(BdTableAutores.CAMPO_FOTO_FUNDO)
         );
 
-        int favorito = ((int) cursor.getColumnIndex(BdTableAutores.CAMPO_FAVORITO));
 
-        boolean favorito_bool;
-
-        if(favorito == 0){
-         favorito_bool = false;
-        } else{
-         favorito_bool = true;
-        }
-
-
+        @SuppressLint("Range") boolean favorito = Boolean.parseBoolean(cursor.getString(cursor.getColumnIndex(BdTableAutores.CAMPO_FAVORITO)));
 
         Autor autor = new Autor();
 
@@ -174,7 +168,7 @@ public class Autor {
         autor.setDescricao_autor(descricao);
         autor.setFoto_capa_autor(foto_capa);
         autor.setFoto_fundo_autor(foto_fundo);
-        autor.setFavorito_autor(favorito_bool);
+        autor.setFavorito_autor(favorito);
 
         return autor;
     }

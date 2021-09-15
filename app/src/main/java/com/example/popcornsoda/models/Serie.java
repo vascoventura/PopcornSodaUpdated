@@ -9,8 +9,8 @@ import com.example.popcornsoda.BdPopcorn.BdTableSeries;
 
 public class Serie {
 
+    //Atributos
     private long id_serie;
-
     private String nome_serie;
     private double classificacao_serie;
     private int ano_serie;

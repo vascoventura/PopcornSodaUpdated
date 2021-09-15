@@ -7,12 +7,12 @@ import android.widget.ImageView;
 
 import com.example.popcornsoda.BdPopcorn.BdTableAutores;
 import com.example.popcornsoda.BdPopcorn.BdTableFilmes;
+import com.example.popcornsoda.BdPopcorn.BdTableSeries;
 
 
 public class Movie {
 
-    //Variaveis
-
+    //Atributos
     private long id_filme;
     private String nome_filme;
     private double classificacao_filme;
@@ -240,25 +240,9 @@ public class Movie {
                 cursor.getColumnIndex(BdTableFilmes.ALIAS_NOME_CATEGORIA)
         );
 
-        int favorito = ((int) cursor.getColumnIndex(BdTableFilmes.CAMPO_FAVORITO));
+        @SuppressLint("Range") boolean visto = Boolean.parseBoolean(cursor.getString(cursor.getColumnIndex(BdTableFilmes.CAMPO_VISTO)));
 
-        boolean favorito_bool;
-
-        if(favorito == 0){
-            favorito_bool = false;
-        } else{
-            favorito_bool = true;
-        }
-
-        int visto = ((int) cursor.getColumnIndex(BdTableFilmes.CAMPO_VISTO));
-
-        boolean visto_bool;
-
-        if(visto == 0){
-            visto_bool = false;
-        } else{
-            visto_bool = true;
-        }
+        @SuppressLint("Range") boolean favorito = Boolean.parseBoolean(cursor.getString(cursor.getColumnIndex(BdTableFilmes.CAMPO_FAVORITO)));
 
 
         Movie movie = new Movie();
@@ -266,15 +250,15 @@ public class Movie {
         movie.setId_filme(id);
 
         movie.setNome_filme(nome);
-        movie.setCategoria_filme(1);
+        movie.setCategoria_filme(categoria);
         movie.setAutor_filme(autor);
         movie.setClassificacao_filme(classificacao);
         movie.setAno_filme(ano);
         movie.setDescricao_filme(descricao);
         movie.setFoto_capa_filme(foto_capa);
         movie.setFoto_fundo_filme(foto_fundo);
-        movie.setFavorito_filme(favorito_bool);
-        movie.setVisto_filme(visto_bool);
+        movie.setFavorito_filme(favorito);
+        movie.setVisto_filme(visto);
         movie.setLink_trailer_filme(link);
 
         movie.nomeAutor = nomeAutor;
