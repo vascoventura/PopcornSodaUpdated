@@ -3,25 +3,6 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-
-    <item
-        android:id="@+id/itemAdicionar"
-        android:icon="@drawable/ic_add_black_24dp"
-        android:title="@string/a_dicionar"
-        android:visible="true"
-        app:showAsAction="ifRoom" />
-    <item
-        android:id="@+id/itemFavorito"
-        android:icon="@drawable/ic_favorite_black_24dp"
-        android:title="@string/p_gina_dos_favoritos"
-        android:visible="true"
-        app:showAsAction="ifRoom" />
-    <item
-        android:id="@+id/itemVisto"
-        android:icon="@drawable/olho_amarelo"
-        android:title="@string/p_gina_dos_vistos"
-        android:visible="true"
-        app:showAsAction="ifRoom" />
     <item
         android:id="@+id/itemEliminar"
         android:icon="@drawable/ic_delete_black_24dp"
@@ -38,6 +19,13 @@
         android:id="@+id/itemDetalhe"
         android:icon="@drawable/ic_assignment_black_24dp"
         android:title="@string/d_etalhe"
+        android:visible="false"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/itemRemoverFavorito"
+        android:icon="@android:drawable/ic_delete"
+        android:title="Remover Favorito"
         android:visible="false"
         app:showAsAction="ifRoom" />
 

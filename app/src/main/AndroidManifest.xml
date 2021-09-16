@@ -22,7 +22,8 @@
         <activity
             android:name=".ui.FavoritosFilmes"
             android:exported="true"
-            android:label="@string/favoritos_filmes"/>
+            android:label="@string/favoritos_filmes"
+        android:parentActivityName=".ui.Filmes"/>
         <activity
             android:name=".ui.TrailerSerie"
             android:exported="true" />

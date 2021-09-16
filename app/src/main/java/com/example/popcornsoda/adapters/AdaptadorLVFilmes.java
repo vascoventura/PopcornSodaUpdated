@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.popcornsoda.R;
 import com.example.popcornsoda.models.Movie;
 import com.example.popcornsoda.ui.DetailActivityMovie;
+import com.example.popcornsoda.ui.FavoritosFilmes;
 import com.example.popcornsoda.ui.Filmes;
 
 
@@ -159,13 +160,13 @@ public class AdaptadorLVFilmes extends RecyclerView.Adapter<AdaptadorLVFilmes.Vi
             click = false;
             if(selecao){
                 viewHolderFilmeSelecionado.desSeleciona();
-                ((Filmes) context).atualizaOpcoesMenu();
+                ((FavoritosFilmes) context).atualizaOpcoesMenu();
 
 
             }else{
                 viewHolderFilmeSelecionado = this;
                 viewHolderFilmeSelecionado.seleciona();
-                ((Filmes) context).atualizaOpcoesMenu();
+               ((FavoritosFilmes) context).atualizaOpcoesMenu();
 
             }
 

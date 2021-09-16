@@ -9,7 +9,6 @@ import android.view.MenuItem;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.loader.app.LoaderManager;
 import androidx.loader.content.CursorLoader;
 import androidx.loader.content.Loader;
@@ -21,9 +20,6 @@ import com.example.popcornsoda.BdPopcorn.BdTableFilmes;
 import com.example.popcornsoda.BdPopcorn.ContentProviderPopcorn;
 import com.example.popcornsoda.R;
 import com.example.popcornsoda.adapters.AdaptadorLVFilmes;
-import com.example.popcornsoda.adapters.AdaptadorLVSeries;
-import com.example.popcornsoda.adapters.MovieAdapter;
-import com.example.popcornsoda.adapters.MovieItensClickListener;
 import com.example.popcornsoda.adapters.Slider;
 import com.example.popcornsoda.adapters.SliderPageAdapter;
 import com.example.popcornsoda.models.Movie;
@@ -89,7 +85,7 @@ public class Filmes extends AppCompatActivity implements LoaderManager.LoaderCal
 
         indicator.setupWithViewPager(sliderpager, true);
 
-        //Lista Horizontal
+        /*//Lista Horizontal
         List<Movie> itensMovies = new ArrayList<>();
         itensMovies.add(new Movie("Glass", R.drawable.glass, R.drawable.glass_cover));
         itensMovies.add(new Movie("Venom", R.drawable.venom, R.drawable.venom_cover));
@@ -99,7 +95,7 @@ public class Filmes extends AppCompatActivity implements LoaderManager.LoaderCal
         //MovieAdapter movieAdapter = new MovieAdapter(this, itensMovies, (MovieItensClickListener) this);
         //moviesRV.setAdapter(movieAdapter);
         //moviesRV.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-        //Lista Vertical
+        //Lista Vertical*/
     }
 
     @Override

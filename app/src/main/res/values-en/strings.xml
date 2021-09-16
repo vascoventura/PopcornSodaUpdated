@@ -32,4 +32,8 @@
     <string name="adicionar_serie">Adding TV Show...</string>
     <string name="favoritos_filmes">Favorite Movies</string>
     <string name="vistos_filmes">Seen Movies</string>
+    <string name="favoritos_series">Favorite TV Shows</string>
+    <string name="vistos_series">Seen TV Shows</string>
+    <string name="p_gina_dos_vistos">My Seen Page</string>
+    <string name="p_gina_dos_favoritos">My Favorite Page</string>
 </resources>

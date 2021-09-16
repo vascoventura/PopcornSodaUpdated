@@ -32,4 +32,8 @@
     <string name="filmes">Filmes</string>
     <string name="favoritos_filmes">Filmes Favoritos</string>
     <string name="vistos_filmes">Filmes Vistos</string>
+    <string name="p_gina_dos_vistos">Página dos Vistos</string>
+    <string name="p_gina_dos_favoritos">Página dos Favoritos</string>
+    <string name="favoritos_series">Filmes Favoritos</string>
+    <string name="vistos_series">Séries Favoritas</string>
 </resources>
