@@ -229,8 +229,6 @@ public class AlterarMovie extends AppCompatActivity implements LoaderManager.Loa
         atualizaCategoriaSelecionada();
         atualizaAutorSelecionado();
 
-        spinnerCategorias.setSelection((int) filme.getCategoria_filme());
-
     }
 
     private void mostraCategoriasSpinner(Cursor cursorCategorias) {

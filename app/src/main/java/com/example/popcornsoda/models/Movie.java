@@ -58,6 +58,12 @@ public class Movie {
 
     }
 
+    public Movie(String nome, byte[] foto_capa, long id) {
+        this.nome_filme = nome;
+        this.foto_capa_filme = foto_capa;
+        this.id_filme = id;
+    }
+
     //Setters e Getters
 
     public long getId_filme() {

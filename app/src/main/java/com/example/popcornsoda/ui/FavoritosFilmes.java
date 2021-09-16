@@ -11,14 +11,19 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.SimpleCursorAdapter;
+import android.widget.Toast;
 
 import com.example.popcornsoda.BdPopcorn.BdTableFilmes;
 import com.example.popcornsoda.BdPopcorn.ContentProviderPopcorn;
 import com.example.popcornsoda.R;
 import com.example.popcornsoda.adapters.AdaptadorLVFilmes;
+import com.example.popcornsoda.adapters.myDbAdapter;
 
 public class FavoritosFilmes extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
 
@@ -26,6 +31,8 @@ public class FavoritosFilmes extends AppCompatActivity implements LoaderManager.
 
     private Menu menu;
     private AdaptadorLVFilmes adaptadorFilmes;
+    private myDbAdapter helper;
+    private Cursor cursor_filmes;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,12 +47,14 @@ public class FavoritosFilmes extends AppCompatActivity implements LoaderManager.
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 
+        helper = new myDbAdapter(this);
+        cursor_filmes = helper.getFilmes();
+
         //Lista Vertical
         RecyclerView recyclerViewFilmes = (RecyclerView) findViewById(R.id.lista_filmes_vertical);
         adaptadorFilmes = new AdaptadorLVFilmes(this);
         recyclerViewFilmes.setAdapter(adaptadorFilmes);
         recyclerViewFilmes.setLayoutManager(new LinearLayoutManager(this));
-
 
     }
 
@@ -60,7 +69,9 @@ public class FavoritosFilmes extends AppCompatActivity implements LoaderManager.
 
     @Override
     public void onLoadFinished(@NonNull Loader<Cursor> loader, Cursor data) {
+        data = cursor_filmes;
         adaptadorFilmes.setCursor(data);
+
     }
 
     @Override

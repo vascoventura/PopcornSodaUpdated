@@ -33,6 +33,9 @@ public class DetailActivityMovie extends AppCompatActivity {
     private Movie movie = null;
     private boolean favFilme;
     private boolean vistoFilme;
+    boolean click_botao_visto;
+    boolean click_botao_favorito;
+    ContentValues values;
     private Menu menu;
 
 
@@ -98,48 +101,62 @@ public class DetailActivityMovie extends AppCompatActivity {
         textViewAno.setText(String.valueOf(movie.getAno_filme()));
         textViewDescricao.setText(movie.getDescricao_filme());
 
+        values = new ContentValues();
+
+
 
         //Conversoes de imagens
 
         byte[] filmeImageCapa = movie.getFoto_capa_filme();
         Bitmap bitmap_filmeImage = BitmapFactory.decodeByteArray(filmeImageCapa, 0, filmeImageCapa.length);
-        //imageViewCapaAutor.setImageBitmap(Bitmap.createScaledBitmap(bitmap_autorImage, imageViewCapaAutor.getWidth(), imageViewCapaAutor.getHeight(), false));
         imageViewCapa.setImageBitmap(bitmap_filmeImage);
 
         byte[] filmeImageFundo = movie.getFoto_fundo_filme();
         Bitmap bitmap_filmeImageFundo = BitmapFactory.decodeByteArray(filmeImageFundo, 0, filmeImageFundo.length);
-        //imageViewFundoAutor.setImageBitmap(Bitmap.createScaledBitmap(bitmap_autorImageFundo, imageViewFundoAutor.getWidth(), imageViewFundoAutor.getHeight(), false));
         imageViewFundo.setImageBitmap(bitmap_filmeImageFundo);
+
 
         favorito.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View view) {
                 favFilme = movie.isFavorito_filme();
-                long id = movie.getId_filme();
-                System.out.println("estado Favorito: " + favFilme);
-                System.out.println("id_autor: " + id);
-
-                atualizaFavorito(favFilme);
+                click_botao_favorito = true;
+                if(click_botao_favorito) {
+                    atualizaFavorito(favFilme);
+                }
             }
 
-            private int atualizaFavorito(boolean estadoAtual) {
-                movie.setFavorito_filme(!estadoAtual);
-                try {
-                    ContentValues values = new ContentValues();
-                    values.put(BdTableFilmes.CAMPO_FAVORITO, !estadoAtual);
-                    getContentResolver().update(enderecoFilme, movie.getContentValues(), null, null);
-
-                    if (favFilme == false) {
-                        Toast.makeText(DetailActivityMovie.this, "Adicionado aos Favoritos", Toast.LENGTH_SHORT).show();
-                    } else {
+            private boolean atualizaFavorito(boolean estadoAtual) {
+                boolean estadoContrario = !estadoAtual;
+                if(estadoAtual == true){
+                    try {
+                        values.put(BdTableFilmes.CAMPO_FAVORITO, estadoContrario);
+                        String[] whereArgs = {"1"};
+                        getContentResolver().update(enderecoFilme, values, BdTableFilmes.CAMPO_FAVORITO + "=?", whereArgs);
                         Toast.makeText(DetailActivityMovie.this, "Removido dos Favoritos", Toast.LENGTH_SHORT).show();
+                        System.out.println("Estado quando true:" + favFilme);
+                        movie.setFavorito_filme(false);
+                        click_botao_favorito = false;
+                    }catch (Exception e) {
+                        Toast.makeText(DetailActivityMovie.this, "Não Foi Possível Realizar a Operação", Toast.LENGTH_SHORT).show();
+                        e.printStackTrace();
                     }
-
-                } catch (Exception e) {
-                    Toast.makeText(DetailActivityMovie.this, "Não Foi Possível Realizar a Operação", Toast.LENGTH_SHORT).show();
-                    e.printStackTrace();
+                } else if(estadoAtual == false){
+                    try {
+                        values.put(BdTableFilmes.CAMPO_FAVORITO, estadoContrario);
+                        String[] whereArgs = {"0"};
+                        getContentResolver().update(enderecoFilme, values, BdTableFilmes.CAMPO_FAVORITO + "=?", whereArgs);
+                        Toast.makeText(DetailActivityMovie.this, "Adicionado aos Favoritos", Toast.LENGTH_SHORT).show();
+                        System.out.println("Estado quando false:" + favFilme);
+                        movie.setFavorito_filme(true);
+                        click_botao_favorito = false;
+                    }catch (Exception e) {
+                        Toast.makeText(DetailActivityMovie.this, "Não Foi Possível Realizar a Operação", Toast.LENGTH_SHORT).show();
+                        e.printStackTrace();
+                    }
                 }
-                return 0;
+
+                return true;
             }
         });
 
@@ -151,27 +168,45 @@ public class DetailActivityMovie extends AppCompatActivity {
                 System.out.println("estado Visto: " + vistoFilme);
                 System.out.println("id_autor: " + id);
 
-                atualizaVisto(vistoFilme);
+                vistoFilme = movie.isVisto_filme();
+                click_botao_visto = true;
+                if(click_botao_visto){
+                    atualizaVisto(vistoFilme);
+                }
+
             }
 
-            private int atualizaVisto(boolean estadoAtual) {
-                movie.setVisto_filme(!estadoAtual);
-                try {
-                    ContentValues values = new ContentValues();
-                    values.put(BdTableFilmes.CAMPO_VISTO, !estadoAtual);
-                    getContentResolver().update(enderecoFilme, movie.getContentValues(), null, null);
-
-                    if (vistoFilme == false) {
+            private boolean atualizaVisto(boolean estadoAtual) {
+                boolean estadoContrario = !estadoAtual;
+                if(estadoAtual == true){
+                    try {
+                        values.put(BdTableFilmes.CAMPO_VISTO, estadoContrario);
+                        String[] whereArgs = {"1"};
+                        getContentResolver().update(enderecoFilme, values, BdTableFilmes.CAMPO_VISTO + "=?", whereArgs);
                         Toast.makeText(DetailActivityMovie.this, "Adicionado aos Vistos", Toast.LENGTH_SHORT).show();
-                    } else {
-                        Toast.makeText(DetailActivityMovie.this, "Removido dos Vistos", Toast.LENGTH_SHORT).show();
+                        System.out.println("Estado quando true:" + favFilme);
+                        movie.setVisto_filme(estadoContrario);
+                        click_botao_visto = false;
+                    }catch (Exception e) {
+                        Toast.makeText(DetailActivityMovie.this, "Não Foi Possível Realizar a Operação", Toast.LENGTH_SHORT).show();
+                        e.printStackTrace();
                     }
+                }else if(estadoAtual == false){
+                    try {
+                        values.put(BdTableFilmes.CAMPO_VISTO, estadoContrario);
+                        String[] whereArgs = {"0"};
+                        getContentResolver().update(enderecoFilme, values, BdTableFilmes.CAMPO_VISTO + "=?", whereArgs);
+                        Toast.makeText(DetailActivityMovie.this, "Removido dos Vistos", Toast.LENGTH_SHORT).show();
+                        System.out.println("Estado quando false:" + vistoFilme);
+                        movie.setVisto_filme(estadoContrario);
+                        click_botao_visto = false;
 
-                } catch (Exception e) {
-                    Toast.makeText(DetailActivityMovie.this, "Não Foi Possível Realizar a Operação", Toast.LENGTH_SHORT).show();
-                    e.printStackTrace();
+                    }catch (Exception e) {
+                        Toast.makeText(DetailActivityMovie.this, "Não Foi Possível Realizar a Operação", Toast.LENGTH_SHORT).show();
+                        e.printStackTrace();
+                    }
                 }
-                return 0;
+                return true;
             }
         });
 

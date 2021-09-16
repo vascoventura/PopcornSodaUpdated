@@ -18,7 +18,6 @@ import com.example.popcornsoda.R;
 import com.example.popcornsoda.models.Movie;
 import com.example.popcornsoda.ui.DetailActivityMovie;
 import com.example.popcornsoda.ui.FavoritosFilmes;
-import com.example.popcornsoda.ui.Filmes;
 
 
 public class AdaptadorLVFilmes extends RecyclerView.Adapter<AdaptadorLVFilmes.ViewHolderFilme> {
@@ -48,7 +47,7 @@ public class AdaptadorLVFilmes extends RecyclerView.Adapter<AdaptadorLVFilmes.Vi
     @NonNull
     @Override
     public ViewHolderFilme onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View itemFilme = LayoutInflater.from(context).inflate(R.layout.item_movie_lista, parent, false);
+        View itemFilme = LayoutInflater.from(context).inflate(R.layout.item_movie, parent, false);
 
         return new ViewHolderFilme(itemFilme);
     }
@@ -59,6 +58,7 @@ public class AdaptadorLVFilmes extends RecyclerView.Adapter<AdaptadorLVFilmes.Vi
         cursor.moveToPosition(position);
         Movie movie = Movie.fromCursor(cursor);
         holderFilme.setFilme(movie);
+
     }
 
     @Override
@@ -84,7 +84,7 @@ public class AdaptadorLVFilmes extends RecyclerView.Adapter<AdaptadorLVFilmes.Vi
     }
 
 
-    public class ViewHolderFilme extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
+    public static class ViewHolderFilme extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
 
         private TextView textViewNome;
         private TextView textViewCategoria;
@@ -94,6 +94,9 @@ public class AdaptadorLVFilmes extends RecyclerView.Adapter<AdaptadorLVFilmes.Vi
         private ImageView imageCapaFilme;
 
         private Movie movie;
+        private boolean click;
+        private boolean selecao;
+        private Object context;
 
         public ViewHolderFilme(@NonNull View itemView) {
             super(itemView);
@@ -114,17 +117,16 @@ public class AdaptadorLVFilmes extends RecyclerView.Adapter<AdaptadorLVFilmes.Vi
         public void setFilme(Movie movie) {
             this.movie = movie;
 
-            textViewNome.setText(movie.getNome_filme());
-            textViewCategoria.setText(movie.getNomeCategoria());
-            textViewAno.setText(String.valueOf(movie.getAno_filme()));
-            textViewAutor.setText(movie.getNomeAutor());
-            textViewAno.setText(String.valueOf(movie.getAno_filme()));
-            textViewClassificacao.setText(String.valueOf(movie.getClassificacao_filme()));
+                textViewNome.setText(movie.getNome_filme());
+                textViewCategoria.setText(movie.getNomeCategoria());
+                textViewAno.setText(String.valueOf(movie.getAno_filme()));
+                textViewAutor.setText(movie.getNomeAutor());
+                textViewAno.setText(String.valueOf(movie.getAno_filme()));
+                textViewClassificacao.setText(String.valueOf(movie.getClassificacao_filme()));
 
-            byte[] filmeImageCapaByte = movie.getFoto_capa_filme();
-            Bitmap bitmap_filmeImage = BitmapFactory.decodeByteArray(filmeImageCapaByte, 0, filmeImageCapaByte.length);
-            imageCapaFilme.setImageBitmap(bitmap_filmeImage);
-
+                byte[] filmeImageCapaByte = movie.getFoto_capa_filme();
+                Bitmap bitmap_filmeImage = BitmapFactory.decodeByteArray(filmeImageCapaByte, 0, filmeImageCapaByte.length);
+                imageCapaFilme.setImageBitmap(bitmap_filmeImage);
 
         }
 

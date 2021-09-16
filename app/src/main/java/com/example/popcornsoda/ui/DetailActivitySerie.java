@@ -17,7 +17,6 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.example.popcornsoda.BdPopcorn.BdTableSeries;
 import com.example.popcornsoda.BdPopcorn.ContentProviderPopcorn;
 import com.example.popcornsoda.R;
@@ -32,6 +31,10 @@ public class DetailActivitySerie extends AppCompatActivity {
     private Serie serie = null;
     private boolean favSerie;
     private boolean vistoSerie;
+
+    boolean click_botao_visto;
+    boolean click_botao_favorito;
+    ContentValues values;
 
     private Menu menu;
 
@@ -109,35 +112,49 @@ public class DetailActivitySerie extends AppCompatActivity {
         //imageViewFundoAutor.setImageBitmap(Bitmap.createScaledBitmap(bitmap_autorImageFundo, imageViewFundoAutor.getWidth(), imageViewFundoAutor.getHeight(), false));
         imageViewFundo.setImageBitmap(bitmap_serieImageFundo);
 
+        values = new ContentValues();
+
         favorito.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View view) {
                 favSerie = serie.isFavorito_serie();
-                long id = serie.getId_serie();
-                System.out.println("estado Favorito: " + favSerie);
-                System.out.println("id_autor: " + id);
-
-                atualizaFavorito(favSerie);
+                click_botao_favorito = true;
+                System.out.println("estado da serie: " + serie.isFavorito_serie());
+                if(click_botao_favorito) {
+                    atualizaFavorito(favSerie);
+                }
             }
 
-            private int atualizaFavorito(boolean estadoAtual) {
-                serie.setFavorito_serie(!estadoAtual);
-                try {
-                    ContentValues values = new ContentValues();
-                    values.put(BdTableSeries.CAMPO_FAVORITO, !estadoAtual);
-                    getContentResolver().update(enderecoSerie, serie.getContentValues(), null, null);
-
-                    if (favSerie == false) {
-                        Toast.makeText(DetailActivitySerie.this, "Adicionado aos Favoritos", Toast.LENGTH_SHORT).show();
-                    } else {
+            private boolean atualizaFavorito(boolean estadoAtual) {
+                boolean estadoContrario = !estadoAtual;
+                if(estadoAtual == true){
+                    try {
+                        values.put(BdTableSeries.CAMPO_FAVORITO, estadoContrario);
+                        String[] whereArgs = {"1"};
+                        getContentResolver().update(enderecoSerie, values, BdTableSeries.CAMPO_FAVORITO + "=?", whereArgs);
                         Toast.makeText(DetailActivitySerie.this, "Removido dos Favoritos", Toast.LENGTH_SHORT).show();
+                        serie.setFavorito_serie(estadoContrario);
+                        click_botao_favorito = false;
+                    }catch (Exception e) {
+                        Toast.makeText(DetailActivitySerie.this, "Não Foi Possível Realizar a Operação", Toast.LENGTH_SHORT).show();
+                        e.printStackTrace();
                     }
-
-                } catch (Exception e) {
-                    Toast.makeText(DetailActivitySerie.this, "Não Foi Possível Realizar a Operação", Toast.LENGTH_SHORT).show();
-                    e.printStackTrace();
+                } else if(estadoAtual == false){
+                    try {
+                        values.put(BdTableSeries.CAMPO_FAVORITO, true);
+                        String[] whereArgs = {"0"};
+                        getContentResolver().update(enderecoSerie, values, BdTableSeries.CAMPO_FAVORITO + "=?", whereArgs);
+                        Toast.makeText(DetailActivitySerie.this, "Adicionado aos Favoritos", Toast.LENGTH_SHORT).show();
+                        System.out.println("Estado quando false:" + favSerie);
+                        serie.setFavorito_serie(true);
+                        click_botao_favorito = false;
+                    }catch (Exception e) {
+                        Toast.makeText(DetailActivitySerie.this, "Não Foi Possível Realizar a Operação", Toast.LENGTH_SHORT).show();
+                        e.printStackTrace();
+                    }
                 }
-                return 0;
+
+                return true;
             }
         });
 
@@ -147,32 +164,49 @@ public class DetailActivitySerie extends AppCompatActivity {
                 vistoSerie = serie.isVisto_serie();
                 long id = serie.getId_serie();
                 System.out.println("estado Visto: " + vistoSerie);
-                System.out.println("id_autor: " + id);
+                System.out.println("id_serie: " + id);
 
-                atualizaVisto(vistoSerie);
+                vistoSerie = serie.isVisto_serie();
+                click_botao_visto = true;
+                if(click_botao_visto){
+                    atualizaVisto(vistoSerie);
+                }
+
             }
 
-            private int atualizaVisto(boolean estadoAtual) {
-                serie.setVisto_serie(!estadoAtual);
-                try {
-                    ContentValues values = new ContentValues();
-                    values.put(BdTableSeries.CAMPO_VISTO, !estadoAtual);
-                    getContentResolver().update(enderecoSerie, serie.getContentValues(), null, null);
-
-                    if (vistoSerie == false) {
+            private boolean atualizaVisto(boolean estadoAtual) {
+                boolean estadoContrario = !estadoAtual;
+                if(estadoAtual == true){
+                    try {
+                        values.put(BdTableSeries.CAMPO_VISTO, estadoContrario);
+                        String[] whereArgs = {"1"};
+                        getContentResolver().update(enderecoSerie, values, BdTableSeries.CAMPO_VISTO + "=?", whereArgs);
                         Toast.makeText(DetailActivitySerie.this, "Adicionado aos Vistos", Toast.LENGTH_SHORT).show();
-                    } else {
-                        Toast.makeText(DetailActivitySerie.this, "Removido dos Vistos", Toast.LENGTH_SHORT).show();
+                        System.out.println("Estado quando true:" + favSerie);
+                        serie.setVisto_serie(estadoContrario);
+                        click_botao_visto = false;
+                    }catch (Exception e) {
+                        Toast.makeText(DetailActivitySerie.this, "Não Foi Possível Realizar a Operação", Toast.LENGTH_SHORT).show();
+                        e.printStackTrace();
                     }
+                }else if(estadoAtual == false){
+                    try {
+                        values.put(BdTableSeries.CAMPO_VISTO, estadoContrario);
+                        String[] whereArgs = {"0"};
+                        getContentResolver().update(enderecoSerie, values, BdTableSeries.CAMPO_VISTO + "=?", whereArgs);
+                        Toast.makeText(DetailActivitySerie.this, "Removido dos Vistos", Toast.LENGTH_SHORT).show();
+                        System.out.println("Estado quando false:" + vistoSerie);
+                        serie.setVisto_serie(estadoContrario);
+                        click_botao_visto = false;
 
-                } catch (Exception e) {
-                    Toast.makeText(DetailActivitySerie.this, "Não Foi Possível Realizar a Operação", Toast.LENGTH_SHORT).show();
-                    e.printStackTrace();
+                    }catch (Exception e) {
+                        Toast.makeText(DetailActivitySerie.this, "Não Foi Possível Realizar a Operação", Toast.LENGTH_SHORT).show();
+                        e.printStackTrace();
+                    }
                 }
-                return 0;
+                return true;
             }
         });
-
         trailer.setOnClickListener(new View.OnClickListener() {
 
             @Override

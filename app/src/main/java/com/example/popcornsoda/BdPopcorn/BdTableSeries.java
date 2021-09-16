@@ -61,7 +61,7 @@ public class BdTableSeries implements BaseColumns {
         );
     }
 
-    public Cursor query(String[] columns, String selection, String[] selectionArgs) {
+    public Cursor query(String[] columns, String selection, String[] selectionArgs, String groupBy, String having, String orderBy) {
 
         String colunasSelect = TextUtils.join(",", columns);
 

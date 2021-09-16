@@ -93,10 +93,10 @@ public class ContentProviderPopcorn extends ContentProvider {
                 return  new BdTableFilmes(bd).query(projection, BdTableFilmes.NOME_TABELA + "." + BdTableFilmes._ID + "=?", new String[] { id }, null, null, null);
 
             case URI_SERIES:
-                return new BdTableSeries(bd).query(projection, selection, selectionArgs);
+                return new BdTableSeries(bd).query(projection, selection, selectionArgs, null, null, sortOrder);
 
             case URI_SERIE_ESPECIFICA:
-                return  new BdTableSeries(bd).query(projection, BdTableSeries.NOME_TABELA + "." + BdTableSeries._ID + "=?", new String[] { id });
+                return  new BdTableSeries(bd).query(projection, BdTableSeries.NOME_TABELA + "." + BdTableSeries._ID + "=?", new String[] { id },null, null, null);
 
             case URI_CATEGORIAS:
                 return new BdTableCategorias(bd).query(projection, selection, selectionArgs, null, null, sortOrder);

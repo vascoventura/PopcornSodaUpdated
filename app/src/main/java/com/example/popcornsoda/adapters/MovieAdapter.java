@@ -31,7 +31,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MyViewHolder
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
 
-        View view = LayoutInflater.from(context).inflate(R.layout.item_movie, viewGroup, false);
+        View view = LayoutInflater.from(context).inflate(R.layout.item_movie_grid_view, viewGroup, false);
         return new MyViewHolder((view));
     }
 
@@ -56,8 +56,8 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MyViewHolder
         public MyViewHolder(@NonNull View itemView) {
 
             super(itemView);
-            TVtitle = itemView.findViewById(R.id.item_movie_title);
-            ImgMovie = itemView.findViewById(R.id.item_movie_img);
+//            TVtitle = itemView.findViewById(R.id.item_movie_title);
+            ImgMovie = itemView.findViewById(R.id.item_grid_movie_img);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

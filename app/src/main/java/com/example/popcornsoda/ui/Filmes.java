@@ -1,10 +1,18 @@
 package com.example.popcornsoda.ui;
 
+import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.GridView;
+import android.widget.ListAdapter;
+import android.widget.SimpleCursorAdapter;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -16,12 +24,15 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
+import com.example.popcornsoda.BdPopcorn.BdTableAutores;
 import com.example.popcornsoda.BdPopcorn.BdTableFilmes;
 import com.example.popcornsoda.BdPopcorn.ContentProviderPopcorn;
 import com.example.popcornsoda.R;
 import com.example.popcornsoda.adapters.AdaptadorLVFilmes;
+import com.example.popcornsoda.adapters.MovieGridAdapter;
 import com.example.popcornsoda.adapters.Slider;
 import com.example.popcornsoda.adapters.SliderPageAdapter;
+import com.example.popcornsoda.adapters.myDbAdapter;
 import com.example.popcornsoda.models.Movie;
 import com.google.android.material.tabs.TabLayout;
 
@@ -35,12 +46,21 @@ public class Filmes extends AppCompatActivity implements LoaderManager.LoaderCal
 
     public static final String ID_FILME = "ID_FILME";
     private static final int ID_CURSO_LOADER_FILMES = 0;
+    private Cursor cursor_filmes;
+
 
 
     private AdaptadorLVFilmes adaptadorFilmes;
 
     private List<Slider> itensSlider;
     private ViewPager sliderpager;
+
+
+    private ArrayList<Movie> movieList;
+    private MovieGridAdapter movieGridAdapter;
+
+    private myDbAdapter helper;
+    private Movie filme;
 
 
     //Iniciar a atividade
@@ -61,13 +81,14 @@ public class Filmes extends AppCompatActivity implements LoaderManager.LoaderCal
         //Slider
         sliderpager = findViewById(R.id.slider_pager);
         TabLayout indicator = findViewById(R.id.indicator);
-        RecyclerView moviesRV = findViewById(R.id.Rv_movieList);
+       //RecyclerView moviesRV = findViewById(R.id.Rv_movieList);
 
         //Lista Vertical
-        RecyclerView recyclerViewFilmes = (RecyclerView) findViewById(R.id.lista_filmes_vertical);
+        /*RecyclerView recyclerViewFilmes = (RecyclerView) findViewById(R.id.lista_filmes_vertical);
         adaptadorFilmes = new AdaptadorLVFilmes(this);
         recyclerViewFilmes.setAdapter(adaptadorFilmes);
-        recyclerViewFilmes.setLayoutManager( new LinearLayoutManager(this) );
+        recyclerViewFilmes.setLayoutManager( new LinearLayoutManager(this) );*/
+
 
         //SLIDER
         itensSlider = new ArrayList<>();
@@ -96,6 +117,90 @@ public class Filmes extends AppCompatActivity implements LoaderManager.LoaderCal
         //moviesRV.setAdapter(movieAdapter);
         //moviesRV.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         //Lista Vertical*/
+
+        //Grid View
+        GridView gridMovieList = (GridView) findViewById(R.id.grid_view_filmes);
+        movieList = new ArrayList<>();
+        movieGridAdapter = new MovieGridAdapter(this, R.layout.item_movie_grid_view, movieList);
+        gridMovieList.setAdapter(movieGridAdapter);
+
+        helper = new myDbAdapter(this);
+        cursor_filmes = helper.getFilmes();
+        while(cursor_filmes.moveToNext()){
+            @SuppressLint("Range") long id = cursor_filmes.getLong(cursor_filmes.getColumnIndex(BdTableFilmes._ID)
+            );
+
+            @SuppressLint("Range") String nome = cursor_filmes.getString(
+                    cursor_filmes.getColumnIndex(BdTableFilmes.CAMPO_NOME)
+            );
+
+            @SuppressLint("Range") long categoria = cursor_filmes.getLong(
+                    cursor_filmes.getColumnIndex(BdTableFilmes.CAMPO_CATEGORIA)
+            );
+
+            @SuppressLint("Range") long autor = cursor_filmes.getLong(
+                    cursor_filmes.getColumnIndex(BdTableFilmes.CAMPO_AUTOR)
+            );
+
+            @SuppressLint("Range") double classificacao = cursor_filmes.getDouble(
+                    cursor_filmes.getColumnIndex(BdTableFilmes.CAMPO_CLASSIFICACAO)
+            );
+
+            @SuppressLint("Range") int ano = cursor_filmes.getInt(
+                    cursor_filmes.getColumnIndex(BdTableFilmes.CAMPO_ANO)
+            );
+
+            @SuppressLint("Range") String descricao = cursor_filmes.getString(
+                    cursor_filmes.getColumnIndex(BdTableFilmes.CAMPO_DESCRICAO)
+            );
+            @SuppressLint("Range") byte[] foto_capa = cursor_filmes.getBlob(
+                    cursor_filmes.getColumnIndex(BdTableFilmes.CAMPO_CAPA)
+            );
+
+            @SuppressLint("Range") byte[] foto_fundo = cursor_filmes.getBlob(
+                    cursor_filmes.getColumnIndex(BdTableFilmes.CAMPO_FUNDO)
+            );
+            @SuppressLint("Range") String link = cursor_filmes.getString(
+                    cursor_filmes.getColumnIndex(BdTableFilmes.CAMPO_LINK)
+            );
+
+            @SuppressLint("Range") String nomeAutor = cursor_filmes.getString(
+                    cursor_filmes.getColumnIndex(BdTableFilmes.ALIAS_NOME_AUTOR)
+            );
+
+            @SuppressLint("Range") String nomeCategoria = cursor_filmes.getString(
+                    cursor_filmes.getColumnIndex(BdTableFilmes.ALIAS_NOME_CATEGORIA)
+            );
+
+            @SuppressLint("Range") boolean visto = Boolean.parseBoolean(cursor_filmes.getString(cursor_filmes.getColumnIndex(BdTableFilmes.CAMPO_VISTO)));
+
+            @SuppressLint("Range") boolean favorito = Boolean.parseBoolean(cursor_filmes.getString(cursor_filmes.getColumnIndex(BdTableFilmes.CAMPO_FAVORITO)));
+
+            filme = new Movie(nome,foto_capa, id);
+            movieList.add(filme);
+
+        }
+
+        movieGridAdapter.notifyDataSetChanged();
+
+
+        gridMovieList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+            //Toast.makeText(getApplicationContext(), "You click on position:"+position, Toast.LENGTH_SHORT).show();
+
+            long idFilme = filme.getId_filme();
+            System.out.println("ID DO FILME: " + idFilme);
+            Context context = view.getContext();
+
+            Intent intent = new Intent();
+            intent.setClass(context, DetailActivityMovie.class);
+            intent.putExtra(ID_FILME, idFilme);
+            context.startActivity(intent);
+        }
+    });
     }
 
     @Override
@@ -161,10 +266,12 @@ public class Filmes extends AppCompatActivity implements LoaderManager.LoaderCal
             case R.id.itemFavorito:
                 Intent intent5 = new Intent(this, FavoritosFilmes.class);
                 startActivity(intent5);
+                return true;
+
             case R.id.itemVisto:
                 Intent intent6 = new Intent(this, VistosFilmes.class);
                 startActivity(intent6);
-
+                return true;
 
             default:
                 return super.onOptionsItemSelected(item);
@@ -183,12 +290,12 @@ public class Filmes extends AppCompatActivity implements LoaderManager.LoaderCal
 
     @Override
     public void onLoadFinished (@NonNull Loader<Cursor> loader, Cursor data){
-        adaptadorFilmes.setCursor(data);
+         //adaptadorFilmes.setCursor(data);
     }
 
     @Override
     public void onLoaderReset(@NonNull Loader<Cursor> loader){
-        adaptadorFilmes.setCursor(null);
+        //adaptadorFilmes.setCursor(null);
     }
 
     /*@SuppressLint("NewApi")
