@@ -165,6 +165,9 @@ public class Filmes extends AppCompatActivity implements LoaderManager.LoaderCal
             case R.id.itemFavorito:
                 Intent intent5 = new Intent(this, FavoritosFilmes.class);
                 startActivity(intent5);
+            case R.id.itemVisto:
+                Intent intent6 = new Intent(this, VistosFilmes.class);
+                startActivity(intent6);
 
 
             default:

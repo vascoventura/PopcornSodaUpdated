@@ -30,4 +30,6 @@
     <string name="add_filme">Adicionar Filme...</string>
     <string name="add_autor">Adicionar Realizador...</string>
     <string name="filmes">Filmes</string>
+    <string name="favoritos_filmes">Filmes Favoritos</string>
+    <string name="vistos_filmes">Filmes Vistos</string>
 </resources>

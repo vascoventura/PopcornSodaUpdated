@@ -30,4 +30,6 @@
     <string name="add_autor">Adding Director...</string>
     <string name="filmes">Movies</string>
     <string name="adicionar_serie">Adding TV Show...</string>
+    <string name="favoritos_filmes">Favorite Movies</string>
+    <string name="vistos_filmes">Seen Movies</string>
 </resources>

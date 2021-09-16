@@ -17,10 +17,12 @@
         tools:ignore="GoogleAppIndexingWarning">
         <activity
             android:name=".ui.VistosFilmes"
-            android:exported="true" />
+            android:exported="true"
+            android:label="@string/vistos_filmes"/>
         <activity
             android:name=".ui.FavoritosFilmes"
-            android:exported="true" />
+            android:exported="true"
+            android:label="@string/favoritos_filmes"/>
         <activity
             android:name=".ui.TrailerSerie"
             android:exported="true" />
