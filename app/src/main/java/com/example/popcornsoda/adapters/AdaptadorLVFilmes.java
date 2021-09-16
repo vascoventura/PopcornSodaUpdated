@@ -3,9 +3,12 @@ package com.example.popcornsoda.adapters;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -87,6 +90,7 @@ public class AdaptadorLVFilmes extends RecyclerView.Adapter<AdaptadorLVFilmes.Vi
         private TextView textViewAno;
         private TextView textViewClassificacao;
         private TextView textViewAutor;
+        private ImageView imageCapaFilme;
 
         private Movie movie;
 
@@ -98,6 +102,8 @@ public class AdaptadorLVFilmes extends RecyclerView.Adapter<AdaptadorLVFilmes.Vi
             textViewAno = (TextView) itemView.findViewById(R.id.textViewAnoSerie_eliminar);
             textViewAutor = (TextView) itemView.findViewById(R.id.textViewAutorFilme_eliminar);
             textViewClassificacao = (TextView) itemView.findViewById(R.id.textViewClassificacaoSerie_eliminar);
+            imageCapaFilme = (ImageView) itemView.findViewById(R.id.imageViewCapaFilme);
+
 
             itemView.setOnClickListener(this);
             itemView.setOnLongClickListener(this);
@@ -113,6 +119,11 @@ public class AdaptadorLVFilmes extends RecyclerView.Adapter<AdaptadorLVFilmes.Vi
             textViewAutor.setText(movie.getNomeAutor());
             textViewAno.setText(String.valueOf(movie.getAno_filme()));
             textViewClassificacao.setText(String.valueOf(movie.getClassificacao_filme()));
+
+            byte[] filmeImageCapaByte = movie.getFoto_capa_filme();
+            Bitmap bitmap_filmeImage = BitmapFactory.decodeByteArray(filmeImageCapaByte, 0, filmeImageCapaByte.length);
+            imageCapaFilme.setImageBitmap(bitmap_filmeImage);
+
 
         }
 

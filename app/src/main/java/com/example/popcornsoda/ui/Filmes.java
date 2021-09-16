@@ -22,6 +22,8 @@ import com.example.popcornsoda.BdPopcorn.ContentProviderPopcorn;
 import com.example.popcornsoda.R;
 import com.example.popcornsoda.adapters.AdaptadorLVFilmes;
 import com.example.popcornsoda.adapters.AdaptadorLVSeries;
+import com.example.popcornsoda.adapters.MovieAdapter;
+import com.example.popcornsoda.adapters.MovieItensClickListener;
 import com.example.popcornsoda.adapters.Slider;
 import com.example.popcornsoda.adapters.SliderPageAdapter;
 import com.example.popcornsoda.models.Movie;
@@ -87,17 +89,17 @@ public class Filmes extends AppCompatActivity implements LoaderManager.LoaderCal
 
         indicator.setupWithViewPager(sliderpager, true);
 
-       /* //Lista Horizontal
+        //Lista Horizontal
         List<Movie> itensMovies = new ArrayList<>();
         itensMovies.add(new Movie("Glass", R.drawable.glass, R.drawable.glass_cover));
         itensMovies.add(new Movie("Venom", R.drawable.venom, R.drawable.venom_cover));
         itensMovies.add(new Movie("The Upside", R.drawable.the_upside, R.drawable.the_upside_cover));
         itensMovies.add(new Movie("Green Book", R.drawable.green_book, R.drawable.green_book_cover));
         itensMovies.add(new Movie("The Prodigy", R.drawable.the_prodigy, R.drawable.the_prodigy_cover));
-        MovieAdapter movieAdapter = new MovieAdapter(this, itensMovies, (MovieItensClickListener) this);
-        moviesRV.setAdapter(movieAdapter);
-        moviesRV.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-        //Lista Vertical*/
+        //MovieAdapter movieAdapter = new MovieAdapter(this, itensMovies, (MovieItensClickListener) this);
+        //moviesRV.setAdapter(movieAdapter);
+        //moviesRV.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+        //Lista Vertical
     }
 
     @Override
@@ -160,6 +162,9 @@ public class Filmes extends AppCompatActivity implements LoaderManager.LoaderCal
                 intent4.putExtra(ID_FILME, adaptadorFilmes.getFilmeSelecionada().getId_filme());
                 startActivity(intent4);
                 return true;
+            case R.id.itemFavorito:
+                Intent intent5 = new Intent(this, FavoritosFilmes.class);
+                startActivity(intent5);
 
 
             default:

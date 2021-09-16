@@ -1,5 +1,6 @@
 package com.example.popcornsoda.ui;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -9,7 +10,6 @@ import android.view.MenuItem;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.loader.app.LoaderManager;
 import androidx.loader.content.CursorLoader;
 import androidx.loader.content.Loader;
@@ -20,7 +20,8 @@ import com.example.popcornsoda.BdPopcorn.BdTableAutores;
 import com.example.popcornsoda.BdPopcorn.ContentProviderPopcorn;
 import com.example.popcornsoda.R;
 import com.example.popcornsoda.adapters.AdaptadorLVAutores;
-import com.example.popcornsoda.models.Autor;
+
+import java.util.Objects;
 
 public class Autores extends AppCompatActivity  implements LoaderManager.LoaderCallbacks<Cursor>{
 
@@ -28,7 +29,6 @@ public class Autores extends AppCompatActivity  implements LoaderManager.LoaderC
     private  static  final int ID_CURSO_LOADER_AUTORES = 0;
 
     private AdaptadorLVAutores adaptadorAutores;
-    private RecyclerView recyclerViewAutores;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,13 +37,13 @@ public class Autores extends AppCompatActivity  implements LoaderManager.LoaderC
 
         getSupportLoaderManager().initLoader(ID_CURSO_LOADER_AUTORES, null, this);
 
-        recyclerViewAutores = findViewById(R.id.recyclerViewAutores);
+        RecyclerView recyclerViewAutores = findViewById(R.id.recyclerViewAutores);
         adaptadorAutores = new AdaptadorLVAutores(this);
         recyclerViewAutores.setAdapter(adaptadorAutores);
         recyclerViewAutores.setLayoutManager(new LinearLayoutManager(this));
 
         //Botao Voltar
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 
     }
 
@@ -78,6 +78,7 @@ public class Autores extends AppCompatActivity  implements LoaderManager.LoaderC
         return true;
     }
 
+    @SuppressLint("NonConstantResourceId")
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch(item.getItemId()){

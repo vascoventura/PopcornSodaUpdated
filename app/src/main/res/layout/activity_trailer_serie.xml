@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<androidx.core.widget.NestedScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -21,7 +21,8 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:showFullScreenButton="true"
-            app:showYouTubeButton="false" />
+            app:showYouTubeButton="false"
+            tools:ignore="MissingClass" />
 
 
         <ImageView
@@ -36,7 +37,8 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/YoutubePlayer_trailer_serie"
             app:srcCompat="@drawable/glass"
-            tools:targetApi="lollipop" />
+            tools:targetApi="lollipop"
+            android:layout_marginLeft="16dp" />
 
         <TextView
             android:id="@+id/detail_serie_autor_nome_trailer"
@@ -47,7 +49,8 @@
             android:text="gfhfghfghgfhfhfhfhf"
             android:textColor="@android:color/white"
             app:layout_constraintStart_toEndOf="@+id/imageView_movie_classificacao"
-            app:layout_constraintTop_toTopOf="@+id/imageViewCapaSerie_trailer" />
+            app:layout_constraintTop_toTopOf="@+id/imageViewCapaSerie_trailer"
+            android:layout_marginLeft="8dp" />
 
         <TextView
             android:id="@+id/detail_serie_tipo_trailer"
@@ -102,7 +105,8 @@
             android:text="dsad"
             android:textColor="@android:color/white"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageView_movie_classificacao" />
+            app:layout_constraintTop_toBottomOf="@+id/imageView_movie_classificacao"
+            android:layout_marginLeft="16dp" />
 
         <TextView
             android:id="@+id/detail_movie_ano_trailer"
@@ -134,4 +138,4 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-</LinearLayout>
+</androidx.core.widget.NestedScrollView>
