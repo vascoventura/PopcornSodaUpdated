@@ -91,9 +91,10 @@ public class AlterarMovie extends AppCompatActivity implements LoaderManager.Loa
     }
 
 
-    private boolean estadoSwitchFavoritos;
-    private boolean estadoSwitchVistos;
 
+
+    private boolean favorito;
+    private boolean visto;
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -208,11 +209,24 @@ public class AlterarMovie extends AppCompatActivity implements LoaderManager.Loa
         editTextLink.setText(filme.getLink_trailer_filme());
 
 
-        switchFavoritoFilme.setChecked(filme.isFavorito_filme());
-        switchVistoFilme.setChecked(filme.isVisto_filme());
+        int favorito_num = filme.getFavorito_numerico();
+        if(favorito_num == 1){
+            favorito = true;
+        } else if (favorito_num == 0){
+            favorito = false;
+        }
+        int visto_num = filme.getVisto_numerico();
+        if(visto_num == 0){
+            visto = false;
+        } else if(visto_num == 1){
+            visto = true;
+        }
 
-        switchFavoritoFilme.setChecked(filme.isFavorito_filme());
-        switchVistoFilme.setChecked(filme.isVisto_filme());
+        switchFavoritoFilme.setChecked(favorito);
+        switchVistoFilme.setChecked(visto);
+
+        switchFavoritoFilme.setChecked(favorito);
+        switchVistoFilme.setChecked(visto);
 
         byte[] filmeImageCapaByte = filme.getFoto_capa_filme();
         Bitmap bitmap_filmeImage = BitmapFactory.decodeByteArray(filmeImageCapaByte, 0, filmeImageCapaByte.length);
@@ -412,8 +426,8 @@ public class AlterarMovie extends AppCompatActivity implements LoaderManager.Loa
         filme.setClassificacao_filme(classificacao);
         filme.setAno_filme(ano);
         filme.setDescricao_filme(descricao);
-        filme.setVisto_filme(estadoSwitchFavoritos);
-        filme.setFavorito_filme(estadoSwitchVistos);
+        filme.setVisto_filme(switchVistoFilme.isChecked());
+        filme.setFavorito_filme(switchFavoritoFilme.isChecked());
         filme.setFoto_capa_filme(imagem_capa);
         filme.setFoto_fundo_filme(imagem_fundo);
         filme.setLink_trailer_filme(link);

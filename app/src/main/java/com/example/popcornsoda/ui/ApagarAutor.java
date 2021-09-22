@@ -37,6 +37,8 @@ public class ApagarAutor extends AppCompatActivity {
 
     private Autor autor;
 
+    private boolean favorito;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,7 +80,15 @@ public class ApagarAutor extends AppCompatActivity {
         textViewAno.setText(String.valueOf(autor.getAno_nascimento()));
         textViewNacionalidade.setText(autor.getNacionalidade());
         textViewDescricao.setText(autor.getDescricao_autor());
-        switchFavorito.setChecked(autor.isFavorito_autor());
+
+        int favorito_num = autor.getFavAutor();
+        if(favorito_num == 1){
+            favorito = true;
+        } else if (favorito_num == 0){
+            favorito = false;
+        }
+
+        switchFavorito.setChecked(favorito);
 
 
 

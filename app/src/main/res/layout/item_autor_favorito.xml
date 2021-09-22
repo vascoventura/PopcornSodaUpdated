@@ -23,7 +23,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:text="TextView"
-        android:textColor="#ffffff"
+        android:textColor="@color/colorAccent"
         app:layout_constraintStart_toStartOf="@+id/item_autor_title_favorito"
         app:layout_constraintTop_toBottomOf="@+id/item_autor_title_favorito" />
 
@@ -34,7 +34,7 @@
         android:layout_marginTop="8dp"
         android:layout_marginBottom="16dp"
         android:text="TextView"
-        android:textColor="#CD805D5D"
+        android:textColor="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="@+id/item_autor_ano_favorito"
         app:layout_constraintTop_toBottomOf="@+id/item_autor_ano_favorito" />

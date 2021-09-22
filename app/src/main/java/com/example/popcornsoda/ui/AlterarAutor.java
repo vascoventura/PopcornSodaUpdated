@@ -47,9 +47,10 @@ public class AlterarAutor extends AppCompatActivity implements LoaderManager.Loa
     private ImageView imageViewCapaAutorEditar;
     private ImageView imageViewFundoAutorEditar;
     private Switch switchFavoritoAutor;
-    private boolean estadoSwitchFavoritos;
     private Button buttonCapaAutor;
     private Button buttonFundoAutor;
+
+    private boolean favorito;
 
     private int ano;
 
@@ -176,7 +177,15 @@ public class AlterarAutor extends AppCompatActivity implements LoaderManager.Loa
         Bitmap bitmap_autorImageFundo = BitmapFactory.decodeByteArray(autorImageFundoByte, 0, autorImageFundoByte.length);
         imageViewFundoAutorEditar.setImageBitmap(bitmap_autorImageFundo);
 
-        switchFavoritoAutor.setChecked(autor.isFavorito_autor());
+
+        int favorito_num = autor.getFavAutor();
+        if(favorito_num == 1){
+            favorito = true;
+        } else if (favorito_num == 0){
+            favorito = false;
+        }
+
+        switchFavoritoAutor.setChecked(favorito);
 
     }
 
@@ -267,13 +276,6 @@ public class AlterarAutor extends AppCompatActivity implements LoaderManager.Loa
             Toast.makeText(this, "Insira uma imagem para o fundo", Toast.LENGTH_SHORT).show();
         }
 
-        if(estadoSwitchFavoritos){
-            autor.setFavorito_autor(true);
-        } else{
-            autor.setFavorito_autor(false);
-        }
-
-        System.out.println("Estado do Switch: " + estadoSwitchFavoritos);
 
         autor.setNome_autor(nome);
         autor.setAno_nascimento(ano);
@@ -281,6 +283,7 @@ public class AlterarAutor extends AppCompatActivity implements LoaderManager.Loa
         autor.setDescricao_autor(descricao);
         autor.setFoto_capa_autor(imagem_capa);
         autor.setFoto_fundo_autor(imagem_fundo);
+        autor.setFavorito_autor(switchFavoritoAutor.isChecked());
 
         try {
             getContentResolver().update(enderecoAutorEditar, autor.getContentValues(), null, null);

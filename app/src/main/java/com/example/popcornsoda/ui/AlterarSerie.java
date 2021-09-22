@@ -83,6 +83,8 @@ public class AlterarSerie extends AppCompatActivity implements LoaderManager.Loa
     private int ano;
 
     private int acao_botao = 0;
+    private boolean favorito;
+    private boolean visto;
 
     public int getAcao_botao() {
         return acao_botao;
@@ -203,9 +205,21 @@ public class AlterarSerie extends AppCompatActivity implements LoaderManager.Loa
         editTextDescricaoSerie.setText(serie.getDescricao_serie());
         editTextLink.setText(serie.getLink_trailer_serie());
 
+        int favorito_num = serie.getFavorito_numerico();
+        if(favorito_num == 1){
+            favorito = true;
+        } else if (favorito_num == 0){
+            favorito = false;
+        }
+        int visto_num = serie.getVisto_numerico();
+        if(visto_num == 0){
+            visto = false;
+        } else if(visto_num == 1){
+            visto = true;
+        }
 
-        switchFavoritoSerie.setChecked(serie.isFavorito_serie());
-        switchVistoSerie.setChecked(serie.isVisto_serie());
+        switchFavoritoSerie.setChecked(favorito);
+        switchVistoSerie.setChecked(visto);
 
         System.out.println("Estado Visto SERIE: " + serie.isVisto_serie());
         System.out.println("Estado Favorito SERIE: " + serie.isFavorito_serie());
