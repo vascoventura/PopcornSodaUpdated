@@ -1,6 +1,9 @@
 package com.example.popcornsoda.ui;
 
 
+import static com.example.popcornsoda.ui.DetailActivityAutor.ID_AUTOR;
+
+import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
@@ -19,24 +22,40 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.popcornsoda.BdPopcorn.BdTableAutores;
+import com.example.popcornsoda.BdPopcorn.BdTableCategorias;
 import com.example.popcornsoda.BdPopcorn.BdTableFilmes;
 import com.example.popcornsoda.BdPopcorn.BdTableSeries;
 import com.example.popcornsoda.BdPopcorn.ContentProviderPopcorn;
 import com.example.popcornsoda.R;
+import com.example.popcornsoda.adapters.myDbAdapter;
+import com.example.popcornsoda.models.Autor;
 import com.example.popcornsoda.models.Movie;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import java.util.ArrayList;
 
 public class DetailActivityMovie extends AppCompatActivity {
 
     public static final String ID_FILME = "ID_FILME";
 
     private Uri enderecoFilme;
+    private Uri enderecoAutor;
+
     private Movie movie = null;
+    private Autor autor = null;
+
     ContentValues values;
+
     private Menu menu;
 
     private int favFilme;
     private int vistoFilme;
+
+    private Cursor autoresCursor;
+    private myDbAdapter myDbAdapter;
+
+    private ArrayList<Autor> autorArrayList;
 
 
     @Override
@@ -46,6 +65,8 @@ public class DetailActivityMovie extends AppCompatActivity {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        autorArrayList = new ArrayList<Autor>();
+
 
         TextView textViewNome = findViewById(R.id.detail_autor_nome);
         TextView textViewTipo = findViewById(R.id.detail_movie_tipo);
@@ -53,6 +74,8 @@ public class DetailActivityMovie extends AppCompatActivity {
         TextView textViewClassificacao = findViewById(R.id.detail_movie_classificacao);
         TextView textViewAno = findViewById(R.id.detail_movie_ano);
         TextView textViewDescricao = findViewById(R.id.detail_movie_descricao);
+        TextView textViewNomeAutor = findViewById(R.id.textViewNomeAutor);
+        ImageView imageViewCapaAutor = findViewById(R.id.imageViewAutor);
         ImageView imageViewCapa = findViewById(R.id.imageViewCapaFilme);
         ImageView imageViewFundo = findViewById(R.id.imageViewFundoFilme);
         FloatingActionButton favorito = findViewById(R.id.botao_favorito);
@@ -71,7 +94,8 @@ public class DetailActivityMovie extends AppCompatActivity {
         trailer.setAnimation(AnimationUtils.loadAnimation(this, R.anim.scale_animation));
         imageViewCapa.setAnimation(AnimationUtils.loadAnimation(this, R.anim.scale_animation));
         imageViewFundo.setAnimation(AnimationUtils.loadAnimation(this, R.anim.scale_animation));
-
+        textViewNomeAutor.setAnimation(AnimationUtils.loadAnimation(this, R.anim.scale_animation));
+        imageViewCapaAutor.setAnimation(AnimationUtils.loadAnimation(this, R.anim.scale_animation));
 
 
         Intent intent = getIntent();
@@ -101,7 +125,9 @@ public class DetailActivityMovie extends AppCompatActivity {
         textViewAno.setText(String.valueOf(movie.getAno_filme()));
         textViewDescricao.setText(movie.getDescricao_filme());
 
+
         values = new ContentValues();
+
 
         //Conversoes de imagens
 
@@ -122,23 +148,23 @@ public class DetailActivityMovie extends AppCompatActivity {
 
             private boolean atualizaFavorito() {
                 favFilme = movie.getFavorito_numerico();
-                if(favFilme == 1){
+                if (favFilme == 1) {
                     try {
                         values.put(BdTableFilmes.CAMPO_FAVORITO, 0);
                         getContentResolver().update(enderecoFilme, values, BdTableFilmes.CAMPO_FAVORITO + "=?", null);
                         Toast.makeText(DetailActivityMovie.this, "Removido dos Favoritos", Toast.LENGTH_SHORT).show();
                         movie.setFavorito_numerico(0);
-                    }catch (Exception e) {
+                    } catch (Exception e) {
                         Toast.makeText(DetailActivityMovie.this, "Não Foi Possível Realizar a Operação", Toast.LENGTH_SHORT).show();
                         e.printStackTrace();
                     }
-                } else if(favFilme == 0){
+                } else if (favFilme == 0) {
                     try {
                         values.put(BdTableFilmes.CAMPO_FAVORITO, 1);
                         getContentResolver().update(enderecoFilme, values, BdTableFilmes.CAMPO_FAVORITO + "=?", null);
                         Toast.makeText(DetailActivityMovie.this, "Adicionado aos Favoritos", Toast.LENGTH_SHORT).show();
                         movie.setFavorito_numerico(1);
-                    }catch (Exception e) {
+                    } catch (Exception e) {
                         Toast.makeText(DetailActivityMovie.this, "Não Foi Possível Realizar a Operação", Toast.LENGTH_SHORT).show();
                         e.printStackTrace();
                     }
@@ -157,17 +183,17 @@ public class DetailActivityMovie extends AppCompatActivity {
 
             private boolean atualizaVisto() {
                 vistoFilme = movie.getVisto_numerico();
-                if(vistoFilme == 1){
+                if (vistoFilme == 1) {
                     try {
                         values.put(BdTableFilmes.CAMPO_VISTO, 0);
                         getContentResolver().update(enderecoFilme, values, BdTableFilmes.CAMPO_VISTO + "=?", null);
                         Toast.makeText(DetailActivityMovie.this, "Removido dos Vistos", Toast.LENGTH_SHORT).show();
                         movie.setVisto_numerico(0);
-                    }catch (Exception e) {
+                    } catch (Exception e) {
                         Toast.makeText(DetailActivityMovie.this, "Não Foi Possível Realizar a Operação", Toast.LENGTH_SHORT).show();
                         e.printStackTrace();
                     }
-                }else if(vistoFilme == 0){
+                } else if (vistoFilme == 0) {
                     try {
                         values.put(BdTableFilmes.CAMPO_VISTO, 1);
                         getContentResolver().update(enderecoFilme, values, BdTableFilmes.CAMPO_VISTO + "=?", null);
@@ -175,7 +201,7 @@ public class DetailActivityMovie extends AppCompatActivity {
                         System.out.println("Estado quando false:" + vistoFilme);
                         movie.setVisto_numerico(1);
 
-                    }catch (Exception e) {
+                    } catch (Exception e) {
                         Toast.makeText(DetailActivityMovie.this, "Não Foi Possível Realizar a Operação", Toast.LENGTH_SHORT).show();
                         e.printStackTrace();
                     }
@@ -205,6 +231,69 @@ public class DetailActivityMovie extends AppCompatActivity {
         });
 
         getSupportActionBar().setTitle(movie.getNome_filme());
+
+        myDbAdapter = new myDbAdapter(this);
+        autoresCursor = myDbAdapter.getAutor(movie.getAutor_filme());
+
+
+        while (autoresCursor.moveToNext()) {
+            @SuppressLint("Range") long id = autoresCursor.getLong(0);
+
+            @SuppressLint("Range") String nome_autor = autoresCursor.getString(
+                    autoresCursor.getColumnIndex(BdTableAutores.CAMPO_NOME)
+            );
+
+            int ano = autoresCursor.getInt(
+                    autoresCursor.getColumnIndex(BdTableAutores.CAMPO_ANONASCIMENTO)
+            );
+
+            @SuppressLint("Range") String nacionalidade = autoresCursor.getString(
+                    autoresCursor.getColumnIndex(BdTableAutores.CAMPO_NACIONALIDADE)
+            );
+
+            @SuppressLint("Range") String descricao = autoresCursor.getString(
+                    autoresCursor.getColumnIndex(BdTableAutores.CAMPO_DESCRICAO)
+            );
+
+            @SuppressLint("Range") byte[] foto_capa = autoresCursor.getBlob(
+                    autoresCursor.getColumnIndex(BdTableAutores.CAMPO_FOTO_CAPA)
+            );
+
+            @SuppressLint("Range") byte[] foto_fundo = autoresCursor.getBlob(
+                    autoresCursor.getColumnIndex(BdTableAutores.CAMPO_FOTO_FUNDO)
+            );
+
+
+            @SuppressLint("Range") boolean favorito1 = Boolean.parseBoolean(autoresCursor.getString(autoresCursor.getColumnIndex(BdTableAutores.CAMPO_FAVORITO)));
+
+            int favorito2 = autoresCursor.getInt(autoresCursor.getColumnIndex(BdTableAutores.CAMPO_FAVORITO));
+
+
+
+            System.out.println("ID_GUARDADO AUTOR: " + nome_autor + " ID: " + id);
+
+            System.out.println("");
+            System.out.println("");
+            System.out.println("");
+
+            autor = new Autor(id, nome_autor, ano, nacionalidade, descricao, foto_capa, foto_fundo, favorito1);
+
+            textViewNomeAutor.setText(nome_autor);
+
+            byte[] autorImageCapa = foto_capa;
+            Bitmap bitmap_AutorImage = BitmapFactory.decodeByteArray(autorImageCapa, 0, autorImageCapa.length);
+            imageViewCapaAutor.setImageBitmap(bitmap_AutorImage);
+
+            imageViewCapaAutor.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(DetailActivityMovie.this, DetailActivityAutor.class);
+                    intent.putExtra(ID_AUTOR, autor.getId());
+                    startActivity(intent);
+                }
+            });
+
+        }
     }
 
     @Override

@@ -1,8 +1,11 @@
 package com.example.popcornsoda.ui;
 
+import static com.example.popcornsoda.ui.DetailActivityAutor.ID_AUTOR;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
@@ -17,9 +20,13 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.popcornsoda.BdPopcorn.BdTableAutores;
 import com.example.popcornsoda.BdPopcorn.BdTableSeries;
 import com.example.popcornsoda.BdPopcorn.ContentProviderPopcorn;
 import com.example.popcornsoda.R;
+import com.example.popcornsoda.adapters.myDbAdapter;
+import com.example.popcornsoda.models.Autor;
 import com.example.popcornsoda.models.Serie;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -32,11 +39,15 @@ public class DetailActivitySerie extends AppCompatActivity {
     private int favSerie;
     private int vistoSerie;
 
+    private Cursor autoresCursor;
+    private myDbAdapter myDbAdapter;
+
     boolean click_botao_visto;
     boolean click_botao_favorito;
     ContentValues values;
 
     private Menu menu;
+    private Autor autor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +70,9 @@ public class DetailActivitySerie extends AppCompatActivity {
         FloatingActionButton trailer = findViewById(R.id.detail_serie_trailer);
         ImageView imageViewCapa = findViewById(R.id.imageViewCapaSerie);
         ImageView imageViewFundo = findViewById(R.id.imageViewFundoSerie);
+
+        TextView textViewNomeAutor = findViewById(R.id.textViewNomeAutor_serie);
+        ImageView imageViewCapaAutor = findViewById(R.id.imageViewAutor_serie);
 
 
         textViewNomeSerie.setAnimation(AnimationUtils.loadAnimation(this, R.anim.scale_animation));
@@ -207,6 +221,69 @@ public class DetailActivitySerie extends AppCompatActivity {
 
 
         getSupportActionBar().setTitle(serie.getNome_serie());
+
+        myDbAdapter = new myDbAdapter(this);
+        autoresCursor = myDbAdapter.getAutor(serie.getAutor_serie());
+
+
+        while (autoresCursor.moveToNext()) {
+            @SuppressLint("Range") long id = autoresCursor.getLong(0);
+
+            @SuppressLint("Range") String nome_autor = autoresCursor.getString(
+                    autoresCursor.getColumnIndex(BdTableAutores.CAMPO_NOME)
+            );
+
+            int ano = autoresCursor.getInt(
+                    autoresCursor.getColumnIndex(BdTableAutores.CAMPO_ANONASCIMENTO)
+            );
+
+            @SuppressLint("Range") String nacionalidade = autoresCursor.getString(
+                    autoresCursor.getColumnIndex(BdTableAutores.CAMPO_NACIONALIDADE)
+            );
+
+            @SuppressLint("Range") String descricao = autoresCursor.getString(
+                    autoresCursor.getColumnIndex(BdTableAutores.CAMPO_DESCRICAO)
+            );
+
+            @SuppressLint("Range") byte[] foto_capa = autoresCursor.getBlob(
+                    autoresCursor.getColumnIndex(BdTableAutores.CAMPO_FOTO_CAPA)
+            );
+
+            @SuppressLint("Range") byte[] foto_fundo = autoresCursor.getBlob(
+                    autoresCursor.getColumnIndex(BdTableAutores.CAMPO_FOTO_FUNDO)
+            );
+
+
+            @SuppressLint("Range") boolean favorito1 = Boolean.parseBoolean(autoresCursor.getString(autoresCursor.getColumnIndex(BdTableAutores.CAMPO_FAVORITO)));
+
+            int favorito2 = autoresCursor.getInt(autoresCursor.getColumnIndex(BdTableAutores.CAMPO_FAVORITO));
+
+
+
+            System.out.println("ID_GUARDADO AUTOR: " + nome_autor + " ID: " + id);
+
+            System.out.println("");
+            System.out.println("");
+            System.out.println("");
+
+            autor = new Autor(id, nome_autor, ano, nacionalidade, descricao, foto_capa, foto_fundo, favorito1);
+
+            textViewNomeAutor.setText(nome_autor);
+
+            byte[] autorImageCapa = foto_capa;
+            Bitmap bitmap_AutorImage = BitmapFactory.decodeByteArray(autorImageCapa, 0, autorImageCapa.length);
+            imageViewCapaAutor.setImageBitmap(bitmap_AutorImage);
+
+            imageViewCapaAutor.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(DetailActivitySerie.this, DetailActivityAutor.class);
+                    intent.putExtra(ID_AUTOR, autor.getId());
+                    startActivity(intent);
+                }
+            });
+
+        }
     }
 
     @Override

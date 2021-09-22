@@ -46,6 +46,11 @@ public class Autor {
         this.favorito_autor = favorito_autor;
     }
 
+    public Autor(String nome_autor, long id) {
+        this.nome_autor = nome_autor;
+        this.id = id;
+    }
+
     //Getters e Setters
 
 

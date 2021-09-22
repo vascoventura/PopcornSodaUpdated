@@ -49,8 +49,8 @@
         <entry key="..\:/Users/vasco/Documents/PopcornSodaUpdated/app/src/main/res/layout/activity_detail.xml" value="0.33" />
         <entry key="..\:/Users/vasco/Documents/PopcornSodaUpdated/app/src/main/res/layout/activity_detail_activty_serie.xml" value="0.5" />
         <entry key="..\:/Users/vasco/Documents/PopcornSodaUpdated/app/src/main/res/layout/activity_detail_autor.xml" value="0.1802536231884058" />
-        <entry key="..\:/Users/vasco/Documents/PopcornSodaUpdated/app/src/main/res/layout/activity_detail_movie.xml" value="0.5" />
-        <entry key="..\:/Users/vasco/Documents/PopcornSodaUpdated/app/src/main/res/layout/activity_detail_serie.xml" value="0.1802536231884058" />
+        <entry key="..\:/Users/vasco/Documents/PopcornSodaUpdated/app/src/main/res/layout/activity_detail_movie.xml" value="0.25" />
+        <entry key="..\:/Users/vasco/Documents/PopcornSodaUpdated/app/src/main/res/layout/activity_detail_serie.xml" value="0.15" />
         <entry key="..\:/Users/vasco/Documents/PopcornSodaUpdated/app/src/main/res/layout/activity_favoritos_autores.xml" value="0.1" />
         <entry key="..\:/Users/vasco/Documents/PopcornSodaUpdated/app/src/main/res/layout/activity_favoritos_filmes.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/vasco/Documents/PopcornSodaUpdated/app/src/main/res/layout/activity_favoritos_series.xml" value="0.20416666666666666" />
@@ -59,7 +59,7 @@
         <entry key="..\:/Users/vasco/Documents/PopcornSodaUpdated/app/src/main/res/layout/activity_series.xml" value="0.1" />
         <entry key="..\:/Users/vasco/Documents/PopcornSodaUpdated/app/src/main/res/layout/activity_trailer.xml" value="0.18" />
         <entry key="..\:/Users/vasco/Documents/PopcornSodaUpdated/app/src/main/res/layout/activity_trailer_movie.xml" value="0.5" />
-        <entry key="..\:/Users/vasco/Documents/PopcornSodaUpdated/app/src/main/res/layout/activity_trailer_serie.xml" value="0.16393442622950818" />
+        <entry key="..\:/Users/vasco/Documents/PopcornSodaUpdated/app/src/main/res/layout/activity_trailer_serie.xml" value="0.34146341463414637" />
         <entry key="..\:/Users/vasco/Documents/PopcornSodaUpdated/app/src/main/res/layout/activity_vistos_filmes.xml" value="0.1" />
         <entry key="..\:/Users/vasco/Documents/PopcornSodaUpdated/app/src/main/res/layout/activity_vistos_series.xml" value="0.1" />
         <entry key="..\:/Users/vasco/Documents/PopcornSodaUpdated/app/src/main/res/layout/content_activity_add_autores.xml" value="0.33" />

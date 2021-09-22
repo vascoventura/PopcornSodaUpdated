@@ -92,5 +92,12 @@ public class myDbAdapter {
         return cursor;
     }
 
+    public Cursor getAutor(long id){
+        SQLiteDatabase db = myhelper.getReadableDatabase();
+        String query = "Select * from autores where autores._id =" + id;
+        Cursor cursor = db.rawQuery(query, null);
+        return cursor;
+    }
+
 
 }

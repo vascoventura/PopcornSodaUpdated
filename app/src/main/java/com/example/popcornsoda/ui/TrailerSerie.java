@@ -29,6 +29,7 @@ public class TrailerSerie extends AppCompatActivity {
     private TextView textViewClassificacao;
     private TextView textViewAno;
     private TextView textViewDescricao;
+    private TextView textViewTemporadas;
 
     private ImageView imagemCapa;
 
@@ -53,7 +54,7 @@ public class TrailerSerie extends AppCompatActivity {
         textViewAno = findViewById(R.id.detail_movie_ano_trailer);
         textViewDescricao = findViewById(R.id.detail_serie_descricao_trailer);
         imagemCapa = findViewById(R.id.imageViewCapaSerie_trailer);
-
+        textViewTemporadas = findViewById(R.id.textView20);
 
         Intent intent = getIntent();
         final long idSerie = intent.getLongExtra(DetailActivitySerie.ID_SERIE, -1);
@@ -81,6 +82,7 @@ public class TrailerSerie extends AppCompatActivity {
         textViewClassificacao.setText(String.valueOf(serie.getClassificacao_serie()));
         textViewAno.setText(String.valueOf(serie.getAno_serie()));
         textViewDescricao.setText(serie.getDescricao_serie());
+        textViewTemporadas.setText(String.valueOf(serie.getTemporadas()));
 
         youTubePlayerView.addYouTubePlayerListener(new AbstractYouTubePlayerListener() {
             @Override
