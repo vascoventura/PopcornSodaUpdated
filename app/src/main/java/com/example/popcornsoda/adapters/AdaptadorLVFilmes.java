@@ -162,13 +162,13 @@ public class AdaptadorLVFilmes extends RecyclerView.Adapter<AdaptadorLVFilmes.Vi
             click = false;
             if(selecao){
                 viewHolderFilmeSelecionado.desSeleciona();
-                ((FavoritosFilmes) context).atualizaOpcoesMenu();
+//                ((FavoritosFilmes) context).atualizaOpcoesMenu();
 
 
             }else{
                 viewHolderFilmeSelecionado = this;
                 viewHolderFilmeSelecionado.seleciona();
-               ((FavoritosFilmes) context).atualizaOpcoesMenu();
+        //       ((FavoritosFilmes) context).atualizaOpcoesMenu();
 
             }
 

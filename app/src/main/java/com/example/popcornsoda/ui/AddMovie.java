@@ -360,7 +360,10 @@ public class AddMovie extends AppCompatActivity implements LoaderManager.LoaderC
 
             //Toast.makeText(this, "Id Categoria" + spinnerCategoria.getSelectedItemId(), Toast.LENGTH_SHORT).show();
 
+
+            Intent intent = new Intent(this, Filmes.class);
             finish();
+            startActivity(intent);
         } catch (Exception e) {
             Snackbar.make(
                     editTextNomeFilme,

@@ -1,82 +1,116 @@
 package com.example.popcornsoda.ui;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
+
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.loader.app.LoaderManager;
-import androidx.loader.content.CursorLoader;
-import androidx.loader.content.Loader;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.SimpleCursorAdapter;
-import android.widget.Toast;
+import android.widget.ListAdapter;
+import android.widget.ListView;
 
 import com.example.popcornsoda.BdPopcorn.BdTableFilmes;
-import com.example.popcornsoda.BdPopcorn.ContentProviderPopcorn;
 import com.example.popcornsoda.R;
+import com.example.popcornsoda.adapters.AdaptadorFilmesFavoritos;
 import com.example.popcornsoda.adapters.AdaptadorLVFilmes;
 import com.example.popcornsoda.adapters.myDbAdapter;
+import com.example.popcornsoda.models.Movie;
 
-public class FavoritosFilmes extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
+import java.util.ArrayList;
 
-    private static final int ID_CURSO_LOADER_FILMES = 0;
+public class FavoritosFilmes extends AppCompatActivity{
+
+    private static final String ID_FILME = "ID_FILME";
 
     private Menu menu;
-    private AdaptadorLVFilmes adaptadorFilmes;
+    private AdaptadorFilmesFavoritos adaptadorFilmes;
     private myDbAdapter helper;
-    private Cursor cursor_filmes;
+    private Cursor cursor_filmes_favoritos;
+
+    private Movie filme;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_favoritos_filmes);
 
-        getSupportLoaderManager().initLoader(ID_CURSO_LOADER_FILMES, null, this);
-
-
         //Botao Voltar
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        ArrayList<Movie> movieArrayList = new ArrayList<Movie>();
 
         helper = new myDbAdapter(this);
-        cursor_filmes = helper.getFilmes();
+        cursor_filmes_favoritos = helper.getFilmesFavoritos();
+
+
+        while(cursor_filmes_favoritos.moveToNext()){
+            @SuppressLint("Range") long id = cursor_filmes_favoritos.getLong(cursor_filmes_favoritos.getColumnIndex(BdTableFilmes._ID)
+            );
+
+            @SuppressLint("Range") String nome = cursor_filmes_favoritos.getString(
+                    cursor_filmes_favoritos.getColumnIndex(BdTableFilmes.CAMPO_NOME)
+            );
+
+            @SuppressLint("Range") long categoria = cursor_filmes_favoritos.getLong(
+                    cursor_filmes_favoritos.getColumnIndex(BdTableFilmes.CAMPO_CATEGORIA)
+            );
+
+            @SuppressLint("Range") long autor = cursor_filmes_favoritos.getLong(
+                    cursor_filmes_favoritos.getColumnIndex(BdTableFilmes.CAMPO_AUTOR)
+            );
+
+            @SuppressLint("Range") double classificacao = cursor_filmes_favoritos.getDouble(
+                    cursor_filmes_favoritos.getColumnIndex(BdTableFilmes.CAMPO_CLASSIFICACAO)
+            );
+
+            @SuppressLint("Range") int ano = cursor_filmes_favoritos.getInt(
+                    cursor_filmes_favoritos.getColumnIndex(BdTableFilmes.CAMPO_ANO)
+            );
+
+            @SuppressLint("Range") String descricao = cursor_filmes_favoritos.getString(
+                    cursor_filmes_favoritos.getColumnIndex(BdTableFilmes.CAMPO_DESCRICAO)
+            );
+            @SuppressLint("Range") byte[] foto_capa = cursor_filmes_favoritos.getBlob(
+                    cursor_filmes_favoritos.getColumnIndex(BdTableFilmes.CAMPO_CAPA)
+            );
+
+            @SuppressLint("Range") byte[] foto_fundo = cursor_filmes_favoritos.getBlob(
+                    cursor_filmes_favoritos.getColumnIndex(BdTableFilmes.CAMPO_FUNDO)
+            );
+            @SuppressLint("Range") String link = cursor_filmes_favoritos.getString(
+                    cursor_filmes_favoritos.getColumnIndex(BdTableFilmes.CAMPO_LINK)
+            );
+
+            @SuppressLint("Range") String nomeAutor = cursor_filmes_favoritos.getString(
+                    cursor_filmes_favoritos.getColumnIndex(BdTableFilmes.CAMPO_AUTOR)
+            );
+
+            @SuppressLint("Range") String nomeCategoria = cursor_filmes_favoritos.getString(
+                    cursor_filmes_favoritos.getColumnIndex(BdTableFilmes.CAMPO_CATEGORIA)
+            );
+
+            @SuppressLint("Range") boolean visto = Boolean.parseBoolean(cursor_filmes_favoritos.getString(cursor_filmes_favoritos.getColumnIndex(BdTableFilmes.CAMPO_VISTO)));
+
+            @SuppressLint("Range") boolean favorito = Boolean.parseBoolean(cursor_filmes_favoritos.getString(cursor_filmes_favoritos.getColumnIndex(BdTableFilmes.CAMPO_FAVORITO)));
+
+            filme = new Movie(nome, nomeCategoria, classificacao, ano, nomeAutor);
+            movieArrayList.add(filme);
+
+        }
 
         //Lista Vertical
-        RecyclerView recyclerViewFilmes = (RecyclerView) findViewById(R.id.lista_filmes_vertical);
-        adaptadorFilmes = new AdaptadorLVFilmes(this);
-        recyclerViewFilmes.setAdapter(adaptadorFilmes);
-        recyclerViewFilmes.setLayoutManager(new LinearLayoutManager(this));
-
-    }
+        ListView listViewFilmes = findViewById(R.id.lista_filmes_vertical);
+        adaptadorFilmes = new AdaptadorFilmesFavoritos(this,R.layout.item_movie, movieArrayList);
+        listViewFilmes.setAdapter((ListAdapter) adaptadorFilmes);
 
 
-    @NonNull
-    @Override
-    public Loader<Cursor> onCreateLoader(int id, @Nullable Bundle args) {
-        CursorLoader cursorLoader = new CursorLoader(this, ContentProviderPopcorn.ENDERECO_FILMES, BdTableFilmes.TODAS_COLUNAS, null, null, BdTableFilmes.CAMPO_NOME);
-        System.out.print("CURSOR LOADER: " + cursorLoader);
-        return cursorLoader;
-    }
-
-    @Override
-    public void onLoadFinished(@NonNull Loader<Cursor> loader, Cursor data) {
-        data = cursor_filmes;
-        adaptadorFilmes.setCursor(data);
-
-    }
-
-    @Override
-    public void onLoaderReset(@NonNull Loader<Cursor> loader) {
-        adaptadorFilmes.setCursor(null);
     }
 
     //Menu
@@ -87,24 +121,24 @@ public class FavoritosFilmes extends AppCompatActivity implements LoaderManager.
         return true;
     }
 
-    @Override
+    /*@Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.itemEditar:
                 Intent intent2 = new Intent(this, AlterarMovie.class);
-                // intent2.putExtra(ID_FILME, adaptadorFilmes.getFilmeSelecionada().getId_filme());
+                intent2.putExtra(ID_FILME, adaptadorFilmes.getFilmeSelecionada().getId_filme());
                 startActivity(intent2);
                 return true;
 
             case R.id.itemEliminar:
                 Intent intent3 = new Intent(this, ApagarMovie.class);
-                // intent3.putExtra(ID_FILME, adaptadorFilmes.getFilmeSelecionada().getId_filme());
+                intent3.putExtra(ID_FILME, adaptadorFilmes.getFilmeSelecionada().getId_filme());
                 startActivity(intent3);
                 return true;
 
             case R.id.itemDetalhe:
                 Intent intent4 = new Intent(this, DetailActivityMovie.class);
-                //intent4.putExtra(ID_FILME, adaptadorFilmes.getFilmeSelecionada().getId_filme());
+                intent4.putExtra(ID_FILME, adaptadorFilmes.getFilmeSelecionada().getId_filme());
                 startActivity(intent4);
                 return true;
 
@@ -126,5 +160,5 @@ public class FavoritosFilmes extends AppCompatActivity implements LoaderManager.
             menu.findItem(R.id.itemDetalhe).setVisible(false);
             menu.findItem(R.id.itemRemoverFavorito).setVisible(false);
         }
-    }
+    }*/
 }

@@ -62,6 +62,10 @@ public class Filmes extends AppCompatActivity implements LoaderManager.LoaderCal
     private myDbAdapter helper;
     private Movie filme;
 
+    private long idFilme;
+
+    private long id;
+
 
     //Iniciar a atividade
     @Override
@@ -127,7 +131,7 @@ public class Filmes extends AppCompatActivity implements LoaderManager.LoaderCal
         helper = new myDbAdapter(this);
         cursor_filmes = helper.getFilmes();
         while(cursor_filmes.moveToNext()){
-            @SuppressLint("Range") long id = cursor_filmes.getLong(cursor_filmes.getColumnIndex(BdTableFilmes._ID)
+            id = cursor_filmes.getLong(cursor_filmes.getColumnIndex(BdTableFilmes._ID)
             );
 
             @SuppressLint("Range") String nome = cursor_filmes.getString(
@@ -184,23 +188,26 @@ public class Filmes extends AppCompatActivity implements LoaderManager.LoaderCal
         movieGridAdapter.notifyDataSetChanged();
 
 
+
+
         gridMovieList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
-        @Override
-        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-            //Toast.makeText(getApplicationContext(), "You click on position:"+position, Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getApplicationContext(), "You click on position:"+position, Toast.LENGTH_SHORT).show();
 
-            long idFilme = filme.getId_filme();
-            System.out.println("ID DO FILME: " + idFilme);
-            Context context = view.getContext();
+                long idFilme = id+4;//Ter atenção aos ids dos filmes;
+                System.out.println("ID DO FILME: " + idFilme);
+                System.out.println("POSICAO CLICKADA: " + position);
+                Context context = view.getContext();
 
-            Intent intent = new Intent();
-            intent.setClass(context, DetailActivityMovie.class);
-            intent.putExtra(ID_FILME, idFilme);
-            context.startActivity(intent);
-        }
-    });
+                Intent intent = new Intent();
+                intent.setClass(context, DetailActivityMovie.class);
+                intent.putExtra(ID_FILME, idFilme);
+                context.startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -297,23 +304,6 @@ public class Filmes extends AppCompatActivity implements LoaderManager.LoaderCal
     public void onLoaderReset(@NonNull Loader<Cursor> loader){
         //adaptadorFilmes.setCursor(null);
     }
-
-    /*@SuppressLint("NewApi")
-    @Override
-    public void onMovieClick(Movie filme, TextView nomeFilme, TextView tipoFilme, TextView autorFilme, TextView classificacaoFilme, TextView anoFilme) {
-        // aqui vamos mandaremos a descriçao do conteudo com detalhe noutra atividade
-        Intent intent = new Intent(this, DetailActivityMovie.class);
-        //send movie information to detailActivity
-        intent.putExtra("title", filme.getNome_filme());
-        intent.putExtra(, filme.getNome_filme());
-        intent.putExtra("imgURL", filme.getFoto_capa_filme());
-        intent.putExtra("imgCover", filme.getFoto_fundo_filme());
-        intent.putExtra("decricao_filme", filme.getDescricao_filme());
-        //tambem criamos a animaçao entre duas atividades
-        ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(Filmes.this, movieImageView, "sharedElement");
-        startActivity(intent, options.toBundle());
-        Toast.makeText(this, filme.getNome_filme(),Toast.LENGTH_SHORT).show();
-    }*/
 
     class SliderTime extends TimerTask {
         @Override

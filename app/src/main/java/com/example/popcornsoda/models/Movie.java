@@ -53,8 +53,14 @@ public class Movie {
         this.nomeAutor = nomeAutor;
     }
 
-    public Movie(String nome, int imagem_capa, int imagem_fundo) {
+
+
+    public Movie(String nome, String nomeCategoria, double classificacao_filme, int ano_filme, String nomeAutor) {
         this.nome_filme = nome;
+        this.nomeCategoria = nomeCategoria;
+        this.classificacao_filme = classificacao_filme;
+        this.ano_filme = ano_filme;
+        this.nomeAutor = nomeAutor;
 
     }
 
@@ -267,8 +273,8 @@ public class Movie {
         movie.setVisto_filme(visto);
         movie.setLink_trailer_filme(link);
 
-        movie.nomeAutor = nomeAutor;
-        movie.nomeCategoria = nomeCategoria;
+        movie.setNomeAutor(nomeAutor);
+        movie.setNomeCategoria(nomeCategoria);
 
 
         return movie;

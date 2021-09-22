@@ -26,6 +26,7 @@ import java.util.ArrayList;
 public class MovieGridAdapter extends BaseAdapter implements View.OnClickListener {
 
     private static final String ID_FILME = "ID_FILME";
+
     Context context;
     private int layout;
     private ArrayList<Movie> moviesList;

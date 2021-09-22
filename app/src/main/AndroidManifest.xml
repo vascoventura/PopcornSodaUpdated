@@ -16,6 +16,12 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
         <activity
+            android:name=".ui.VistosSeries"
+            android:exported="true" />
+        <activity
+            android:name=".ui.FavoritosSeries"
+            android:exported="true" />
+        <activity
             android:name=".ui.VistosFilmes"
             android:exported="true"
             android:label="@string/vistos_filmes"/>

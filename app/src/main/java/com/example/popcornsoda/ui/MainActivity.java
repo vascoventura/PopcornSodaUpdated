@@ -1,8 +1,7 @@
 package com.example.popcornsoda.ui;
 
-import android.content.Intent;
-import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
@@ -12,9 +11,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.popcornsoda.BdPopcorn.ContentProviderPopcorn;
 import com.example.popcornsoda.R;
-import com.google.android.material.snackbar.Snackbar;
 
 public class MainActivity extends AppCompatActivity {
     private Uri enderecoAutorApagar;
@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
 
                 Toast.makeText(getApplicationContext(), "Secção de Filmes", Toast.LENGTH_SHORT).show();
                 openFilmes();
-                //ApagarFilme();
+                //ApagarFilme(1);
             }
         });
 
@@ -97,9 +97,9 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    private void ApagarFilme(){
+    private void ApagarFilme(int i){
         try {
-            enderecoFilmeApagar = Uri.withAppendedPath(ContentProviderPopcorn.ENDERECO_FILMES, String.valueOf(1));
+            enderecoFilmeApagar = Uri.withAppendedPath(ContentProviderPopcorn.ENDERECO_FILMES, String.valueOf(i));
             int filmesapagados = getContentResolver().delete(enderecoFilmeApagar, null, null);
 
             if (filmesapagados == 1) {
