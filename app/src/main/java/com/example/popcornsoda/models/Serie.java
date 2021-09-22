@@ -22,6 +22,11 @@ public class Serie {
     private boolean visto_serie;
     private String link_trailer_serie;
 
+    private int visto_numerico;
+    private int favorito_numerico;
+
+
+
     private long categoria_serie;
     private String nomeCategoria;
     private long autor_serie;
@@ -48,6 +53,38 @@ public class Serie {
         this.nomeCategoria = nomeCategoria;
         this.autor_serie = autor_serie;
         this.nomeAutor = nomeAutor;
+    }
+
+    public int getFavorito_numerico() {
+        return favorito_numerico;
+    }
+
+    public void setFavorito_numerico(int favorito_numerico) {
+        this.favorito_numerico = favorito_numerico;
+    }
+
+    public int getVisto_numerico() {
+        return visto_numerico;
+    }
+
+    public void setVisto_numerico(int visto_numerico) {
+        this.visto_numerico = visto_numerico;
+    }
+
+    public Serie(String nome, byte[] foto_capa, long id) {
+        this.nome_serie = nome;
+        this.foto_capa_serie = foto_capa;
+        this.id_serie = id;
+    }
+
+    public Serie(String nome_serie, String nomeCategoria, int temporadas, double classificacao, int ano, String nomeAutor, long id1) {
+        this.nome_serie = nome_serie;
+        this.nomeCategoria = nomeCategoria;
+        this.temporadas = temporadas;
+        this.classificacao_serie = classificacao;
+        this.ano_serie = ano;
+        this.nomeAutor = nomeAutor;
+        this.id_serie = id1;
     }
 
     //Getters e Setters
@@ -250,6 +287,11 @@ public class Serie {
 
         @SuppressLint("Range") boolean favorito = Boolean.parseBoolean(cursor.getString(cursor.getColumnIndex(BdTableSeries.CAMPO_FAVORITO)));
 
+        int visto1 = cursor.getInt(cursor.getColumnIndex(BdTableSeries.CAMPO_VISTO));
+        int favorito1 = cursor.getInt(cursor.getColumnIndex(BdTableSeries.CAMPO_FAVORITO));
+
+
+
 
         Serie serie = new Serie();
 
@@ -267,12 +309,15 @@ public class Serie {
         serie.setVisto_serie(visto);
         serie.setLink_trailer_serie(link);
 
-        serie.nomeAutor = nomeAutor;
-        serie.nomeCategoria = nomeCategoria;
+        serie.setNomeAutor(nomeAutor);
+        serie.setNomeCategoria(nomeCategoria);
+
+        serie.setVisto_numerico(visto1);
+        serie.setFavorito_numerico(favorito1);
 
 
-        System.out.println("FAVORITO: " + favorito);
-        System.out.println("VISTO: " + visto);
+        System.out.println("FAVORITO NUMERICO: " + favorito1);
+        System.out.println("VISTO NUMERICO: " + visto1);
 
         return serie;
     }

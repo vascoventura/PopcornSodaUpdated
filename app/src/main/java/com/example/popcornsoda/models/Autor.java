@@ -20,6 +20,8 @@ public class Autor {
     private byte[] foto_fundo_autor;
     private boolean favorito_autor;
 
+    private int favAutor;
+
 
     //Construtores
 
@@ -111,6 +113,15 @@ public class Autor {
         this.favorito_autor = favorito_autor;
     }
 
+    public int getFavAutor() {
+        return favAutor;
+    }
+
+    public void setFavAutor(int favAutor) {
+        this.favAutor = favAutor;
+    }
+
+
     //Content Values
 
     public ContentValues getContentValues(){
@@ -159,6 +170,8 @@ public class Autor {
 
         @SuppressLint("Range") boolean favorito = Boolean.parseBoolean(cursor.getString(cursor.getColumnIndex(BdTableAutores.CAMPO_FAVORITO)));
 
+        int favorito1 = cursor.getInt(cursor.getColumnIndex(BdTableAutores.CAMPO_FAVORITO));
+
         Autor autor = new Autor();
 
         autor.setId(id);
@@ -169,6 +182,8 @@ public class Autor {
         autor.setFoto_capa_autor(foto_capa);
         autor.setFoto_fundo_autor(foto_fundo);
         autor.setFavorito_autor(favorito);
+
+        autor.setFavAutor(favorito1);
 
         return autor;
     }

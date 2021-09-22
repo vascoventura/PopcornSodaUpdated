@@ -46,11 +46,9 @@ public class Filmes extends AppCompatActivity implements LoaderManager.LoaderCal
 
     public static final String ID_FILME = "ID_FILME";
     private static final int ID_CURSO_LOADER_FILMES = 0;
+
     private Cursor cursor_filmes;
 
-
-
-    private AdaptadorLVFilmes adaptadorFilmes;
 
     private List<Slider> itensSlider;
     private ViewPager sliderpager;
@@ -61,8 +59,6 @@ public class Filmes extends AppCompatActivity implements LoaderManager.LoaderCal
 
     private myDbAdapter helper;
     private Movie filme;
-
-    private long idFilme;
 
     private long id;
 
@@ -86,12 +82,6 @@ public class Filmes extends AppCompatActivity implements LoaderManager.LoaderCal
         sliderpager = findViewById(R.id.slider_pager);
         TabLayout indicator = findViewById(R.id.indicator);
        //RecyclerView moviesRV = findViewById(R.id.Rv_movieList);
-
-        //Lista Vertical
-        /*RecyclerView recyclerViewFilmes = (RecyclerView) findViewById(R.id.lista_filmes_vertical);
-        adaptadorFilmes = new AdaptadorLVFilmes(this);
-        recyclerViewFilmes.setAdapter(adaptadorFilmes);
-        recyclerViewFilmes.setLayoutManager( new LinearLayoutManager(this) );*/
 
 
         //SLIDER
@@ -218,25 +208,6 @@ public class Filmes extends AppCompatActivity implements LoaderManager.LoaderCal
 
     private Menu menu;
 
-
-        public void atualizaOpcoesMenu() {
-            if(adaptadorFilmes.isSelecao()){
-                menu.findItem(R.id.itemEditar).setVisible(true);
-                menu.findItem(R.id.itemEliminar).setVisible(true);
-                menu.findItem(R.id.itemDetalhe).setVisible(true);
-                menu.findItem(R.id.itemAdicionar).setVisible(false);
-                menu.findItem(R.id.itemFavorito).setVisible(false);
-                menu.findItem(R.id.itemVisto).setVisible(false);
-            }else{
-                menu.findItem(R.id.itemEditar).setVisible(false);
-                menu.findItem(R.id.itemEliminar).setVisible(false);
-                menu.findItem(R.id.itemDetalhe).setVisible(false);
-                menu.findItem(R.id.itemAdicionar).setVisible(true);
-                menu.findItem(R.id.itemFavorito).setVisible(true);
-                menu.findItem(R.id.itemVisto).setVisible(true);
-            }
-    }
-
     //Menu
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -253,23 +224,6 @@ public class Filmes extends AppCompatActivity implements LoaderManager.LoaderCal
                 startActivity(intent);
                 return true;
 
-            case R.id.itemEditar:
-                Intent intent2 = new Intent(this, AlterarMovie.class);
-                intent2.putExtra(ID_FILME, adaptadorFilmes.getFilmeSelecionada().getId_filme());
-                startActivity(intent2);
-                return true;
-
-            case R.id.itemEliminar:
-                Intent intent3 = new Intent(this, ApagarMovie.class);
-                intent3.putExtra(ID_FILME, adaptadorFilmes.getFilmeSelecionada().getId_filme());
-                startActivity(intent3);
-                return true;
-
-            case R.id.itemDetalhe:
-                Intent intent4 = new Intent(this, DetailActivityMovie.class);
-                intent4.putExtra(ID_FILME, adaptadorFilmes.getFilmeSelecionada().getId_filme());
-                startActivity(intent4);
-                return true;
             case R.id.itemFavorito:
                 Intent intent5 = new Intent(this, FavoritosFilmes.class);
                 startActivity(intent5);

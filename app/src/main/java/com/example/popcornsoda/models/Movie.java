@@ -24,6 +24,9 @@ public class Movie {
     private boolean visto_filme;
     private String link_trailer_filme;
 
+    private int favorito_numerico;
+    private int visto_numerico;
+
     private long categoria_filme;
     private String nomeCategoria;
     private long autor_filme;
@@ -185,6 +188,22 @@ public class Movie {
         this.nomeAutor = nomeAutor;
     }
 
+    public int getFavorito_numerico() {
+        return favorito_numerico;
+    }
+
+    public void setFavorito_numerico(int favorito_numerico) {
+        this.favorito_numerico = favorito_numerico;
+    }
+
+    public int getVisto_numerico() {
+        return visto_numerico;
+    }
+
+    public void setVisto_numerico(int visto_numerico) {
+        this.visto_numerico = visto_numerico;
+    }
+
 
     //ContentValues
 
@@ -257,6 +276,9 @@ public class Movie {
 
         @SuppressLint("Range") boolean favorito = Boolean.parseBoolean(cursor.getString(cursor.getColumnIndex(BdTableFilmes.CAMPO_FAVORITO)));
 
+        int visto1 = cursor.getInt(cursor.getColumnIndex(BdTableFilmes.CAMPO_VISTO));
+        int favorito1 = cursor.getInt(cursor.getColumnIndex(BdTableFilmes.CAMPO_FAVORITO));
+
 
         Movie movie = new Movie();
 
@@ -276,6 +298,9 @@ public class Movie {
 
         movie.setNomeAutor(nomeAutor);
         movie.setNomeCategoria(nomeCategoria);
+
+        movie.setFavorito_numerico(favorito1);
+        movie.setVisto_numerico(visto1);
 
 
         return movie;

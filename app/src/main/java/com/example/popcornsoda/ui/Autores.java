@@ -105,6 +105,11 @@ public class Autores extends AppCompatActivity  implements LoaderManager.LoaderC
                 startActivity(intent4);
                 return true;
 
+            case R.id.itemFavorito:
+                Intent intent5 = new Intent(this, FavoritosAutores.class);
+                startActivity(intent5);
+                return true;
+
             default:
                 return super.onOptionsItemSelected(item);
         }

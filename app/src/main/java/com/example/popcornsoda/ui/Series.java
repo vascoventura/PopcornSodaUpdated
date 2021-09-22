@@ -1,11 +1,16 @@
 package com.example.popcornsoda.ui;
 
 
+import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.GridView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -13,16 +18,19 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.loader.app.LoaderManager;
 import androidx.loader.content.CursorLoader;
 import androidx.loader.content.Loader;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
+import com.example.popcornsoda.BdPopcorn.BdTableFilmes;
 import com.example.popcornsoda.BdPopcorn.BdTableSeries;
 import com.example.popcornsoda.BdPopcorn.ContentProviderPopcorn;
 import com.example.popcornsoda.R;
 import com.example.popcornsoda.adapters.AdaptadorLVSeries;
+import com.example.popcornsoda.adapters.SerieGridAdapter;
 import com.example.popcornsoda.adapters.Slider;
 import com.example.popcornsoda.adapters.SliderPageAdapter;
+import com.example.popcornsoda.adapters.myDbAdapter;
+import com.example.popcornsoda.models.Movie;
+import com.example.popcornsoda.models.Serie;
 import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
@@ -37,8 +45,19 @@ public class Series extends AppCompatActivity implements LoaderManager.LoaderCal
 
     private AdaptadorLVSeries adaptadorSeries;
 
+    private Cursor cursor_series;
+
     private List<Slider> itensSlider;
     private ViewPager sliderpager;
+
+    private ArrayList<Serie> serieList;
+    private SerieGridAdapter serieGridAdapter;
+
+    private myDbAdapter helper;
+    private Serie filme;
+
+    private long id;
+    private Serie serie;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -49,10 +68,11 @@ public class Series extends AppCompatActivity implements LoaderManager.LoaderCal
         getSupportLoaderManager().initLoader(ID_CURSO_LOADER_SERIES, null, this);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        RecyclerView recyclerViewSeries = (RecyclerView) findViewById(R.id.recyclerViewSeries);
+        /*RecyclerView recyclerViewSeries = (RecyclerView) findViewById(R.id.recyclerViewSeries);
         adaptadorSeries = new AdaptadorLVSeries(this);
         recyclerViewSeries.setAdapter(adaptadorSeries);
         recyclerViewSeries.setLayoutManager( new LinearLayoutManager(this) );
+        */
 
 
         //Slider
@@ -73,6 +93,92 @@ public class Series extends AppCompatActivity implements LoaderManager.LoaderCal
 
         indicator.setupWithViewPager(sliderpager, true);
 
+        //Grid View
+        GridView gridSerieList = (GridView) findViewById(R.id.grid_view_series);
+        serieList = new ArrayList<>();
+        serieGridAdapter = new SerieGridAdapter(this, R.layout.item_serie_grid_view, serieList);
+        gridSerieList.setAdapter(serieGridAdapter);
+
+        helper = new myDbAdapter(this);
+        cursor_series = helper.getSeries();
+
+        while(cursor_series.moveToNext()){
+            id = cursor_series.getLong(0);
+
+            @SuppressLint("Range") String nome = cursor_series.getString(
+                    cursor_series.getColumnIndex(BdTableSeries.CAMPO_NOME)
+            );
+
+            @SuppressLint("Range") long categoria = cursor_series.getLong(
+                    cursor_series.getColumnIndex(BdTableSeries.CAMPO_CATEGORIA)
+            );
+
+            @SuppressLint("Range") long autor = cursor_series.getLong(
+                    cursor_series.getColumnIndex(BdTableSeries.CAMPO_AUTOR)
+            );
+
+            @SuppressLint("Range") double classificacao = cursor_series.getDouble(
+                    cursor_series.getColumnIndex(BdTableSeries.CAMPO_CLASSIFICACAO)
+            );
+
+            @SuppressLint("Range") int ano = cursor_series.getInt(
+                    cursor_series.getColumnIndex(BdTableSeries.CAMPO_ANO)
+            );
+
+            @SuppressLint("Range") String descricao = cursor_series.getString(
+                    cursor_series.getColumnIndex(BdTableSeries.CAMPO_DESCRICAO)
+            );
+            @SuppressLint("Range") byte[] foto_capa = cursor_series.getBlob(
+                    cursor_series.getColumnIndex(BdTableSeries.CAMPO_CAPA)
+            );
+
+            @SuppressLint("Range") byte[] foto_fundo = cursor_series.getBlob(
+                    cursor_series.getColumnIndex(BdTableSeries.CAMPO_FUNDO)
+            );
+            @SuppressLint("Range") String link = cursor_series.getString(
+                    cursor_series.getColumnIndex(BdTableSeries.CAMPO_LINK)
+            );
+
+            @SuppressLint("Range") String nomeAutor = cursor_series.getString(
+                    cursor_series.getColumnIndex(BdTableSeries.ALIAS_NOME_AUTOR)
+            );
+
+            @SuppressLint("Range") String nomeCategoria = cursor_series.getString(
+                    cursor_series.getColumnIndex(BdTableSeries.ALIAS_NOME_CATEGORIA)
+            );
+
+            @SuppressLint("Range") boolean visto = Boolean.parseBoolean(cursor_series.getString(cursor_series.getColumnIndex(BdTableSeries.CAMPO_VISTO)));
+
+            @SuppressLint("Range") boolean favorito = Boolean.parseBoolean(cursor_series.getString(cursor_series.getColumnIndex(BdTableSeries.CAMPO_FAVORITO)));
+
+            serie = new Serie(nome,foto_capa, id);
+            serieList.add(serie);
+
+        }
+
+        serieGridAdapter.notifyDataSetChanged();
+
+
+
+
+        gridSerieList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id1) {
+
+                //Toast.makeText(getApplicationContext(), "You click on position:"+position, Toast.LENGTH_SHORT).show();
+
+                long idSerie = id1 + 1;//Ter atenção aos ids dos filmes;
+                System.out.println("ID Da serie: " + idSerie);
+                System.out.println("POSICAO CLICKADA: " + position);
+                Context context = view.getContext();
+
+                Intent intent = new Intent();
+                intent.setClass(context, DetailActivitySerie.class);
+                intent.putExtra(ID_SERIE, idSerie);
+                context.startActivity(intent);
+            }
+        });
     }
     @Override
     protected void onResume() {
@@ -161,12 +267,12 @@ public class Series extends AppCompatActivity implements LoaderManager.LoaderCal
 
     @Override
     public void onLoadFinished(@NonNull Loader<Cursor> loader, Cursor data) {
-        adaptadorSeries.setCursor(data);
+//        adaptadorSeries.setCursor(data);
     }
 
     @Override
     public void onLoaderReset(@NonNull Loader<Cursor> loader) {
-        adaptadorSeries.setCursor(null);
+    //    adaptadorSeries.setCursor(null);
 
     }
 

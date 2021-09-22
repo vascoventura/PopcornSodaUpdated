@@ -19,6 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.popcornsoda.BdPopcorn.BdTableAutores;
+import com.example.popcornsoda.BdPopcorn.BdTableFilmes;
 import com.example.popcornsoda.BdPopcorn.ContentProviderPopcorn;
 import com.example.popcornsoda.R;
 import com.example.popcornsoda.models.Autor;
@@ -31,10 +32,12 @@ public class DetailActivityAutor extends AppCompatActivity{
     private Uri enderecoAutor;
     ContentProviderPopcorn db;
 
-    private Autor autor = null;
+    private Autor autor;
     private Menu menu;
 
-    private boolean favAutor;
+    private int favAutor;
+
+    ContentValues values;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,6 +90,8 @@ public class DetailActivityAutor extends AppCompatActivity{
         textViewDescricaoAutor.setText(autor.getDescricao_autor());
 
 
+        values = new ContentValues();
+
         getSupportActionBar().setTitle(autor.getNome_autor());
 
         byte[] autorImageCapa = autor.getFoto_capa_autor();
@@ -102,32 +107,35 @@ public class DetailActivityAutor extends AppCompatActivity{
 
         favoritoAutor.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                favAutor = autor.isFavorito_autor();
-                System.out.println("estado Favorito: " + favAutor);
-                System.out.println("id_autor: " + idAutor );
-
-                atualizaFavorito(favAutor);
+            public void onClick(View view) {
+                atualizaFavorito();
             }
 
-            private int atualizaFavorito(boolean estadoAtual) {
-                autor.setFavorito_autor(!estadoAtual);
+            private boolean atualizaFavorito() {
+                favAutor = autor.getFavAutor();
+                if(favAutor == 1){
                     try {
-                        ContentValues values = new ContentValues();
-                        values.put(BdTableAutores.CAMPO_FAVORITO, !estadoAtual);
-                        getContentResolver().update(enderecoAutor, autor.getContentValues(), null, null );
-
-                        if(favAutor == false) {
-                            Toast.makeText(DetailActivityAutor.this, "Adicionado aos Favoritos", Toast.LENGTH_SHORT).show();
-                        }else{
-                            Toast.makeText(DetailActivityAutor.this, "Removido dos Favoritos", Toast.LENGTH_SHORT).show();
-                        }
-
-                    } catch (Exception e) {
+                        values.put(BdTableAutores.CAMPO_FAVORITO, 0);
+                        getContentResolver().update(enderecoAutor, values, BdTableAutores.CAMPO_FAVORITO + "=?", null);
+                        Toast.makeText(DetailActivityAutor.this, "Removido dos Favoritos", Toast.LENGTH_SHORT).show();
+                        autor.setFavAutor(0);
+                    }catch (Exception e) {
                         Toast.makeText(DetailActivityAutor.this, "Não Foi Possível Realizar a Operação", Toast.LENGTH_SHORT).show();
                         e.printStackTrace();
                     }
-                return 0;
+                } else if(favAutor == 0){
+                    try {
+                        values.put(BdTableAutores.CAMPO_FAVORITO, 1);
+                        getContentResolver().update(enderecoAutor, values, BdTableAutores.CAMPO_FAVORITO + "=?", null);
+                        Toast.makeText(DetailActivityAutor.this, "Adicionado aos Favoritos", Toast.LENGTH_SHORT).show();
+                        autor.setFavAutor(1);
+                    }catch (Exception e) {
+                        Toast.makeText(DetailActivityAutor.this, "Não Foi Possível Realizar a Operação", Toast.LENGTH_SHORT).show();
+                        e.printStackTrace();
+                    }
+                }
+
+                return true;
             }
         });
     }

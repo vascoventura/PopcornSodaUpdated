@@ -16,23 +16,33 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
         <activity
+            android:name=".ui.FavoritosAutores"
+            android:exported="true"
+            android:label="Realizadores Favoritos"
+            android:parentActivityName=".ui.Autores"/>
+        <activity
             android:name=".ui.VistosSeries"
-            android:exported="true" />
+            android:exported="true"
+            android:label="Séries Vistas"
+            android:parentActivityName=".ui.Series" />
         <activity
             android:name=".ui.FavoritosSeries"
-            android:exported="true" />
+            android:exported="true"
+            android:label="Séries Favoritas"
+            android:parentActivityName=".ui.Series" />
         <activity
             android:name=".ui.VistosFilmes"
             android:exported="true"
-            android:label="@string/vistos_filmes"/>
+            android:label="@string/vistos_filmes"
+            android:parentActivityName=".ui.Filmes" />
         <activity
             android:name=".ui.FavoritosFilmes"
             android:exported="true"
             android:label="@string/favoritos_filmes"
-        android:parentActivityName=".ui.Filmes"/>
+            android:parentActivityName=".ui.Filmes" />
         <activity
             android:name=".ui.TrailerSerie"
-            android:exported="true" />
+            android:exported="true"/>
         <activity
             android:name=".ui.TrailerFilme"
             android:exported="true" />

@@ -39,10 +39,7 @@ public class FavoritosFilmes extends AppCompatActivity{
     private ArrayList<Movie> movieArrayList;
 
     private Movie filme;
-    private Movie filme1;
 
-    private long idfilme;
-    private String nome_filme;
 
 
     @Override
@@ -63,7 +60,7 @@ public class FavoritosFilmes extends AppCompatActivity{
         while(cursor_filmes_favoritos.moveToNext()){
             @SuppressLint("Range") long id1  = cursor_filmes_favoritos.getLong(0);
 
-            nome_filme = cursor_filmes_favoritos.getString(
+            @SuppressLint("Range") String nome_filme = cursor_filmes_favoritos.getString(
                     cursor_filmes_favoritos.getColumnIndex(BdTableFilmes.CAMPO_NOME)
             );
 
@@ -113,7 +110,7 @@ public class FavoritosFilmes extends AppCompatActivity{
             System.out.println("");
             System.out.println("");
 
-            System.out.println("ID_GUARDADO FILME: " + nome_filme + "ID: " + id1);
+            System.out.println("ID_GUARDADO FILME: " + nome_filme  + " ID: " + id1);
 
             System.out.println("");
             System.out.println("");
@@ -153,21 +150,6 @@ public class FavoritosFilmes extends AppCompatActivity{
             }
         });
 
-    }
-
-    private Movie retornaFilmeSelecionado(String nomeFilme){
-        for(int i = 0; i<movieArrayList.size();i++){
-            cursor_filmes_favoritos.moveToPosition(i);
-            Movie filme2 = new Movie();
-            filme2 = Movie.fromCursor(cursor_filmes_favoritos);
-            if(filme2.getNome_filme() == nomeFilme){
-                filme1 = filme2;
-
-            } else{
-                return null;
-            }
-        }
-        return filme1;
     }
 
     //Menu

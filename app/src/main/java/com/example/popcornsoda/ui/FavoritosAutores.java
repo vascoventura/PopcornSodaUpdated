@@ -17,101 +17,72 @@ import com.example.popcornsoda.BdPopcorn.BdTableAutores;
 import com.example.popcornsoda.BdPopcorn.BdTableCategorias;
 import com.example.popcornsoda.BdPopcorn.BdTableFilmes;
 import com.example.popcornsoda.R;
+import com.example.popcornsoda.adapters.AdaptadorAutoresFavoritos;
 import com.example.popcornsoda.adapters.AdaptadorFilmesFavoritos;
 import com.example.popcornsoda.adapters.myDbAdapter;
+import com.example.popcornsoda.models.Autor;
 import com.example.popcornsoda.models.Movie;
 
 import java.util.ArrayList;
 
-public class VistosFilmes extends AppCompatActivity {
+public class FavoritosAutores extends AppCompatActivity {
 
-    private static final String ID_FILME = "ID_FILME";
+    private static final String ID_AUTOR = "ID_AUTOR";
+
 
     private Menu menu;
-    private AdaptadorFilmesFavoritos adaptadorFilmes;
+    private AdaptadorAutoresFavoritos adaptadorAutores;
     private myDbAdapter helper;
-    private Cursor cursor_filmes_favoritos;
-    private ArrayList<Movie> movieArrayList;
+    private Cursor cursor_autores_favoritos;
+    private ArrayList<Autor> autorArrayList;
 
-    private Movie filme;
+    private Autor autor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_vistos_filmes);
+        setContentView(R.layout.activity_favoritos_autores);
 
 
         //Botao Voltar
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        movieArrayList = new ArrayList<Movie>();
+        autorArrayList = new ArrayList<Autor>();
 
         helper = new myDbAdapter(this);
-        cursor_filmes_favoritos = helper.getFilmesVistos();
+        cursor_autores_favoritos = helper.getAutoresFavoritas();
 
 
-        while(cursor_filmes_favoritos.moveToNext()){
-            @SuppressLint("Range") long id1  = cursor_filmes_favoritos.getLong(0);
+        while(cursor_autores_favoritos.moveToNext()){
+            @SuppressLint("Range") long id1  = cursor_autores_favoritos.getLong(0);
 
-            @SuppressLint("Range") String nome_filme = cursor_filmes_favoritos.getString(
-                    cursor_filmes_favoritos.getColumnIndex(BdTableFilmes.CAMPO_NOME)
+            @SuppressLint("Range") String nome = cursor_autores_favoritos.getString(
+                    cursor_autores_favoritos.getColumnIndex(BdTableAutores.CAMPO_NOME)
             );
 
-            @SuppressLint("Range") long categoria = cursor_filmes_favoritos.getLong(
-                    cursor_filmes_favoritos.getColumnIndex(BdTableFilmes.CAMPO_CATEGORIA)
+            @SuppressLint("Range") int ano = cursor_autores_favoritos.getInt(
+                    cursor_autores_favoritos.getColumnIndex(BdTableAutores.CAMPO_ANONASCIMENTO)
             );
 
-            @SuppressLint("Range") long autor = cursor_filmes_favoritos.getLong(
-                    cursor_filmes_favoritos.getColumnIndex(BdTableFilmes.CAMPO_AUTOR)
+            @SuppressLint("Range") String nacionalidade = cursor_autores_favoritos.getString(
+                    cursor_autores_favoritos.getColumnIndex(BdTableAutores.CAMPO_NACIONALIDADE)
             );
 
-            @SuppressLint("Range") double classificacao = cursor_filmes_favoritos.getDouble(
-                    cursor_filmes_favoritos.getColumnIndex(BdTableFilmes.CAMPO_CLASSIFICACAO)
-            );
 
-            @SuppressLint("Range") int ano = cursor_filmes_favoritos.getInt(
-                    cursor_filmes_favoritos.getColumnIndex(BdTableFilmes.CAMPO_ANO)
-            );
-
-            @SuppressLint("Range") String descricao = cursor_filmes_favoritos.getString(
-                    cursor_filmes_favoritos.getColumnIndex(BdTableFilmes.CAMPO_DESCRICAO)
-            );
-            @SuppressLint("Range") byte[] foto_capa = cursor_filmes_favoritos.getBlob(
-                    cursor_filmes_favoritos.getColumnIndex(BdTableFilmes.CAMPO_CAPA)
-            );
-
-            @SuppressLint("Range") byte[] foto_fundo = cursor_filmes_favoritos.getBlob(
-                    cursor_filmes_favoritos.getColumnIndex(BdTableFilmes.CAMPO_FUNDO)
-            );
-            @SuppressLint("Range") String link = cursor_filmes_favoritos.getString(
-                    cursor_filmes_favoritos.getColumnIndex(BdTableFilmes.CAMPO_LINK)
-            );
-
-            @SuppressLint("Range") String nomeAutor = cursor_filmes_favoritos.getString(
-                    cursor_filmes_favoritos.getColumnIndex(BdTableAutores.CAMPO_NOME)
-            );
-
-            @SuppressLint("Range") String nomeCategoria = cursor_filmes_favoritos.getString(
-                    cursor_filmes_favoritos.getColumnIndex(BdTableCategorias.CAMPO_NOME)
-            );
-
-            @SuppressLint("Range") boolean visto = Boolean.parseBoolean(cursor_filmes_favoritos.getString(cursor_filmes_favoritos.getColumnIndex(BdTableFilmes.CAMPO_VISTO)));
-
-            @SuppressLint("Range") boolean favorito = Boolean.parseBoolean(cursor_filmes_favoritos.getString(cursor_filmes_favoritos.getColumnIndex(BdTableFilmes.CAMPO_FAVORITO)));
 
             System.out.println("");
             System.out.println("");
             System.out.println("");
 
-            System.out.println("ID_GUARDADO FILME: " + nome_filme  + " ID: " + id1);
+            System.out.println("ID_GUARDADO FILME: " + nome  + " ID: " + id1);
 
             System.out.println("");
             System.out.println("");
             System.out.println("");
 
-            filme = new Movie(nome_filme, nomeCategoria, classificacao, ano, nomeAutor, id1);
-            movieArrayList.add(filme);
+            autor = new Autor(id1, nome, ano, nacionalidade);
+            autorArrayList.add(autor);
 
         }
 
@@ -120,9 +91,9 @@ public class VistosFilmes extends AppCompatActivity {
 
 
         //Lista Vertical
-        ListView listViewFilmes = findViewById(R.id.lista_filmes_vertical_vistos);
-        adaptadorFilmes = new AdaptadorFilmesFavoritos(this,R.layout.item_movie, movieArrayList);
-        listViewFilmes.setAdapter((ListAdapter) adaptadorFilmes);
+        ListView listViewFilmes = findViewById(R.id.lista_autores_vertical);
+        adaptadorAutores = new AdaptadorAutoresFavoritos(this,R.layout.item_autor_favorito, autorArrayList);
+        listViewFilmes.setAdapter((ListAdapter) adaptadorAutores);
 
         listViewFilmes.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
@@ -131,15 +102,15 @@ public class VistosFilmes extends AppCompatActivity {
 
                 //Toast.makeText(getApplicationContext(), "You click on position:"+position, Toast.LENGTH_SHORT).show();
 
-                Movie filme1 = movieArrayList.get(position);
-                long id_filme = filme1.getId_filme();
-                System.out.println("ID DO FILME FAVORITO clickado: " + id_filme);
+                Autor autor1 = autorArrayList.get(position);
+                long id_autor = autor1.getId();
+                System.out.println("ID DO AUTOR FAVORITO clickado: " + id_autor);
                 System.out.println("POSICAO CLICKADA: " + position);
                 Context context = view.getContext();
 
                 Intent intent = new Intent();
-                intent.setClass(context, DetailActivityMovie.class);
-                intent.putExtra(ID_FILME, id_filme);
+                intent.setClass(context, DetailActivityAutor.class);
+                intent.putExtra(ID_AUTOR, id_autor);
                 context.startActivity(intent);
             }
         });
