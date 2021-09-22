@@ -37,7 +37,11 @@ public class myDbAdapter {
 
     public Cursor getFilmesFavoritos(){
         SQLiteDatabase db = myhelper.getReadableDatabase();
-        String query = "Select * from filmes where favorito_filme = 1;";
+        String query = "Select * \n" +
+                "from filmes, autores, categorias \n" +
+                "where categoria_filme = categorias._id\n" +
+                "and autor_filme = autores._id\n" +
+                "and favorito_filme = 1;";
         Cursor cursor = db.rawQuery(query, null);
         return cursor;
     }

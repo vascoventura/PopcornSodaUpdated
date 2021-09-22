@@ -56,7 +56,7 @@ public class AdaptadorFilmesFavoritos extends BaseAdapter implements View.OnClic
         public void onClick(View view) {
 
             long idFilme = row.getId();
-            System.out.println("ID DO FILME: " + idFilme);
+            System.out.println("ID DO FILME (favoritos): " + idFilme);
 
             Context context = view.getContext();
 

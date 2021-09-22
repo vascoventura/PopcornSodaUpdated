@@ -15,6 +15,7 @@ public class BdTableFilmes implements BaseColumns {
     public static final String ALIAS_NOME_AUTOR = "nome_autor";
     public static final String ALIAS_NOME_CATEGORIA = "nome_categoria";
 
+    public static final String _ID = "_id";
     public static final String CAMPO_NOME = "nome_filme";
     public static final String CAMPO_CATEGORIA = "categoria_filme";
     public static final String CAMPO_AUTOR = "autor_filme";
@@ -46,7 +47,7 @@ public class BdTableFilmes implements BaseColumns {
     public void cria() {
         db.execSQL(
                 "CREATE TABLE " + NOME_TABELA + "(" +
-                        _ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
+                            _ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
                             CAMPO_NOME + " TEXT NOT NULL," +
                             CAMPO_CATEGORIA + " TEXT NOT NULL," +
                             CAMPO_AUTOR + " TEXT NOT NULL," +

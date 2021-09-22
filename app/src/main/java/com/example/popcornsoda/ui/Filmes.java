@@ -193,11 +193,11 @@ public class Filmes extends AppCompatActivity implements LoaderManager.LoaderCal
         gridMovieList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id1) {
 
                 //Toast.makeText(getApplicationContext(), "You click on position:"+position, Toast.LENGTH_SHORT).show();
 
-                long idFilme = id+4;//Ter atenção aos ids dos filmes;
+                long idFilme = id1 + 1;//Ter atenção aos ids dos filmes;
                 System.out.println("ID DO FILME: " + idFilme);
                 System.out.println("POSICAO CLICKADA: " + position);
                 Context context = view.getContext();

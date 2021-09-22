@@ -55,12 +55,13 @@ public class Movie {
 
 
 
-    public Movie(String nome, String nomeCategoria, double classificacao_filme, int ano_filme, String nomeAutor) {
+    public Movie(String nome, String nomeCategoria, double classificacao_filme, int ano_filme, String nomeAutor, long id_filme) {
         this.nome_filme = nome;
         this.nomeCategoria = nomeCategoria;
         this.classificacao_filme = classificacao_filme;
         this.ano_filme = ano_filme;
         this.nomeAutor = nomeAutor;
+        this.id_filme = id_filme;
 
     }
 
