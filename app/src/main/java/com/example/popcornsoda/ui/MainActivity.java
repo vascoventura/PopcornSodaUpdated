@@ -34,7 +34,8 @@ public class MainActivity extends AppCompatActivity {
 
                 Toast.makeText(getApplicationContext(), "Secção de Filmes", Toast.LENGTH_SHORT).show();
                 openFilmes();
-           //     ApagarFilme(3);
+               // ApagarFilme(5);
+
             }
         });
 

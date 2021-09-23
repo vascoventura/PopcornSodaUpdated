@@ -339,17 +339,9 @@ public class AddMovie extends AppCompatActivity implements LoaderManager.LoaderC
             Toast.makeText(this, "Insira uma imagem para o fundo", Toast.LENGTH_SHORT).show();
         }
 
-        if(estadoSwitchFavoritos){
-            filme.setFavorito_filme(true);
-        }else{
-            filme.setFavorito_filme(false);
-        }
 
-        if(estadoSwitchVistos){
-            filme.setVisto_filme(true);
-        }else{
-            filme.setVisto_filme(false);
-        }
+        filme.setFavorito_filme(switchFavoritoFilme.isChecked());
+        filme.setVisto_filme(switchVistoFilme.isChecked());
 
         filme.setLink_trailer_filme(link);
 

@@ -107,14 +107,14 @@
             app:layout_constraintTop_toBottomOf="@+id/imageView_movie_classificacao"
             android:layout_marginLeft="16dp" />
 
-    <TextView
-        android:id="@+id/detail_movie_ano_trailer"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="TextView"
-        android:textColor="#A1887F"
-        app:layout_constraintStart_toStartOf="@+id/detail_autor_nome_trailer"
-        app:layout_constraintTop_toBottomOf="@+id/detail_autor_nome_trailer" />
+        <TextView
+            android:id="@+id/detail_movie_ano_trailer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TextView"
+            android:textColor="@color/colorAccent"
+            app:layout_constraintStart_toStartOf="@+id/detail_autor_nome_trailer"
+            app:layout_constraintTop_toBottomOf="@+id/detail_autor_nome_trailer" />
 
         <TextView
             android:id="@+id/detail_movie_descricao_trailer"
