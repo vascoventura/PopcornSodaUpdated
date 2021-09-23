@@ -22,6 +22,8 @@ import com.example.popcornsoda.models.Serie;
 
 public class ApagarSerie extends AppCompatActivity {
     private Uri enderecoSerieApagar;
+    private boolean favorito;
+    private boolean visto;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,6 +76,23 @@ public class ApagarSerie extends AppCompatActivity {
         textViewTrailer.setText(serie.getLink_trailer_serie());
         botaoFavorito.setChecked(serie.isFavorito_serie());
         botaoVisto.setChecked(serie.isVisto_serie());
+
+        int favorito_num = serie.getFavorito_numerico();
+        if(favorito_num == 1){
+            favorito = true;
+        } else if (favorito_num == 0){
+            favorito = false;
+        }
+        int visto_num = serie.getVisto_numerico();
+        if(visto_num == 0){
+            visto = false;
+        } else if(visto_num == 1){
+            visto = true;
+        }
+
+        botaoFavorito.setChecked(favorito);
+        botaoVisto.setChecked(visto);
+
 
 
         byte[] serieImageCapaByte = serie.getFoto_capa_serie();

@@ -22,6 +22,8 @@ import com.example.popcornsoda.models.Movie;
 
 public class ApagarMovie extends AppCompatActivity {
     private Uri enderecoFilmeApagar;
+    private boolean favorito;
+    private boolean visto;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,6 +75,21 @@ public class ApagarMovie extends AppCompatActivity {
         botaoFavorito.setChecked(movie.isFavorito_filme());
         botaoVisto.setChecked(movie.isVisto_filme());
 
+        int favorito_num = movie.getFavorito_numerico();
+        if(favorito_num == 1){
+            favorito = true;
+        } else if (favorito_num == 0){
+            favorito = false;
+        }
+        int visto_num = movie.getVisto_numerico();
+        if(visto_num == 0){
+            visto = false;
+        } else if(visto_num == 1){
+            visto = true;
+        }
+
+        botaoFavorito.setChecked(favorito);
+        botaoVisto.setChecked(visto);
 
         byte[] filmeImageCapaByte = movie.getFoto_capa_filme();
         Bitmap bitmap_filmeImage = BitmapFactory.decodeByteArray(filmeImageCapaByte, 0, filmeImageCapaByte.length);

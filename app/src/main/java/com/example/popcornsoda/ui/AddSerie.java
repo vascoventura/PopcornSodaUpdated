@@ -56,9 +56,6 @@ public class AddSerie extends AppCompatActivity implements LoaderManager.LoaderC
     private double classificacao;
     private int ano;
 
-
-    private boolean estadoSwitchFavoritos, estadoSwitchVistos;
-
     private int acao_botao = 0;
 
     public void setAcao_botao(int acao_botao) {
@@ -135,8 +132,6 @@ public class AddSerie extends AppCompatActivity implements LoaderManager.LoaderC
         switchFavoritoSerie = findViewById(R.id.botao_favorito_alterar_serie);
         switchVistoSerie = findViewById(R.id.botao_visto_alterar_serie);
 
-        estadoSwitchFavoritos = switchFavoritoSerie.isChecked();
-        estadoSwitchVistos = switchVistoSerie.isChecked();
 
         getSupportLoaderManager().initLoader(ID_CURSO_LOADER_AUTORES, null, this);
 
@@ -332,17 +327,9 @@ public class AddSerie extends AppCompatActivity implements LoaderManager.LoaderC
             Toast.makeText(this, "Insira uma imagem para o fundo", Toast.LENGTH_SHORT).show();
         }
 
-        if(estadoSwitchFavoritos){
-            serie.setFavorito_serie(true);
-        }else{
-            serie.setFavorito_serie(false);
-        }
 
-        if(estadoSwitchVistos){
-            serie.setVisto_serie(true);
-        }else{
-            serie.setVisto_serie(false);
-        }
+        serie.setFavorito_serie(switchFavoritoSerie.isChecked());
+        serie.setVisto_serie(switchVistoSerie.isChecked());
 
         serie.setLink_trailer_serie(link);
 

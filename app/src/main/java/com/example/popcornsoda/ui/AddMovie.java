@@ -68,9 +68,6 @@ public class AddMovie extends AppCompatActivity implements LoaderManager.LoaderC
 
     private myDbAdapter helper;
 
-    private boolean estadoSwitchFavoritos;
-    private boolean estadoSwitchVistos;
-
     private int acao_botao = 0;
 
     private double classificacao;
@@ -149,9 +146,6 @@ public class AddMovie extends AppCompatActivity implements LoaderManager.LoaderC
 
         switchFavoritoFilme = findViewById(R.id.botao_favorito_alterar_filme);
         switchVistoFilme = findViewById(R.id.botao_visto_alterar_filme);
-
-        estadoSwitchFavoritos = switchFavoritoFilme.isChecked();
-        estadoSwitchVistos = switchVistoFilme.isChecked();
 
 
         getSupportLoaderManager().initLoader(ID_CURSO_LOADER_AUTORES, null, this);
@@ -309,9 +303,6 @@ public class AddMovie extends AppCompatActivity implements LoaderManager.LoaderC
 
         long idCategoria = spinnerCategoria.getSelectedItemId();
 
-
-        System.out.println("switch favorito: " + estadoSwitchFavoritos);
-        System.out.println("switch visto: " + estadoSwitchVistos);
 
 
         // guardar os dados

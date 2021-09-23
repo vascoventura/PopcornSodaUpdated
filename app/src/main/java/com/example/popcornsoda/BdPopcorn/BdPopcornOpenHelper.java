@@ -17,7 +17,7 @@ public class BdPopcornOpenHelper extends SQLiteOpenHelper {
 
     public static final String NOME_BASE_DADOS = "Popcorn.db";
 
-    private static final int VERSAO_BASE_DADOS = 1;
+    private static final int VERSAO_BASE_DADOS = 2;
 
     private static final String DROP_TABLE ="DROP TABLE IF EXISTS "+ BdTableAutores.NOME_TABELA;
 
@@ -36,7 +36,6 @@ public class BdPopcornOpenHelper extends SQLiteOpenHelper {
         new BdTableFilmes(db).cria();
         new BdTableSeries(db).cria();
         new BdTableCategorias(db).cria();
-
     }
 
     @Override
