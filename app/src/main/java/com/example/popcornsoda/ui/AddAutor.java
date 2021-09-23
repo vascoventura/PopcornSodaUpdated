@@ -51,7 +51,6 @@ public class AddAutor extends AppCompatActivity implements LoaderManager.LoaderC
     private ImageView imageViewFotoFundo;
     private Button botaoImagemFundo;
 
-    private boolean estadoSwitchFavoritos;
 
     private int ano;
 
@@ -123,10 +122,6 @@ public class AddAutor extends AppCompatActivity implements LoaderManager.LoaderC
         switchFavoritoAddAutor = (Switch) findViewById(R.id.botao_favorito_apagar_autor);
         imageViewFotoFundo = findViewById(R.id.foto_fundo_apagar_autor);
         botaoImagemFundo = findViewById(R.id.botao_fundo_add_autor);
-
-        //Estado do Switch dos Favoritos
-        estadoSwitchFavoritos = switchFavoritoAddAutor.isChecked();
-
 
 
 
@@ -251,13 +246,8 @@ public class AddAutor extends AppCompatActivity implements LoaderManager.LoaderC
             Toast.makeText(this, "Insira uma imagem para o fundo", Toast.LENGTH_SHORT).show();
         }
 
-        if(estadoSwitchFavoritos){
-            autor.setFavorito_autor(true);
-        } else{
-            autor.setFavorito_autor(false);
-        }
 
-        System.out.println("Estado do Switch: " + estadoSwitchFavoritos);
+        autor.setFavorito_autor(switchFavoritoAddAutor.isChecked());
 
 
         try {

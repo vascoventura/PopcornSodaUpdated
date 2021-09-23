@@ -28,7 +28,7 @@
             android:id="@+id/imageViewCapaFilme_trailer"
             android:layout_width="137dp"
             android:layout_height="188dp"
-            android:layout_marginStart="16dp"
+            android:layout_marginStart="32dp"
             android:layout_marginTop="16dp"
             android:adjustViewBounds="false"
             android:scaleType="centerCrop"
@@ -36,20 +36,17 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/YoutubePlayer_trailer_filme"
             app:srcCompat="@drawable/glass"
-            tools:targetApi="lollipop"
-            android:layout_marginLeft="16dp" />
+            tools:targetApi="lollipop" />
 
         <TextView
             android:id="@+id/detail_autor_nome_trailer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
             android:layout_marginTop="16dp"
             android:text="gfhfghfghgfhfhfhfhf"
             android:textColor="@android:color/white"
             app:layout_constraintStart_toEndOf="@+id/imageView_movie_classificacao"
-            app:layout_constraintTop_toTopOf="@+id/imageViewCapaFilme_trailer"
-            android:layout_marginLeft="8dp" />
+            app:layout_constraintTop_toTopOf="@+id/imageViewCapaFilme_trailer" />
 
     <TextView
         android:id="@+id/detail_movie_tipo_trailer"

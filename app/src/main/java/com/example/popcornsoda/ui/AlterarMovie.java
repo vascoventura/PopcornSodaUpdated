@@ -438,6 +438,7 @@ public class AlterarMovie extends AppCompatActivity implements LoaderManager.Loa
 
             Toast.makeText(this, "Filme guardado com sucesso", Toast.LENGTH_SHORT).show();
             finish();
+            recreate();
         } catch (Exception e) {
             Snackbar.make(
                     editTextNomeFilme,

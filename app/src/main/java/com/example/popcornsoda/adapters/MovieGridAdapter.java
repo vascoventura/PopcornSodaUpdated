@@ -61,7 +61,7 @@ public class MovieGridAdapter extends BaseAdapter implements View.OnClickListene
     @Override
     public void onClick(View view) {
 
-        long idFilme = row.getId();
+        /*long idFilme = row.getId();
         System.out.println("ID DO FILME: " + idFilme);
 
         Context context = view.getContext();
@@ -69,7 +69,7 @@ public class MovieGridAdapter extends BaseAdapter implements View.OnClickListene
         Intent intent = new Intent();
         intent.setClass(context, DetailActivityMovie.class);
         intent.putExtra(ID_FILME, idFilme);
-        context.startActivity(intent);
+        context.startActivity(intent);*/
     }
 
     private class ViewHolder{
