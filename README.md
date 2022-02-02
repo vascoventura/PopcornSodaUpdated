@@ -1,5 +1,5 @@
 # PopcornAndSodaUpdated
-#Versão 2.0
+#Version 2.0
 
 -"Popcorn and Soda" app allows the users to record their favorite movies or tv contents, creating a mini version of "_Netflix_".
 
